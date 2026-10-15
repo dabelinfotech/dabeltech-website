@@ -3,3 +3,9 @@ node_modules/
 *.log
 .DS_Store
 Thumbs.db
+/WhatsApp Image*
+/WhatsApp Video*
+/VID-*
+/Dabel Tech Cohort Flyer.png
+/Dabeltech Institute Smart Solutions Banner.png
+/logo.jpeg
