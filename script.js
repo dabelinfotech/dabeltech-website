@@ -1,0 +1,937 @@
+/**
+ * DABELTECH — Official Website JavaScript
+ * Interactive Features: Multi-Currency, Service & Project Filtering,
+ * Hero Carousel, Lightbox Gallery, Cost Estimator, Mobile Nav
+ */
+
+document.addEventListener('DOMContentLoaded', () => {
+  // ==========================================
+  // 1. MOBILE NAVIGATION DRAWER
+  // ==========================================
+  const mobileToggleBtn = document.getElementById('mobile-toggle-btn');
+  const navMenu = document.getElementById('nav-menu');
+
+  if (mobileToggleBtn && navMenu) {
+    mobileToggleBtn.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+      const icon = mobileToggleBtn.querySelector('i');
+      if (icon) {
+        if (navMenu.classList.contains('active')) {
+          icon.classList.remove('fa-bars');
+          icon.classList.add('fa-xmark');
+        } else {
+          icon.classList.remove('fa-xmark');
+          icon.classList.add('fa-bars');
+        }
+      }
+    });
+
+    // Close menu when a link is clicked
+    navMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('active');
+        const icon = mobileToggleBtn.querySelector('i');
+        if (icon) {
+          icon.classList.remove('fa-xmark');
+          icon.classList.add('fa-bars');
+        }
+      });
+    });
+  }
+
+  // ==========================================
+  // 2. EXECUTIVE DASHBOARD TAB SWITCHING
+  // ==========================================
+  const dashTabBtns = document.querySelectorAll('.dash-tab-btn');
+  const dashPanels = document.querySelectorAll('.dash-panel');
+
+  dashTabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      dashTabBtns.forEach(b => b.classList.remove('active'));
+      dashPanels.forEach(p => p.classList.remove('active'));
+
+      btn.classList.add('active');
+      const target = btn.getAttribute('data-dash');
+      const activePanel = document.getElementById(`dash-panel-${target}`);
+      if (activePanel) {
+        activePanel.classList.add('active');
+      }
+    });
+  });
+
+  // Auto-cycle through dashboard tabs smoothly every 5.5s until user manually clicks
+  let currentDashIndex = 0;
+  let userInteracted = false;
+  dashTabBtns.forEach(btn => {
+    btn.addEventListener('click', () => { userInteracted = true; });
+  });
+
+  setInterval(() => {
+    if (!userInteracted && dashTabBtns.length > 0) {
+      currentDashIndex = (currentDashIndex + 1) % dashTabBtns.length;
+      dashTabBtns[currentDashIndex].click();
+      userInteracted = false; // preserve gentle automated demonstration
+    }
+  }, 5500);
+
+  // ==========================================
+  // 3. MULTI-CURRENCY SELECTOR
+  // ==========================================
+  const currencySelect = document.getElementById('currency-select');
+  const coursePriceElements = document.querySelectorAll('.price-value');
+
+  function updateCurrency(currency) {
+    coursePriceElements.forEach(el => {
+      const val = el.getAttribute(`data-${currency.toLowerCase()}`);
+      if (val) {
+        el.textContent = val;
+      }
+    });
+
+    // Also update calculator if present
+    if (typeof updateCalculatorDisplay === 'function') {
+      updateCalculatorDisplay();
+    }
+  }
+
+  if (currencySelect) {
+    currencySelect.addEventListener('change', (e) => {
+      updateCurrency(e.target.value);
+    });
+  }
+
+  // ==========================================
+  // 4. SERVICE TABS FILTERING
+  // ==========================================
+  const serviceTabBtns = document.querySelectorAll('.service-tab-btn');
+  const serviceCards = document.querySelectorAll('.service-card');
+
+  serviceTabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      serviceTabBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filterValue = btn.getAttribute('data-filter');
+
+      serviceCards.forEach(card => {
+        const category = card.getAttribute('data-category');
+        if (filterValue === 'all' || category === filterValue) {
+          card.style.display = 'flex';
+          card.style.animation = 'fadeIn 0.3s ease forwards';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  // ==========================================
+  // 5. PROJECT TABS FILTERING
+  // ==========================================
+  const projectTabBtns = document.querySelectorAll('.project-tab-btn');
+  const projectCards = document.querySelectorAll('.project-card');
+
+  projectTabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      projectTabBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filterValue = btn.getAttribute('data-filter');
+
+      projectCards.forEach(card => {
+        const category = card.getAttribute('data-category');
+        if (filterValue === 'all' || category === filterValue) {
+          card.style.display = 'flex';
+          card.style.animation = 'fadeIn 0.3s ease forwards';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  // ==========================================
+  // 6. LIGHTBOX MODAL FOR GALLERY
+  // ==========================================
+  const lightboxModal = document.getElementById('lightbox-modal');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const lightboxCaption = document.getElementById('lightbox-caption');
+  const lightboxCloseBtn = document.getElementById('lightbox-close-btn');
+  const lightboxBackdrop = document.getElementById('lightbox-backdrop');
+  const galleryItems = document.querySelectorAll('.gallery-item');
+
+  function openLightbox(src, caption) {
+    if (lightboxModal && lightboxImg) {
+      lightboxImg.src = src;
+      lightboxCaption.textContent = caption || '';
+      lightboxModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  function closeLightbox() {
+    if (lightboxModal) {
+      lightboxModal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  }
+
+  // Make accessible globally for inline trigger buttons
+  window.openLightbox = openLightbox;
+  window.closeLightbox = closeLightbox;
+
+  galleryItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const src = item.getAttribute('data-src');
+      const caption = item.getAttribute('data-caption');
+      openLightbox(src, caption);
+    });
+  });
+
+  if (lightboxCloseBtn) lightboxCloseBtn.addEventListener('click', closeLightbox);
+  if (lightboxBackdrop) lightboxBackdrop.addEventListener('click', closeLightbox);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeLightbox();
+  });
+
+  // ==========================================
+  // 7. INTERACTIVE COST ESTIMATOR / CALCULATOR
+  // ==========================================
+  const calcCategory = document.getElementById('calc-category');
+  const calcCourseGroup = document.getElementById('course-select-group');
+  const calcCourse = document.getElementById('calc-course');
+  const calcEarlyBird = document.getElementById('calc-earlybird');
+  const calcTotalDisplay = document.getElementById('calc-total-display');
+  const calcBreakdownText = document.getElementById('calc-breakdown-text');
+  const calcClaimBtn = document.getElementById('calc-claim-btn');
+
+  const basePricing = {
+    'school-website': { NGN: 120000, USD: 150, GHC: 1200, KSH: 15000, CFA: 75000, name: 'School / Business Website' },
+    'result-portal': { NGN: 150000, USD: 180, GHC: 1500, KSH: 18000, CFA: 90000, name: 'Student Result Portal System' },
+    'cbt-portal': { NGN: 140000, USD: 170, GHC: 1400, KSH: 17000, CFA: 85000, name: 'CBT Examination Platform' },
+    'cctv-hardware': { NGN: 200000, USD: 250, GHC: 2000, KSH: 25000, CFA: 125000, name: 'Smart Board & CCTV Security Setup' }
+  };
+
+  function updateCalculatorDisplay() {
+    if (!calcCategory || !calcTotalDisplay) return;
+
+    const currentCurrency = currencySelect ? currencySelect.value : 'NGN';
+    const selectedCategory = calcCategory.value;
+    const isEarlyBird = calcEarlyBird && calcEarlyBird.checked;
+    const modeEl = document.querySelector('input[name="calc-mode"]:checked');
+    const mode = modeEl ? modeEl.value : 'online';
+
+    let baseAmount = 0;
+    let label = '';
+
+    if (selectedCategory === 'training') {
+      if (calcCourseGroup) calcCourseGroup.style.display = 'block';
+      const selectedOption = calcCourse.options[calcCourse.selectedIndex];
+      label = selectedOption.text;
+      baseAmount = parseFloat(selectedOption.getAttribute(`data-${currentCurrency.toLowerCase()}`)) || 45000;
+
+      // In-person lab surcharge for practical power/lab maintenance (15%)
+      if (mode === 'physical') {
+        baseAmount = Math.round(baseAmount * 1.15);
+      }
+    } else {
+      if (calcCourseGroup) calcCourseGroup.style.display = 'none';
+      const item = basePricing[selectedCategory];
+      label = item ? item.name : 'Custom Tech Project';
+      baseAmount = item ? item[currentCurrency] : 100000;
+    }
+
+    // Apply early bird / promotional discount if applicable
+    let finalAmount = baseAmount;
+    if (isEarlyBird) {
+      finalAmount = Math.round(baseAmount * 0.9);
+    }
+
+    // Format price with currency symbol
+    let formattedPrice = '';
+    switch (currentCurrency) {
+      case 'NGN':
+        formattedPrice = '₦' + finalAmount.toLocaleString();
+        break;
+      case 'USD':
+        formattedPrice = '$' + finalAmount.toLocaleString();
+        break;
+      case 'GHC':
+        formattedPrice = finalAmount.toLocaleString() + ' GHC';
+        break;
+      case 'KSH':
+        formattedPrice = finalAmount.toLocaleString() + ' KSH';
+        break;
+      case 'CFA':
+        formattedPrice = finalAmount.toLocaleString() + ' CFA';
+        break;
+      default:
+        formattedPrice = '₦' + finalAmount.toLocaleString();
+    }
+
+    calcTotalDisplay.textContent = formattedPrice;
+
+    if (calcBreakdownText) {
+      const modeText = mode === 'physical' ? 'In-Person Lab (Lagos)' : 'Online Batch';
+      const discountText = isEarlyBird ? ' &bull; 10% Early-Bird Applied' : '';
+      calcBreakdownText.innerHTML = `${label} &bull; ${modeText}${discountText}`;
+    }
+
+    // Update WhatsApp link with dynamic quotation text
+    if (calcClaimBtn) {
+      const message = encodeURIComponent(
+        `Hello DABELTECH! I generated a quote on your website:\n` +
+        `• Purpose: ${label}\n` +
+        `• Mode: ${mode === 'physical' ? 'In-Person Lab' : 'Online'}\n` +
+        `• Estimated Total: ${formattedPrice}\n` +
+        `Please confirm availability and registration details.`
+      );
+      calcClaimBtn.onclick = () => {
+        window.open(`https://wa.me/2348062168465?text=${message}`, '_blank');
+      };
+    }
+  }
+
+  // Attach listener events to calculator
+  if (calcCategory) calcCategory.addEventListener('change', updateCalculatorDisplay);
+  if (calcCourse) calcCourse.addEventListener('change', updateCalculatorDisplay);
+  if (calcEarlyBird) calcEarlyBird.addEventListener('change', updateCalculatorDisplay);
+  document.querySelectorAll('input[name="calc-mode"]').forEach(r => {
+    r.addEventListener('change', updateCalculatorDisplay);
+  });
+
+  // Initial calculation
+  updateCalculatorDisplay();
+
+  // ==========================================
+  // 8. CONTACT FORM SUBMISSION
+  // ==========================================
+  const contactForm = document.getElementById('contact-form');
+  const formFeedback = document.getElementById('form-feedback');
+
+  if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById('contact-name').value;
+      const phone = document.getElementById('contact-phone').value;
+      const email = document.getElementById('contact-email').value;
+      const service = document.getElementById('contact-service').value;
+      const message = document.getElementById('contact-message').value;
+
+      const whatsappText = encodeURIComponent(
+        `*NEW INQUIRY VIA DABELTECH WEBSITE*\n\n` +
+        `*Name:* ${name}\n` +
+        `*Phone:* ${phone}\n` +
+        `*Email:* ${email}\n` +
+        `*Service/Course:* ${service}\n` +
+        `*Message:* ${message || 'None'}`
+      );
+
+      if (formFeedback) {
+        formFeedback.className = 'form-feedback success';
+        formFeedback.innerHTML = `
+          <strong><i class="fa-solid fa-circle-check"></i> Inquiry Recorded!</strong><br>
+          Redirecting to WhatsApp to send directly to DABELTECH Support...
+        `;
+        formFeedback.style.display = 'block';
+      }
+
+      setTimeout(() => {
+        window.open(`https://wa.me/2348062168465?text=${whatsappText}`, '_blank');
+      }, 1200);
+    });
+  }
+
+  // ==========================================
+  // 9. ADVERTISEMENT BANNERS MOTION SLIDER ENGINE
+  // ==========================================
+  const motionContainer = document.getElementById('motion-slider-container');
+  const motionSlides = document.querySelectorAll('.motion-slide');
+  const prevBtn = document.getElementById('motion-prev-btn');
+  const nextBtn = document.getElementById('motion-next-btn');
+  const playPauseBtn = document.getElementById('motion-play-pause-btn');
+  const dotsWrapper = document.getElementById('motion-dots-wrapper');
+  const timerBar = document.getElementById('motion-timer-bar');
+  const thumbCards = document.querySelectorAll('.thumb-card');
+  const thumbsScroll = document.getElementById('motion-thumbnails-scroll');
+  const thumbPrevBtn = document.getElementById('thumb-prev-btn');
+  const thumbNextBtn = document.getElementById('thumb-next-btn');
+  const thumbStagePrev = document.getElementById('thumb-stage-prev');
+  const thumbStageNext = document.getElementById('thumb-stage-next');
+
+  if (motionSlides.length > 0) {
+    let currentSlide = 0;
+    const totalSlides = motionSlides.length;
+    let isPlaying = true;
+    let progressInterval = null;
+    const slideDuration = 5500; // 5.5 seconds per banner
+    const progressStep = 50; // smooth update every 50ms
+    let elapsed = 0;
+
+    // Dynamically build dot indicators
+    if (dotsWrapper) {
+      dotsWrapper.innerHTML = '';
+      motionSlides.forEach((_, idx) => {
+        const dot = document.createElement('button');
+        dot.className = `motion-dot ${idx === 0 ? 'active' : ''}`;
+        dot.setAttribute('aria-label', `Go to banner slide ${idx + 1}`);
+        dot.addEventListener('click', () => {
+          goToSlide(idx);
+          resetTimer();
+        });
+        dotsWrapper.appendChild(dot);
+      });
+    }
+
+    const dots = dotsWrapper ? dotsWrapper.querySelectorAll('.motion-dot') : [];
+
+    function updateSlideDisplay() {
+      // Toggle slides
+      motionSlides.forEach((slide, idx) => {
+        if (idx === currentSlide) {
+          slide.classList.add('active');
+        } else {
+          slide.classList.remove('active');
+        }
+      });
+
+      // Update dots
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle('active', idx === currentSlide);
+      });
+
+      // Update thumbnails with smooth motion slide centering
+      thumbCards.forEach((thumb, idx) => {
+        if (idx === currentSlide) {
+          thumb.classList.add('active');
+          if (thumbsScroll) {
+            const scrollLeft = thumb.offsetLeft - (thumbsScroll.clientWidth / 2) + (thumb.clientWidth / 2);
+            thumbsScroll.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+          }
+        } else {
+          thumb.classList.remove('active');
+        }
+      });
+    }
+
+    function goToSlide(index) {
+      currentSlide = (index + totalSlides) % totalSlides;
+      updateSlideDisplay();
+    }
+
+    function nextSlide() {
+      goToSlide(currentSlide + 1);
+    }
+
+    function prevSlide() {
+      goToSlide(currentSlide - 1);
+    }
+
+    // Attach Main Prev / Next button clicks
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        nextSlide();
+        resetTimer();
+      });
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        prevSlide();
+        resetTimer();
+      });
+    }
+
+    // Quick Select Any Banner: Next and Prev buttons
+    if (thumbPrevBtn) {
+      thumbPrevBtn.addEventListener('click', () => {
+        prevSlide();
+        resetTimer();
+      });
+    }
+
+    if (thumbNextBtn) {
+      thumbNextBtn.addEventListener('click', () => {
+        nextSlide();
+        resetTimer();
+      });
+    }
+
+    // Quick Select Stage Arrows (Flanking Next/Prev buttons)
+    if (thumbStagePrev) {
+      thumbStagePrev.addEventListener('click', () => {
+        prevSlide();
+        resetTimer();
+      });
+    }
+
+    if (thumbStageNext) {
+      thumbStageNext.addEventListener('click', () => {
+        nextSlide();
+        resetTimer();
+      });
+    }
+
+    // Interactive mouse drag-to-slide motion for thumbnail preview strip
+    if (thumbsScroll) {
+      let isDown = false;
+      let startX = 0;
+      let scrollLeftPos = 0;
+
+      thumbsScroll.addEventListener('mousedown', (e) => {
+        isDown = true;
+        thumbsScroll.classList.add('active-drag');
+        startX = e.pageX - thumbsScroll.offsetLeft;
+        scrollLeftPos = thumbsScroll.scrollLeft;
+      });
+
+      thumbsScroll.addEventListener('mouseleave', () => {
+        isDown = false;
+      });
+
+      thumbsScroll.addEventListener('mouseup', () => {
+        isDown = false;
+      });
+
+      thumbsScroll.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - thumbsScroll.offsetLeft;
+        const walk = (x - startX) * 1.5;
+        thumbsScroll.scrollLeft = scrollLeftPos - walk;
+      });
+
+      // Mouse wheel horizontal motion slide
+      thumbsScroll.addEventListener('wheel', (e) => {
+        if (e.deltaY !== 0) {
+          e.preventDefault();
+          thumbsScroll.scrollBy({ left: e.deltaY * 1.4, behavior: 'smooth' });
+        }
+      }, { passive: false });
+    }
+
+    // Thumbnail cards clicking
+    thumbCards.forEach((thumb) => {
+      thumb.addEventListener('click', () => {
+        const idx = parseInt(thumb.getAttribute('data-index'), 10);
+        if (!isNaN(idx)) {
+          goToSlide(idx);
+          resetTimer();
+        }
+      });
+    });
+
+    // Play / Pause toggle
+    function togglePlayPause() {
+      isPlaying = !isPlaying;
+      if (playPauseBtn) {
+        playPauseBtn.innerHTML = isPlaying ? '<i class="fa-solid fa-pause"></i>' : '<i class="fa-solid fa-play"></i>';
+        playPauseBtn.setAttribute('aria-label', isPlaying ? 'Pause Auto-Slide' : 'Play Auto-Slide');
+      }
+      if (isPlaying) {
+        startTimer();
+      } else {
+        pauseTimer();
+      }
+    }
+
+    if (playPauseBtn) {
+      playPauseBtn.addEventListener('click', togglePlayPause);
+    }
+
+    // Timer & Progress management
+    function startTimer() {
+      if (progressInterval) clearInterval(progressInterval);
+      progressInterval = setInterval(() => {
+        if (!isPlaying) return;
+        elapsed += progressStep;
+        const pct = Math.min((elapsed / slideDuration) * 100, 100);
+        if (timerBar) timerBar.style.width = `${pct}%`;
+
+        if (elapsed >= slideDuration) {
+          elapsed = 0;
+          nextSlide();
+        }
+      }, progressStep);
+    }
+
+    function pauseTimer() {
+      if (progressInterval) clearInterval(progressInterval);
+    }
+
+    function resetTimer() {
+      elapsed = 0;
+      if (timerBar) timerBar.style.width = '0%';
+      if (isPlaying) {
+        startTimer();
+      }
+    }
+
+    // Pause on hover over entire motion slider so user can read text comfortably
+    if (motionContainer) {
+      motionContainer.addEventListener('mouseenter', () => {
+        if (isPlaying) pauseTimer();
+      });
+      motionContainer.addEventListener('mouseleave', () => {
+        if (isPlaying) startTimer();
+      });
+    }
+
+    // Touch swipe support for mobile/tablet devices
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const viewport = document.getElementById('motion-slides-viewport');
+    if (viewport) {
+      viewport.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+
+      viewport.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+      }, { passive: true });
+    }
+
+    function handleSwipe() {
+      const swipeThreshold = 45;
+      if (touchEndX < touchStartX - swipeThreshold) {
+        nextSlide();
+        resetTimer();
+      } else if (touchEndX > touchStartX + swipeThreshold) {
+        prevSlide();
+        resetTimer();
+      }
+    }
+
+    // Keyboard navigation when mouse is hovering the motion slider
+    document.addEventListener('keydown', (e) => {
+      if (motionContainer && motionContainer.matches(':hover')) {
+        if (e.key === 'ArrowRight') {
+          nextSlide();
+          resetTimer();
+        } else if (e.key === 'ArrowLeft') {
+          prevSlide();
+          resetTimer();
+        }
+      }
+    });
+
+    // Start auto motion slide
+    startTimer();
+  }
+
+  // ==========================================
+  // 12. FRONT PAGE OFFICIAL ADVERT VIDEOS CONTROLLER
+  // ==========================================
+  const adVideo1 = document.getElementById('advert-video-1');
+  const adVideo2 = document.getElementById('advert-video-2');
+  const adPlayBtn = document.getElementById('advert-play-btn');
+  const adPlayIcon = document.getElementById('ad-play-icon');
+  const adCenterTrigger = document.getElementById('advert-center-play-trigger');
+  const adCenterIcon = document.getElementById('advert-center-icon');
+  const adSoundToggleBtn = document.getElementById('advert-sound-toggle-btn');
+  const adAudioBtn = document.getElementById('advert-audio-btn');
+  const adSoundIcon = document.getElementById('advert-sound-icon');
+  const adVolIcon = document.getElementById('ad-vol-icon');
+  const adSoundText = document.getElementById('advert-sound-text');
+  const adPrevTrackBtn = document.getElementById('advert-prev-track-btn');
+  const adNextTrackBtn = document.getElementById('advert-next-track-btn');
+  const adProgressBar = document.getElementById('advert-progress-fill');
+  const adProgressTrack = document.getElementById('advert-progress-track');
+  const adTimecode = document.getElementById('advert-timecode');
+  const adCurrentIndicator = document.getElementById('advert-current-indicator');
+  const adBroadcastStatus = document.getElementById('advert-broadcast-status');
+  const adQueueLabel = document.getElementById('advert-queue-label');
+  const adCard1 = document.getElementById('advert-card-1');
+  const adCard2 = document.getElementById('advert-card-2');
+  const adStatus1 = document.getElementById('ad-status-1');
+  const adStatus2 = document.getElementById('ad-status-2');
+  const adFullscreenBtn = document.getElementById('advert-fullscreen-btn');
+  const adScreenStage = document.getElementById('advert-screen-stage');
+
+  if (adVideo1 && adVideo2) {
+    let currentAdvertIndex = 1; // 1 or 2
+    let isUserMuted = true; // starts muted for compliant automatic browser playback
+
+    function getActiveVideo() {
+      return currentAdvertIndex === 1 ? adVideo1 : adVideo2;
+    }
+
+    function formatTime(seconds) {
+      if (isNaN(seconds)) return '0:00';
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60);
+      return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+    }
+
+    function updateAdvertUI() {
+      if (currentAdvertIndex === 1) {
+        adVideo1.classList.add('active');
+        adVideo2.classList.remove('active');
+
+        if (adCard1) adCard1.classList.add('active');
+        if (adCard2) adCard2.classList.remove('active');
+
+        if (adStatus1) adStatus1.innerHTML = '<i class="fa-solid fa-circle-play"></i> Now Playing';
+        if (adStatus1) adStatus1.className = 'ad-status-pill playing';
+        if (adStatus2) adStatus2.innerHTML = '<i class="fa-solid fa-forward-step"></i> Up Next (Auto-Plays)';
+        if (adStatus2) adStatus2.className = 'ad-status-pill upnext';
+
+        if (adCurrentIndicator) adCurrentIndicator.textContent = 'ADVERT 1 OF 2';
+        if (adBroadcastStatus) adBroadcastStatus.innerHTML = 'NOW PLAYING: ADVERT 01 &bull; OFFICIAL COMMERCIAL';
+        if (adQueueLabel) adQueueLabel.innerHTML = '<i class="fa-solid fa-forward-step text-accent"></i> Up Next: Advert 02 (Auto-Sequenced)';
+      } else {
+        adVideo2.classList.add('active');
+        adVideo1.classList.remove('active');
+
+        if (adCard2) adCard2.classList.add('active');
+        if (adCard1) adCard1.classList.remove('active');
+
+        if (adStatus2) adStatus2.innerHTML = '<i class="fa-solid fa-circle-play"></i> Now Playing';
+        if (adStatus2) adStatus2.className = 'ad-status-pill playing';
+        if (adStatus1) adStatus1.innerHTML = '<i class="fa-solid fa-rotate-left"></i> Replay Advert 1';
+        if (adStatus1) adStatus1.className = 'ad-status-pill standby';
+
+        if (adCurrentIndicator) adCurrentIndicator.textContent = 'ADVERT 2 OF 2';
+        if (adBroadcastStatus) adBroadcastStatus.innerHTML = 'NOW PLAYING: ADVERT 02 &bull; SOLUTIONS &amp; TRAINING SHOWCASE (AUTO-SEQUENCED)';
+        if (adQueueLabel) adQueueLabel.innerHTML = '<i class="fa-solid fa-rotate text-accent"></i> Next: Loop Back to Advert 01';
+      }
+    }
+
+    function switchAdvert(targetIndex, playImmediately = true) {
+      if (targetIndex === currentAdvertIndex && playImmediately) {
+        const activeVid = getActiveVideo();
+        if (activeVid.paused) {
+          activeVid.play();
+        }
+        return;
+      }
+
+      const prevVid = getActiveVideo();
+      prevVid.pause();
+
+      currentAdvertIndex = targetIndex;
+      const nextVid = getActiveVideo();
+
+      nextVid.currentTime = 0;
+      nextVid.muted = isUserMuted;
+
+      updateAdvertUI();
+
+      if (playImmediately) {
+        const playPromise = nextVid.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(err => {
+            console.warn('Playback deferred:', err);
+          });
+        }
+      }
+      updatePlayPauseIcons();
+    }
+
+    // When Advert 1 ends -> Immediately start Advert 2!
+    adVideo1.addEventListener('ended', () => {
+      switchAdvert(2, true);
+    });
+
+    // When Advert 2 ends -> Loop back to Advert 1 immediately!
+    adVideo2.addEventListener('ended', () => {
+      switchAdvert(1, true);
+    });
+
+    // Sound toggle function
+    function toggleSound(forceState) {
+      if (typeof forceState === 'boolean') {
+        isUserMuted = forceState;
+      } else {
+        isUserMuted = !isUserMuted;
+      }
+
+      adVideo1.muted = isUserMuted;
+      adVideo2.muted = isUserMuted;
+
+      if (isUserMuted) {
+        if (adSoundIcon) adSoundIcon.className = 'fa-solid fa-volume-xmark';
+        if (adVolIcon) adVolIcon.className = 'fa-solid fa-volume-xmark';
+        if (adSoundText) adSoundText.textContent = 'Click for Sound';
+        if (adSoundToggleBtn) adSoundToggleBtn.classList.remove('unmuted');
+      } else {
+        if (adSoundIcon) adSoundIcon.className = 'fa-solid fa-volume-high';
+        if (adVolIcon) adVolIcon.className = 'fa-solid fa-volume-high';
+        if (adSoundText) adSoundText.textContent = 'Sound On';
+        if (adSoundToggleBtn) adSoundToggleBtn.classList.add('unmuted');
+      }
+    }
+
+    if (adSoundToggleBtn) {
+      adSoundToggleBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleSound();
+      });
+    }
+
+    if (adAudioBtn) {
+      adAudioBtn.addEventListener('click', () => {
+        toggleSound();
+      });
+    }
+
+    // Play/Pause control
+    function updatePlayPauseIcons() {
+      const vid = getActiveVideo();
+      const isPaused = vid.paused;
+
+      if (adPlayIcon) {
+        adPlayIcon.className = isPaused ? 'fa-solid fa-play' : 'fa-solid fa-pause';
+      }
+      if (adCenterIcon) {
+        adCenterIcon.className = isPaused ? 'fa-solid fa-play' : 'fa-solid fa-pause';
+      }
+      if (adCenterTrigger) {
+        if (isPaused) {
+          adCenterTrigger.classList.add('paused');
+        } else {
+          adCenterTrigger.classList.remove('paused');
+        }
+      }
+    }
+
+    function togglePlay() {
+      const vid = getActiveVideo();
+      if (vid.paused) {
+        vid.play();
+      } else {
+        vid.pause();
+      }
+      updatePlayPauseIcons();
+    }
+
+    if (adPlayBtn) adPlayBtn.addEventListener('click', togglePlay);
+    if (adCenterTrigger) adCenterTrigger.addEventListener('click', togglePlay);
+
+    // Track buttons
+    if (adPrevTrackBtn) {
+      adPrevTrackBtn.addEventListener('click', () => {
+        switchAdvert(1, true);
+      });
+    }
+
+    if (adNextTrackBtn) {
+      adNextTrackBtn.addEventListener('click', () => {
+        switchAdvert(2, true);
+      });
+    }
+
+    // Playlist cards clicking
+    if (adCard1) {
+      adCard1.addEventListener('click', () => {
+        switchAdvert(1, true);
+      });
+    }
+
+    if (adCard2) {
+      adCard2.addEventListener('click', () => {
+        switchAdvert(2, true);
+      });
+    }
+
+    // Fullscreen support
+    if (adFullscreenBtn && adScreenStage) {
+      adFullscreenBtn.addEventListener('click', () => {
+        if (!document.fullscreenElement) {
+          if (adScreenStage.requestFullscreen) {
+            adScreenStage.requestFullscreen();
+          } else if (adScreenStage.webkitRequestFullscreen) {
+            adScreenStage.webkitRequestFullscreen();
+          }
+        } else {
+          if (document.exitFullscreen) {
+            document.exitFullscreen();
+          }
+        }
+      });
+    }
+
+    // Timeupdate & progress scrubbing
+    function handleTimeUpdate(vid) {
+      if (vid !== getActiveVideo()) return;
+      if (!vid.duration) return;
+
+      const pct = (vid.currentTime / vid.duration) * 100;
+      if (adProgressBar) adProgressBar.style.width = `${pct}%`;
+      if (adTimecode) {
+        adTimecode.textContent = `${formatTime(vid.currentTime)} / ${formatTime(vid.duration)}`;
+      }
+    }
+
+    adVideo1.addEventListener('timeupdate', () => handleTimeUpdate(adVideo1));
+    adVideo2.addEventListener('timeupdate', () => handleTimeUpdate(adVideo2));
+
+    adVideo1.addEventListener('play', updatePlayPauseIcons);
+    adVideo1.addEventListener('pause', updatePlayPauseIcons);
+    adVideo2.addEventListener('play', updatePlayPauseIcons);
+    adVideo2.addEventListener('pause', updatePlayPauseIcons);
+
+    // Progress bar seeking
+    if (adProgressTrack) {
+      adProgressTrack.addEventListener('click', (e) => {
+        const vid = getActiveVideo();
+        if (!vid.duration) return;
+        const rect = adProgressTrack.getBoundingClientRect();
+        const clickPos = (e.clientX - rect.left) / rect.width;
+        vid.currentTime = clickPos * vid.duration;
+      });
+    }
+
+    // AUTOMATIC PLAYBACK TRIGGER:
+    // Starts playing automatically when viewer gets to the page
+    function attemptAutoplay() {
+      adVideo1.muted = true; // Muted autoplay is guaranteed by browser security policy
+      isUserMuted = true;
+      const playPromise = adVideo1.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          updatePlayPauseIcons();
+        }).catch(() => {
+          // If browser policy deferred, activate on first scroll or touch
+          const onFirstInteraction = () => {
+            adVideo1.play();
+            updatePlayPauseIcons();
+            window.removeEventListener('scroll', onFirstInteraction);
+            window.removeEventListener('click', onFirstInteraction);
+            window.removeEventListener('touchstart', onFirstInteraction);
+          };
+          window.addEventListener('scroll', onFirstInteraction, { passive: true });
+          window.addEventListener('click', onFirstInteraction, { passive: true });
+          window.addEventListener('touchstart', onFirstInteraction, { passive: true });
+        });
+      }
+    }
+
+    // Trigger autoplay immediately on load
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+      attemptAutoplay();
+    } else {
+      window.addEventListener('DOMContentLoaded', attemptAutoplay);
+    }
+
+    // Also trigger via IntersectionObserver so if user scrolls past, it stays playing
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const vid = getActiveVideo();
+            if (vid.paused) {
+              vid.play().catch(() => {});
+            }
+          }
+        });
+      }, { threshold: 0.25 });
+
+      if (adScreenStage) {
+        observer.observe(adScreenStage);
+      }
+    }
+  }
+});
