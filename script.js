@@ -1,10 +1,40 @@
-/**
- * DABELTECH — Official Website JavaScript
- * Interactive Features: Multi-Currency, Service & Project Filtering,
- * Hero Carousel, Lightbox Gallery, Cost Estimator, Mobile Nav
- */
+// 0. SCROLL STABILIZATION: Prevent page running down on open/refresh
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+
+// Immediate scroll top enforcement
+window.scrollTo(0, 0);
+document.documentElement.scrollTop = 0;
+document.body.scrollTop = 0;
+
+// Enable smooth scrolling ONLY after initial page load & layout stabilization
+window.addEventListener('load', () => {
+  window.scrollTo(0, 0);
+  setTimeout(() => {
+    document.documentElement.classList.add('smooth-scroll');
+  }, 120);
+});
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Ensure page remains at top on DOMContentLoaded
+  window.scrollTo(0, 0);
+
+  // Smooth scroll for in-page anchors without sticky URL hashes
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', function(e) {
+      const targetHash = this.getAttribute('href');
+      if (targetHash && targetHash !== '#' && targetHash !== '#!') {
+        const targetEl = document.querySelector(targetHash);
+        if (targetEl) {
+          e.preventDefault();
+          targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          history.replaceState(null, document.title, window.location.pathname + window.location.search);
+        }
+      }
+    });
+  });
+
   // ==========================================
   // 1. MOBILE NAVIGATION DRAWER
   // ==========================================
@@ -405,9 +435,11 @@ document.addEventListener('DOMContentLoaded', () => {
       thumbCards.forEach((thumb, idx) => {
         if (idx === currentSlide) {
           thumb.classList.add('active');
-          if (thumbsScroll) {
+          if (thumbsScroll && currentSlide > 0) {
             const scrollLeft = thumb.offsetLeft - (thumbsScroll.clientWidth / 2) + (thumb.clientWidth / 2);
             thumbsScroll.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+          } else if (thumbsScroll && currentSlide === 0) {
+            thumbsScroll.scrollLeft = 0;
           }
         } else {
           thumb.classList.remove('active');

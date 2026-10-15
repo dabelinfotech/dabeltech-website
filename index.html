@@ -20,6 +20,17 @@
   
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="styles.css">
+
+  <!-- Force page to stay at top on initial load & prevent running down to bottom -->
+  <script>
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    if (window.location.hash && window.location.hash !== '#hero') {
+      history.replaceState(null, document.title, window.location.pathname + window.location.search);
+    }
+    window.scrollTo(0, 0);
+  </script>
 </head>
 <body>
 
