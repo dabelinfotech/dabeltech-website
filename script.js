@@ -966,4 +966,421 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   }
+
+  // ==========================================
+  // 17. DABEL-AI CLIENT ASSISTANT CONTROLLER
+  // ==========================================
+  const aiChatToggleBtn = document.getElementById('ai-chat-toggle-btn');
+  const aiChatWindow = document.getElementById('ai-chat-window');
+  const aiCloseChatBtn = document.getElementById('ai-close-chat-btn');
+  const aiClearChatBtn = document.getElementById('ai-clear-chat-btn');
+  const aiSettingsToggleBtn = document.getElementById('ai-settings-toggle-btn');
+  const aiSettingsDrawer = document.getElementById('ai-settings-drawer');
+  const aiSettingsDrawerClose = document.getElementById('ai-settings-drawer-close');
+  const aiApiKeyInput = document.getElementById('ai-api-key-input');
+  const aiToggleKeyVisibility = document.getElementById('ai-toggle-key-visibility');
+  const aiModelSelect = document.getElementById('ai-model-select');
+  const aiSaveSettingsBtn = document.getElementById('ai-save-settings-btn');
+  const aiResetKeyBtn = document.getElementById('ai-reset-key-btn');
+  const aiQuickChips = document.querySelectorAll('.ai-chip');
+  const aiChatMessages = document.getElementById('ai-chat-messages');
+  const aiTypingIndicator = document.getElementById('ai-typing-indicator');
+  const aiChatForm = document.getElementById('ai-chat-form');
+  const aiChatInput = document.getElementById('ai-chat-input');
+  const aiMicBtn = document.getElementById('ai-mic-btn');
+
+  if (aiChatToggleBtn && aiChatWindow) {
+    let chatHistory = [];
+    const STORAGE_KEY = 'dabeltech_gemini_api_key';
+    const MODEL_KEY = 'dabeltech_gemini_model';
+    const CHAT_HISTORY_KEY = 'dabeltech_chat_history';
+
+    // Load saved settings
+    const savedKey = localStorage.getItem(STORAGE_KEY) || '';
+    const savedModel = localStorage.getItem(MODEL_KEY) || 'gemini-1.5-flash';
+    if (aiApiKeyInput) aiApiKeyInput.value = savedKey;
+    if (aiModelSelect) aiModelSelect.value = savedModel;
+
+    // Load session chat history if present
+    try {
+      const storedHistory = sessionStorage.getItem(CHAT_HISTORY_KEY);
+      if (storedHistory) {
+        chatHistory = JSON.parse(storedHistory);
+        if (Array.isArray(chatHistory) && chatHistory.length > 0) {
+          // Re-render saved messages
+          chatHistory.forEach(item => {
+            renderMessageBubble(item.sender, item.text, false);
+          });
+        }
+      }
+    } catch (e) {
+      console.warn('Could not parse stored chat history:', e);
+    }
+
+    // Toggle Chat Window
+    function toggleChat(forceOpen) {
+      const shouldOpen = typeof forceOpen === 'boolean' ? forceOpen : !aiChatWindow.classList.contains('active');
+      if (shouldOpen) {
+        aiChatWindow.classList.add('active');
+        aiChatToggleBtn.classList.add('is-open');
+        aiChatToggleBtn.setAttribute('aria-expanded', 'true');
+        aiChatWindow.setAttribute('aria-hidden', 'false');
+        setTimeout(() => {
+          if (aiChatInput) aiChatInput.focus();
+        }, 150);
+        scrollToBottom();
+      } else {
+        aiChatWindow.classList.remove('active');
+        aiChatToggleBtn.classList.remove('is-open');
+        aiChatToggleBtn.setAttribute('aria-expanded', 'false');
+        aiChatWindow.setAttribute('aria-hidden', 'true');
+        if (aiSettingsDrawer) aiSettingsDrawer.classList.remove('open');
+      }
+    }
+
+    aiChatToggleBtn.addEventListener('click', () => toggleChat());
+    if (aiCloseChatBtn) aiCloseChatBtn.addEventListener('click', () => toggleChat(false));
+
+    // Toggle Settings Drawer
+    if (aiSettingsToggleBtn && aiSettingsDrawer) {
+      aiSettingsToggleBtn.addEventListener('click', () => {
+        aiSettingsDrawer.classList.toggle('open');
+      });
+    }
+    if (aiSettingsDrawerClose && aiSettingsDrawer) {
+      aiSettingsDrawerClose.addEventListener('click', () => {
+        aiSettingsDrawer.classList.remove('open');
+      });
+    }
+
+    // Toggle API Key visibility
+    if (aiToggleKeyVisibility && aiApiKeyInput) {
+      aiToggleKeyVisibility.addEventListener('click', () => {
+        const isPassword = aiApiKeyInput.type === 'password';
+        aiApiKeyInput.type = isPassword ? 'text' : 'password';
+        const icon = aiToggleKeyVisibility.querySelector('i');
+        if (icon) {
+          icon.className = isPassword ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye';
+        }
+      });
+    }
+
+    // Save Settings
+    if (aiSaveSettingsBtn) {
+      aiSaveSettingsBtn.addEventListener('click', () => {
+        const key = (aiApiKeyInput.value || '').trim();
+        const model = aiModelSelect ? aiModelSelect.value : 'gemini-1.5-flash';
+        localStorage.setItem(STORAGE_KEY, key);
+        localStorage.setItem(MODEL_KEY, model);
+        
+        aiSaveSettingsBtn.innerHTML = '<i class="fa-solid fa-check"></i> Saved!';
+        setTimeout(() => {
+          aiSaveSettingsBtn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Save Key';
+          if (aiSettingsDrawer) aiSettingsDrawer.classList.remove('open');
+        }, 1200);
+
+        renderMessageBubble('assistant', `✨ **Configuration Updated!** Gemini API key configured for \`${model}\`. Ready to assist!`);
+      });
+    }
+
+    // Reset Key
+    if (aiResetKeyBtn) {
+      aiResetKeyBtn.addEventListener('click', () => {
+        localStorage.removeItem(STORAGE_KEY);
+        if (aiApiKeyInput) aiApiKeyInput.value = '';
+        renderMessageBubble('assistant', 'ℹ️ Custom Gemini key removed. DABEL-AI will use the server connection or built-in knowledge engine.');
+      });
+    }
+
+    // Clear Chat
+    if (aiClearChatBtn) {
+      aiClearChatBtn.addEventListener('click', () => {
+        chatHistory = [];
+        sessionStorage.removeItem(CHAT_HISTORY_KEY);
+        // Reset message container to default welcome
+        aiChatMessages.innerHTML = `
+          <div class="ai-msg ai-msg-bot">
+            <div class="ai-msg-avatar">
+              <img src="assets/logo.jpeg" alt="DABEL-AI">
+            </div>
+            <div class="ai-msg-content">
+              <div class="ai-msg-bubble">
+                <p><strong>Chat Cleared! 🧹</strong></p>
+                <p>How may I assist you now with DABELTECH courses, fees, or school portal deployments?</p>
+              </div>
+              <span class="ai-msg-time">Just now</span>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    // Quick Chips Handlers
+    aiQuickChips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        const prompt = chip.getAttribute('data-prompt');
+        if (prompt) {
+          sendMessage(prompt);
+        }
+      });
+    });
+
+    // Scroll Helper
+    function scrollToBottom() {
+      if (aiChatMessages) {
+        aiChatMessages.scrollTop = aiChatMessages.scrollHeight;
+      }
+    }
+
+    // Markdown Parser
+    function parseMarkdown(text) {
+      if (!text) return '';
+      let html = text
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+
+      // Headers (### Header)
+      html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
+      html = html.replace(/^## (.*$)/gim, '<h4>$1</h4>');
+
+      // Bold (**bold**)
+      html = html.replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>');
+
+      // Code backticks (`code`)
+      html = html.replace(/`([^`]+)`/gim, '<code>$1</code>');
+
+      // Links ([text](url))
+      html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/gim, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+
+      // Bullet points
+      const lines = html.split('\n');
+      let inList = false;
+      const formattedLines = [];
+
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i].trim();
+        if (line.startsWith('* ') || line.startsWith('- ')) {
+          if (!inList) {
+            formattedLines.push('<ul>');
+            inList = true;
+          }
+          formattedLines.push(`<li>${line.substring(2)}</li>`);
+        } else {
+          if (inList) {
+            formattedLines.push('</ul>');
+            inList = false;
+          }
+          if (line.length > 0) {
+            if (!line.startsWith('<h3') && !line.startsWith('<h4') && !line.startsWith('<ul')) {
+              formattedLines.push(`<p>${line}</p>`);
+            } else {
+              formattedLines.push(line);
+            }
+          }
+        }
+      }
+      if (inList) {
+        formattedLines.push('</ul>');
+      }
+
+      return formattedLines.join('');
+    }
+
+    // Render Message Bubble
+    function renderMessageBubble(sender, text, shouldSave = true) {
+      const isUser = sender === 'user';
+      const msgEl = document.createElement('div');
+      msgEl.className = `ai-msg ${isUser ? 'ai-msg-user' : 'ai-msg-bot'}`;
+
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+      if (isUser) {
+        msgEl.innerHTML = `
+          <div class="ai-msg-content">
+            <div class="ai-msg-bubble">
+              <p>${text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</p>
+            </div>
+            <span class="ai-msg-time">${timeStr}</span>
+          </div>
+        `;
+      } else {
+        const formattedContent = parseMarkdown(text);
+        msgEl.innerHTML = `
+          <div class="ai-msg-avatar">
+            <img src="assets/logo.jpeg" alt="DABEL-AI">
+          </div>
+          <div class="ai-msg-content">
+            <div class="ai-msg-bubble">${formattedContent}</div>
+            <span class="ai-msg-time">${timeStr}</span>
+          </div>
+        `;
+      }
+
+      aiChatMessages.appendChild(msgEl);
+      scrollToBottom();
+
+      if (shouldSave) {
+        chatHistory.push({ sender, text });
+        try {
+          sessionStorage.setItem(CHAT_HISTORY_KEY, JSON.stringify(chatHistory.slice(-20)));
+        } catch (e) {}
+      }
+    }
+
+    // Call AI Backend or Client Gemini
+    async function fetchAIReply(userMessage) {
+      const apiKey = localStorage.getItem(STORAGE_KEY) || '';
+      const model = localStorage.getItem(MODEL_KEY) || 'gemini-1.5-flash';
+
+      // 1. First attempt: call local server endpoint /api/chat
+      try {
+        const response = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            message: userMessage,
+            history: chatHistory,
+            apiKey: apiKey,
+            model: model
+          })
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data && data.reply) {
+            return data.reply;
+          }
+        }
+      } catch (serverErr) {
+        console.warn('Backend /api/chat unreachable, evaluating client fallback:', serverErr);
+      }
+
+      // 2. Client-side direct Gemini API fallback (e.g. if hosted statically without Node server)
+      if (apiKey && apiKey.trim().length > 10) {
+        try {
+          const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey.trim()}`;
+          const contents = [];
+          chatHistory.slice(-6).forEach(item => {
+            contents.push({
+              role: item.sender === 'user' ? 'user' : 'model',
+              parts: [{ text: item.text }]
+            });
+          });
+          contents.push({ role: 'user', parts: [{ text: userMessage }] });
+
+          const directResp = await fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              contents,
+              generationConfig: { temperature: 0.7, maxOutputTokens: 1000 }
+            })
+          });
+
+          if (directResp.ok) {
+            const directData = await directResp.json();
+            const directText = directData.candidates?.[0]?.content?.parts?.[0]?.text;
+            if (directText) return directText;
+          }
+        } catch (directErr) {
+          console.error('Direct client Gemini call error:', directErr);
+        }
+      }
+
+      // 3. Fallback client knowledge reply
+      return `### 💡 DABEL-AI Quick Advisor
+Thank you for your question! For instant assistance with course admissions, custom quotes, or school portal demonstrations, our Lead Architect and Admissions Officers are standing by live on WhatsApp:
+
+👉 [Click here to chat instantly on WhatsApp (+234 806 216 8465)](https://wa.me/2348062168465?text=Hello%20DABELTECH%2C%20I%20have%20an%20inquiry%20regarding%20your%20services)
+
+*(Tip: You can also tap the ⚙️ settings icon at the top of this window to enter your Google Gemini API key from [Google AI Studio](https://aistudio.google.com/app/apikey) for full generative conversation).*`;
+    }
+
+    // Send Message Handler
+    async function sendMessage(text) {
+      const msg = (text || (aiChatInput ? aiChatInput.value : '')).trim();
+      if (!msg) return;
+
+      if (aiChatInput) aiChatInput.value = '';
+
+      // Render user bubble
+      renderMessageBubble('user', msg, true);
+
+      // Show typing indicator
+      if (aiTypingIndicator) {
+        aiTypingIndicator.classList.add('active');
+        scrollToBottom();
+      }
+
+      try {
+        const reply = await fetchAIReply(msg);
+        if (aiTypingIndicator) aiTypingIndicator.classList.remove('active');
+        renderMessageBubble('assistant', reply, true);
+      } catch (err) {
+        if (aiTypingIndicator) aiTypingIndicator.classList.remove('active');
+        renderMessageBubble('assistant', 'Sorry, I encountered an issue processing your request. Please try again or reach out on [WhatsApp](https://wa.me/2348062168465).');
+      }
+    }
+
+    if (aiChatForm) {
+      aiChatForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        sendMessage();
+      });
+    }
+
+    // Voice Input with Web Speech API
+    if (aiMicBtn && ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      const recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.lang = 'en-US';
+
+      let isRecording = false;
+
+      aiMicBtn.addEventListener('click', () => {
+        if (!isRecording) {
+          try {
+            recognition.start();
+            isRecording = true;
+            aiMicBtn.classList.add('recording');
+            aiMicBtn.title = 'Listening... Speak now';
+          } catch (e) {
+            console.error('Speech recognition start failed:', e);
+          }
+        } else {
+          recognition.stop();
+          isRecording = false;
+          aiMicBtn.classList.remove('recording');
+          aiMicBtn.title = 'Speak to DABEL-AI';
+        }
+      });
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        if (transcript && aiChatInput) {
+          aiChatInput.value = transcript;
+          sendMessage(transcript);
+        }
+      };
+
+      recognition.onerror = (event) => {
+        console.warn('Speech recognition error:', event.error);
+        isRecording = false;
+        aiMicBtn.classList.remove('recording');
+        aiMicBtn.title = 'Speak to DABEL-AI';
+      };
+
+      recognition.onend = () => {
+        isRecording = false;
+        aiMicBtn.classList.remove('recording');
+        aiMicBtn.title = 'Speak to DABEL-AI';
+      };
+    } else if (aiMicBtn) {
+      aiMicBtn.style.display = 'none'; // Hide if browser doesn't support Web Speech API
+    }
+  }
 });

@@ -2928,6 +2928,152 @@
     <span class="whatsapp-tooltip">Chat with us!</span>
   </a>
 
+  <!-- ==================== DABEL-AI FLOATING TRIGGER BUTTON ==================== -->
+  <button class="floating-ai-trigger" id="ai-chat-toggle-btn" aria-label="Open DABEL-AI Assistant" aria-expanded="false">
+    <div class="ai-trigger-pulse"></div>
+    <div class="ai-trigger-icon-wrap">
+      <i class="fa-solid fa-wand-magic-sparkles ai-icon-primary"></i>
+      <i class="fa-solid fa-xmark ai-icon-close"></i>
+    </div>
+    <span class="ai-trigger-badge">AI</span>
+    <span class="ai-trigger-tooltip">Chat with DABEL-AI ✨</span>
+  </button>
+
+  <!-- ==================== DABEL-AI CLIENT ASSISTANT WINDOW ==================== -->
+  <div class="ai-chat-window" id="ai-chat-window" aria-hidden="true" role="dialog" aria-labelledby="ai-chat-title">
+    <!-- Chat Header -->
+    <div class="ai-chat-header">
+      <div class="ai-header-profile">
+        <div class="ai-avatar-wrap">
+          <img src="assets/logo.jpeg" alt="DABEL-AI Avatar" class="ai-avatar-img">
+          <span class="ai-status-dot" title="DABEL-AI Online"></span>
+        </div>
+        <div class="ai-header-info">
+          <div class="ai-header-name">
+            <h3 id="ai-chat-title">DABEL-AI</h3>
+            <span class="ai-gemini-pill"><i class="fa-solid fa-bolt"></i> Gemini</span>
+          </div>
+          <span class="ai-header-sub">Client Assistant &amp; Advisor</span>
+        </div>
+      </div>
+      <div class="ai-header-actions">
+        <button class="ai-action-btn" id="ai-settings-toggle-btn" title="Gemini API Key &amp; Model Settings" aria-label="Settings">
+          <i class="fa-solid fa-sliders"></i>
+        </button>
+        <button class="ai-action-btn" id="ai-clear-chat-btn" title="Clear Chat History" aria-label="Clear chat">
+          <i class="fa-solid fa-trash-can"></i>
+        </button>
+        <button class="ai-action-btn" id="ai-close-chat-btn" title="Minimize Chat" aria-label="Close chat">
+          <i class="fa-solid fa-minus"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Settings Drawer (Collapsible) -->
+    <div class="ai-settings-drawer" id="ai-settings-drawer" aria-hidden="true">
+      <div class="ai-drawer-header">
+        <h4><i class="fa-solid fa-key"></i> Gemini AI Configuration</h4>
+        <button class="ai-drawer-close" id="ai-settings-drawer-close" aria-label="Close settings">&times;</button>
+      </div>
+      <div class="ai-drawer-body">
+        <p class="ai-drawer-desc">
+          Connect your Google Gemini API key for uncapped, open-ended generative intelligence. <em>(Stored securely in your local browser storage)</em>.
+        </p>
+        <div class="ai-drawer-field">
+          <label for="ai-api-key-input">Gemini API Key:</label>
+          <div class="ai-input-with-action">
+            <input type="password" id="ai-api-key-input" placeholder="AIzaSy... (Paste Gemini Key)" autocomplete="off">
+            <button type="button" id="ai-toggle-key-visibility" aria-label="Show or hide key">
+              <i class="fa-solid fa-eye"></i>
+            </button>
+          </div>
+          <span class="ai-helper-link">
+            No key yet? <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">Get a free key at Google AI Studio <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+          </span>
+        </div>
+        <div class="ai-drawer-field">
+          <label for="ai-model-select">Gemini Model:</label>
+          <select id="ai-model-select">
+            <option value="gemini-1.5-flash" selected>gemini-1.5-flash (Lightning Fast &amp; Free)</option>
+            <option value="gemini-2.0-flash">gemini-2.0-flash (Next-Gen High Speed)</option>
+            <option value="gemini-1.5-pro">gemini-1.5-pro (Deep Reasoning)</option>
+          </select>
+        </div>
+        <div class="ai-drawer-footer">
+          <button class="btn btn-primary btn-sm" id="ai-save-settings-btn">
+            <i class="fa-solid fa-floppy-disk"></i> Save Key
+          </button>
+          <button class="btn btn-outline btn-sm" id="ai-reset-key-btn">
+            Remove Key
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Chips Bar -->
+    <div class="ai-quick-chips" id="ai-quick-chips">
+      <button class="ai-chip" data-prompt="What courses do you offer and what are their fees in NGN and USD?">
+        🎓 Courses &amp; Fees
+      </button>
+      <button class="ai-chip" data-prompt="Tell me all about the YouTube Mastery course (Track 07) curriculum.">
+        📹 YouTube Mastery
+      </button>
+      <button class="ai-chip" data-prompt="Can I see a demo of your School Result Management and CBT portals?">
+        🏫 School Portals Demo
+      </button>
+      <button class="ai-chip" data-prompt="Who is the founder and lead software architect of DABELTECH?">
+        👨‍💻 About Founder
+      </button>
+      <button class="ai-chip" data-prompt="How do I enroll in the upcoming cohort or get installment payment details?">
+        📝 Admissions &amp; Enrollment
+      </button>
+    </div>
+
+    <!-- Messages Container -->
+    <div class="ai-messages-container" id="ai-chat-messages" tabindex="0" aria-live="polite">
+      <!-- Default Welcome Message -->
+      <div class="ai-msg ai-msg-bot">
+        <div class="ai-msg-avatar">
+          <img src="assets/logo.jpeg" alt="DABEL-AI">
+        </div>
+        <div class="ai-msg-content">
+          <div class="ai-msg-bubble">
+            <p><strong>Hello! 👋 Welcome to DABELTECH.</strong></p>
+            <p>I am <strong>DABEL-AI</strong>, your 24/7 digital consultant and education advisor. Ask me anything about our <strong>7 Certified Tracks</strong>, tuition fees, <strong>School Result &amp; CBT Portals</strong>, or connecting directly with our Founder &amp; Admissions Team!</p>
+          </div>
+          <span class="ai-msg-time">Just now</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Typing Indicator -->
+    <div class="ai-typing-indicator" id="ai-typing-indicator" aria-hidden="true">
+      <div class="ai-typing-dots">
+        <span></span><span></span><span></span>
+      </div>
+      <span class="ai-typing-text">DABEL-AI is thinking...</span>
+    </div>
+
+    <!-- Chat Input Area -->
+    <form class="ai-input-form" id="ai-chat-form">
+      <button type="button" class="ai-input-btn ai-voice-btn" id="ai-mic-btn" title="Speak to DABEL-AI" aria-label="Voice input">
+        <i class="fa-solid fa-microphone"></i>
+      </button>
+      <input type="text" id="ai-chat-input" class="ai-chat-input" placeholder="Ask DABEL-AI about courses, portals, fees..." autocomplete="off" required maxlength="500">
+      <button type="submit" class="ai-input-btn ai-send-btn" id="ai-send-btn" title="Send Message" aria-label="Send message">
+        <i class="fa-solid fa-paper-plane"></i>
+      </button>
+    </form>
+
+    <!-- Quick WhatsApp Escalation Footer -->
+    <div class="ai-chat-footer">
+      <span>Need human assistance?</span>
+      <a href="https://wa.me/2348062168465?text=Hello%20DABELTECH%2C%20I%20am%20chatting%20with%20DABEL-AI%20and%20would%20like%20to%20speak%20with%20Admissions" target="_blank" rel="noopener">
+        <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
+      </a>
+    </div>
+  </div>
+
   <!-- Main JavaScript File -->
   <script src="script.js"></script>
 </body>
