@@ -997,7 +997,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Load saved settings
     const savedKey = localStorage.getItem(STORAGE_KEY) || '';
-    const savedModel = localStorage.getItem(MODEL_KEY) || 'gemini-1.5-flash';
+    const savedModel = localStorage.getItem(MODEL_KEY) || 'gemini-3.8-flash';
     if (aiApiKeyInput) aiApiKeyInput.value = savedKey;
     if (aiModelSelect) aiModelSelect.value = savedModel;
 
@@ -1232,7 +1232,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Call AI Backend or Client Gemini
     async function fetchAIReply(userMessage) {
       const apiKey = localStorage.getItem(STORAGE_KEY) || '';
-      const model = localStorage.getItem(MODEL_KEY) || 'gemini-1.5-flash';
+      let model = localStorage.getItem(MODEL_KEY) || 'gemini-3.8-flash';
+      if (model === 'gemini-1.5-flash' || model === 'gemini-2.0-flash' || model === 'gemini-2.5-flash') {
+        model = 'gemini-3.8-flash';
+      }
 
       // 1. First attempt: call local server endpoint /api/chat
       try {

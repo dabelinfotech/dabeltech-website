@@ -241,7 +241,7 @@ I am **DABEL-AI**, your dedicated digital consultant. Here is how I can assist y
 // =============================================================================
 // GOOGLE GEMINI API CALLER
 // =============================================================================
-async function callGeminiAPI({ message, history = [], apiKey, model = 'gemini-1.5-flash' }) {
+async function callGeminiAPI({ message, history = [], apiKey, model }) {
   const effectiveKey = apiKey || process.env.GEMINI_API_KEY;
 
   if (!effectiveKey) {
@@ -254,11 +254,32 @@ async function callGeminiAPI({ message, history = [], apiKey, model = 'gemini-1.
     };
   }
 
-  const cleanModel = (model || 'gemini-1.5-flash').trim();
-  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${cleanModel}:generateContent?key=${effectiveKey}`;
+  // Build candidate models cascade
+  let primaryModel = (model || process.env.GEMINI_MODEL || 'gemini-3.5-flash').trim();
+  if (primaryModel === 'gemini-1.5-flash' || primaryModel === 'gemini-2.0-flash' || primaryModel === 'gemini-2.5-flash') {
+    primaryModel = 'gemini-3.5-flash';
+  }
 
-  // Build conversational contents
-  const contents = [];
+  const modelCandidates = [
+    primaryModel,
+    'gemini-3.5-flash',
+    'gemini-3.5-flash-lite',
+    'gemini-3.8-flash'
+  ];
+  // Deduplicate candidate list
+  const uniqueModels = [...new Set(modelCandidates)];
+
+  // Build conversational contents with DABELTECH persona & grounding
+  const contents = [
+    {
+      role: 'user',
+      parts: [{ text: `SYSTEM DIRECTIVE & KNOWLEDGE BASE:\n${DABELTECH_SYSTEM_PROMPT}` }]
+    },
+    {
+      role: 'model',
+      parts: [{ text: 'Understood. I am DABEL-AI, the official AI Assistant and Client Consultant for DABELTECH & DABELTECH INSTITUTE. I am ready to assist visitors with accurate, professional, and inspiring guidance.' }]
+    }
+  ];
 
   // Add previous conversational turns (up to last 10 messages for speed & context)
   if (Array.isArray(history) && history.length > 0) {
@@ -277,9 +298,6 @@ async function callGeminiAPI({ message, history = [], apiKey, model = 'gemini-1.
 
   const requestBody = {
     contents,
-    system_instruction: {
-      parts: [{ text: DABELTECH_SYSTEM_PROMPT }]
-    },
     generationConfig: {
       temperature: 0.7,
       maxOutputTokens: 1024,
@@ -287,40 +305,41 @@ async function callGeminiAPI({ message, history = [], apiKey, model = 'gemini-1.
     }
   };
 
-  const response = await fetch(endpoint, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(requestBody)
-  });
+  for (const candidateModel of uniqueModels) {
+    try {
+      const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${candidateModel}:generateContent?key=${effectiveKey}`;
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(requestBody)
+      });
 
-  if (!response.ok) {
-    const errorText = await response.text();
-    console.error('Gemini API Error:', response.status, errorText);
-    
-    // If Gemini key is invalid, rate-limited, or expired, fall back smoothly
-    const fallbackText = generateFallbackReply(message);
-    return {
-      reply: `${fallbackText}\n\n*(Note: Gemini API returned status ${response.status}. Displaying instant DABELTECH knowledge response.)*`,
-      source: 'gemini-fallback',
-      error: `Gemini HTTP ${response.status}`
-    };
+      if (response.ok) {
+        const data = await response.json();
+        const reply = data.candidates?.[0]?.content?.parts?.[0]?.text;
+        if (reply) {
+          return {
+            reply,
+            source: 'google-gemini',
+            model: candidateModel,
+            hasApiKey: true
+          };
+        }
+      } else {
+        const errText = await response.text();
+        console.warn(`Model ${candidateModel} returned ${response.status}:`, errText);
+      }
+    } catch (modelErr) {
+      console.warn(`Error calling candidate model ${candidateModel}:`, modelErr.message);
+    }
   }
 
-  const data = await response.json();
-  const reply = data.candidates?.[0]?.content?.parts?.[0]?.text;
-
-  if (!reply) {
-    return {
-      reply: generateFallbackReply(message),
-      source: 'fallback-no-text'
-    };
-  }
-
+  // If all Gemini models are unreachable or failed
+  const fallbackText = generateFallbackReply(message);
   return {
-    reply,
-    source: 'google-gemini',
-    model: cleanModel,
-    hasApiKey: true
+    reply: `${fallbackText}\n\n*(Note: Displaying instant DABELTECH knowledge response. All models currently busy.)*`,
+    source: 'gemini-fallback',
+    error: 'All models returned errors'
   };
 }
 
@@ -361,7 +380,7 @@ const server = http.createServer((req, res) => {
         const userMessage = payload.message || '';
         const history = payload.history || [];
         const clientApiKey = payload.apiKey || '';
-        const clientModel = payload.model || process.env.GEMINI_MODEL || 'gemini-1.5-flash';
+        const clientModel = payload.model || process.env.GEMINI_MODEL || 'gemini-3.8-flash';
 
         if (!userMessage.trim()) {
           res.writeHead(400, { 'Content-Type': 'application/json; charset=UTF-8' });
@@ -406,7 +425,7 @@ const server = http.createServer((req, res) => {
     res.end(JSON.stringify({
       status: 'online',
       provider: 'Google Gemini',
-      defaultModel: process.env.GEMINI_MODEL || 'gemini-1.5-flash',
+      defaultModel: process.env.GEMINI_MODEL || 'gemini-3.8-flash',
       hasServerKey
     }));
     return;
