@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Auto-cycle through dashboard tabs smoothly every 5.5s until user manually clicks
+  // Auto-cycle through dashboard tabs smoothly every 5.5s unless video is playing or user clicked
   let currentDashIndex = 0;
   let userInteracted = false;
   dashTabBtns.forEach(btn => {
@@ -97,7 +97,11 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   setInterval(() => {
-    if (!userInteracted && dashTabBtns.length > 0) {
+    const dashVid1 = document.getElementById('dash-video-1');
+    const dashVid2 = document.getElementById('dash-video-2');
+    const isVideoPlaying = (dashVid1 && !dashVid1.paused) || (dashVid2 && !dashVid2.paused);
+
+    if (!userInteracted && !isVideoPlaying && dashTabBtns.length > 0) {
       currentDashIndex = (currentDashIndex + 1) % dashTabBtns.length;
       dashTabBtns[currentDashIndex].click();
       userInteracted = false; // preserve gentle automated demonstration
@@ -222,6 +226,31 @@ document.addEventListener('DOMContentLoaded', () => {
   if (lightboxBackdrop) lightboxBackdrop.addEventListener('click', closeLightbox);
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeLightbox();
+  });
+
+  // ==========================================
+  // 6B. GALLERY MULTIMEDIA FILTER CONTROLLER (ALL, VIDEOS, PHOTOS, BANNERS)
+  // ==========================================
+  const galleryFilterBtns = document.querySelectorAll('.gallery-filter-btn');
+  const galleryMediaCards = document.querySelectorAll('.gallery-card, .gallery-item');
+
+  galleryFilterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      galleryFilterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filterVal = btn.getAttribute('data-filter');
+
+      galleryMediaCards.forEach(card => {
+        const category = card.getAttribute('data-category');
+        if (filterVal === 'all' || category === filterVal) {
+          card.style.display = '';
+          card.style.animation = 'fadeIn 0.3s ease forwards';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
   });
 
   // ==========================================
@@ -654,40 +683,37 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================
-  // 12. FRONT PAGE OFFICIAL ADVERT VIDEOS CONTROLLER
+  // 12. DASHBOARD FRONTEND COMMERCIAL ADVERTS CONTROLLER
   // ==========================================
-  const adVideo1 = document.getElementById('advert-video-1');
-  const adVideo2 = document.getElementById('advert-video-2');
-  const adPlayBtn = document.getElementById('advert-play-btn');
-  const adPlayIcon = document.getElementById('ad-play-icon');
-  const adCenterTrigger = document.getElementById('advert-center-play-trigger');
-  const adCenterIcon = document.getElementById('advert-center-icon');
-  const adSoundToggleBtn = document.getElementById('advert-sound-toggle-btn');
-  const adAudioBtn = document.getElementById('advert-audio-btn');
-  const adSoundIcon = document.getElementById('advert-sound-icon');
-  const adVolIcon = document.getElementById('ad-vol-icon');
-  const adSoundText = document.getElementById('advert-sound-text');
-  const adPrevTrackBtn = document.getElementById('advert-prev-track-btn');
-  const adNextTrackBtn = document.getElementById('advert-next-track-btn');
-  const adProgressBar = document.getElementById('advert-progress-fill');
-  const adProgressTrack = document.getElementById('advert-progress-track');
-  const adTimecode = document.getElementById('advert-timecode');
-  const adCurrentIndicator = document.getElementById('advert-current-indicator');
-  const adBroadcastStatus = document.getElementById('advert-broadcast-status');
-  const adQueueLabel = document.getElementById('advert-queue-label');
-  const adCard1 = document.getElementById('advert-card-1');
-  const adCard2 = document.getElementById('advert-card-2');
-  const adStatus1 = document.getElementById('ad-status-1');
-  const adStatus2 = document.getElementById('ad-status-2');
-  const adFullscreenBtn = document.getElementById('advert-fullscreen-btn');
-  const adScreenStage = document.getElementById('advert-screen-stage');
+  const dashVideo1 = document.getElementById('dash-video-1');
+  const dashVideo2 = document.getElementById('dash-video-2');
+  const dashChip1 = document.getElementById('dash-chip-1');
+  const dashChip2 = document.getElementById('dash-chip-2');
+  const dashPlayBtn = document.getElementById('dash-play-btn');
+  const dashPlayIcon = document.getElementById('dash-play-icon');
+  const dashCenterTrigger = document.getElementById('dash-center-play-trigger');
+  const dashCenterIcon = document.getElementById('dash-center-icon');
+  const dashSoundToggleBtn = document.getElementById('dash-sound-toggle-btn');
+  const dashAudioBtn = document.getElementById('dash-audio-btn');
+  const dashSoundIcon = document.getElementById('dash-sound-icon');
+  const dashVolIcon = document.getElementById('dash-vol-icon');
+  const dashSoundText = document.getElementById('dash-sound-text');
+  const dashPrevTrackBtn = document.getElementById('dash-prev-track-btn');
+  const dashNextTrackBtn = document.getElementById('dash-next-track-btn');
+  const dashProgressBar = document.getElementById('dash-progress-fill');
+  const dashProgressTrack = document.getElementById('dash-progress-track');
+  const dashTimecode = document.getElementById('dash-timecode');
+  const dashCurrentIndicator = document.getElementById('dash-current-indicator');
+  const dashFullscreenBtn = document.getElementById('dash-fullscreen-btn');
+  const dashScreenStage = document.getElementById('dash-video-stage');
+  const dashAdDescText = document.getElementById('dash-ad-desc-text');
 
-  if (adVideo1 && adVideo2) {
+  if (dashVideo1 && dashVideo2) {
     let currentAdvertIndex = 1; // 1 or 2
-    let isUserMuted = true; // starts muted for compliant automatic browser playback
+    let isUserMuted = true;
 
-    function getActiveVideo() {
-      return currentAdvertIndex === 1 ? adVideo1 : adVideo2;
+    function getActiveDashVideo() {
+      return currentAdvertIndex === 1 ? dashVideo1 : dashVideo2;
     }
 
     function formatTime(seconds) {
@@ -699,52 +725,44 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateAdvertUI() {
       if (currentAdvertIndex === 1) {
-        adVideo1.classList.add('active');
-        adVideo2.classList.remove('active');
+        dashVideo1.classList.add('active');
+        dashVideo2.classList.remove('active');
 
-        if (adCard1) adCard1.classList.add('active');
-        if (adCard2) adCard2.classList.remove('active');
+        if (dashChip1) dashChip1.classList.add('active');
+        if (dashChip2) dashChip2.classList.remove('active');
 
-        if (adStatus1) adStatus1.innerHTML = '<i class="fa-solid fa-circle-play"></i> Now Playing';
-        if (adStatus1) adStatus1.className = 'ad-status-pill playing';
-        if (adStatus2) adStatus2.innerHTML = '<i class="fa-solid fa-forward-step"></i> Up Next (Auto-Plays)';
-        if (adStatus2) adStatus2.className = 'ad-status-pill upnext';
-
-        if (adCurrentIndicator) adCurrentIndicator.textContent = 'ADVERT 1 OF 2';
-        if (adBroadcastStatus) adBroadcastStatus.innerHTML = 'NOW PLAYING: ADVERT 01 &bull; OFFICIAL COMMERCIAL';
-        if (adQueueLabel) adQueueLabel.innerHTML = '<i class="fa-solid fa-forward-step text-accent"></i> Up Next: Advert 02 (Auto-Sequenced)';
+        if (dashCurrentIndicator) dashCurrentIndicator.textContent = 'ADVERT 1 OF 2';
+        if (dashAdDescText) {
+          dashAdDescText.textContent = 'Advert 01: Discover our flagship tech institute, multi-currency African cohorts, smart school result portals, and data analytics systems.';
+        }
       } else {
-        adVideo2.classList.add('active');
-        adVideo1.classList.remove('active');
+        dashVideo2.classList.add('active');
+        dashVideo1.classList.remove('active');
 
-        if (adCard2) adCard2.classList.add('active');
-        if (adCard1) adCard1.classList.remove('active');
+        if (dashChip2) dashChip2.classList.add('active');
+        if (dashChip1) dashChip1.classList.remove('active');
 
-        if (adStatus2) adStatus2.innerHTML = '<i class="fa-solid fa-circle-play"></i> Now Playing';
-        if (adStatus2) adStatus2.className = 'ad-status-pill playing';
-        if (adStatus1) adStatus1.innerHTML = '<i class="fa-solid fa-rotate-left"></i> Replay Advert 1';
-        if (adStatus1) adStatus1.className = 'ad-status-pill standby';
-
-        if (adCurrentIndicator) adCurrentIndicator.textContent = 'ADVERT 2 OF 2';
-        if (adBroadcastStatus) adBroadcastStatus.innerHTML = 'NOW PLAYING: ADVERT 02 &bull; SOLUTIONS &amp; TRAINING SHOWCASE (AUTO-SEQUENCED)';
-        if (adQueueLabel) adQueueLabel.innerHTML = '<i class="fa-solid fa-rotate text-accent"></i> Next: Loop Back to Advert 01';
+        if (dashCurrentIndicator) dashCurrentIndicator.textContent = 'ADVERT 2 OF 2';
+        if (dashAdDescText) {
+          dashAdDescText.textContent = 'Advert 02: Full overview of our practical computer lab sessions, student coding projects, AI bootcamps, and institutional tech services.';
+        }
       }
     }
 
     function switchAdvert(targetIndex, playImmediately = true) {
       if (targetIndex === currentAdvertIndex && playImmediately) {
-        const activeVid = getActiveVideo();
+        const activeVid = getActiveDashVideo();
         if (activeVid.paused) {
           activeVid.play();
         }
         return;
       }
 
-      const prevVid = getActiveVideo();
+      const prevVid = getActiveDashVideo();
       prevVid.pause();
 
       currentAdvertIndex = targetIndex;
-      const nextVid = getActiveVideo();
+      const nextVid = getActiveDashVideo();
 
       nextVid.currentTime = 0;
       nextVid.muted = isUserMuted;
@@ -762,17 +780,17 @@ document.addEventListener('DOMContentLoaded', () => {
       updatePlayPauseIcons();
     }
 
-    // When Advert 1 ends -> Immediately start Advert 2!
-    adVideo1.addEventListener('ended', () => {
+    // Auto-sequence: Advert 1 ends -> Advert 2 starts immediately
+    dashVideo1.addEventListener('ended', () => {
       switchAdvert(2, true);
     });
 
-    // When Advert 2 ends -> Loop back to Advert 1 immediately!
-    adVideo2.addEventListener('ended', () => {
+    // Auto-sequence: Advert 2 ends -> Loop back to Advert 1
+    dashVideo2.addEventListener('ended', () => {
       switchAdvert(1, true);
     });
 
-    // Sound toggle function
+    // Sound toggle
     function toggleSound(forceState) {
       if (typeof forceState === 'boolean') {
         isUserMuted = forceState;
@@ -780,57 +798,57 @@ document.addEventListener('DOMContentLoaded', () => {
         isUserMuted = !isUserMuted;
       }
 
-      adVideo1.muted = isUserMuted;
-      adVideo2.muted = isUserMuted;
+      dashVideo1.muted = isUserMuted;
+      dashVideo2.muted = isUserMuted;
 
       if (isUserMuted) {
-        if (adSoundIcon) adSoundIcon.className = 'fa-solid fa-volume-xmark';
-        if (adVolIcon) adVolIcon.className = 'fa-solid fa-volume-xmark';
-        if (adSoundText) adSoundText.textContent = 'Click for Sound';
-        if (adSoundToggleBtn) adSoundToggleBtn.classList.remove('unmuted');
+        if (dashSoundIcon) dashSoundIcon.className = 'fa-solid fa-volume-xmark';
+        if (dashVolIcon) dashVolIcon.className = 'fa-solid fa-volume-xmark';
+        if (dashSoundText) dashSoundText.textContent = 'Click for Sound';
+        if (dashSoundToggleBtn) dashSoundToggleBtn.classList.remove('unmuted');
       } else {
-        if (adSoundIcon) adSoundIcon.className = 'fa-solid fa-volume-high';
-        if (adVolIcon) adVolIcon.className = 'fa-solid fa-volume-high';
-        if (adSoundText) adSoundText.textContent = 'Sound On';
-        if (adSoundToggleBtn) adSoundToggleBtn.classList.add('unmuted');
+        if (dashSoundIcon) dashSoundIcon.className = 'fa-solid fa-volume-high';
+        if (dashVolIcon) dashVolIcon.className = 'fa-solid fa-volume-high';
+        if (dashSoundText) dashSoundText.textContent = 'Sound On';
+        if (dashSoundToggleBtn) dashSoundToggleBtn.classList.add('unmuted');
       }
     }
 
-    if (adSoundToggleBtn) {
-      adSoundToggleBtn.addEventListener('click', (e) => {
+    if (dashSoundToggleBtn) {
+      dashSoundToggleBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         toggleSound();
       });
     }
 
-    if (adAudioBtn) {
-      adAudioBtn.addEventListener('click', () => {
+    if (dashAudioBtn) {
+      dashAudioBtn.addEventListener('click', () => {
         toggleSound();
       });
     }
 
     // Play/Pause control
     function updatePlayPauseIcons() {
-      const vid = getActiveVideo();
+      const vid = getActiveDashVideo();
       const isPaused = vid.paused;
 
-      if (adPlayIcon) {
-        adPlayIcon.className = isPaused ? 'fa-solid fa-play' : 'fa-solid fa-pause';
+      if (dashPlayIcon) {
+        dashPlayIcon.className = isPaused ? 'fa-solid fa-play' : 'fa-solid fa-pause';
       }
-      if (adCenterIcon) {
-        adCenterIcon.className = isPaused ? 'fa-solid fa-play' : 'fa-solid fa-pause';
+      if (dashCenterIcon) {
+        dashCenterIcon.className = isPaused ? 'fa-solid fa-play' : 'fa-solid fa-pause';
       }
-      if (adCenterTrigger) {
+      if (dashCenterTrigger) {
         if (isPaused) {
-          adCenterTrigger.classList.add('paused');
+          dashCenterTrigger.classList.add('paused');
         } else {
-          adCenterTrigger.classList.remove('paused');
+          dashCenterTrigger.classList.remove('paused');
         }
       }
     }
 
     function togglePlay() {
-      const vid = getActiveVideo();
+      const vid = getActiveDashVideo();
       if (vid.paused) {
         vid.play();
       } else {
@@ -839,43 +857,43 @@ document.addEventListener('DOMContentLoaded', () => {
       updatePlayPauseIcons();
     }
 
-    if (adPlayBtn) adPlayBtn.addEventListener('click', togglePlay);
-    if (adCenterTrigger) adCenterTrigger.addEventListener('click', togglePlay);
+    if (dashPlayBtn) dashPlayBtn.addEventListener('click', togglePlay);
+    if (dashCenterTrigger) dashCenterTrigger.addEventListener('click', togglePlay);
 
     // Track buttons
-    if (adPrevTrackBtn) {
-      adPrevTrackBtn.addEventListener('click', () => {
+    if (dashPrevTrackBtn) {
+      dashPrevTrackBtn.addEventListener('click', () => {
         switchAdvert(1, true);
       });
     }
 
-    if (adNextTrackBtn) {
-      adNextTrackBtn.addEventListener('click', () => {
+    if (dashNextTrackBtn) {
+      dashNextTrackBtn.addEventListener('click', () => {
         switchAdvert(2, true);
       });
     }
 
-    // Playlist cards clicking
-    if (adCard1) {
-      adCard1.addEventListener('click', () => {
+    // Quick chip buttons
+    if (dashChip1) {
+      dashChip1.addEventListener('click', () => {
         switchAdvert(1, true);
       });
     }
 
-    if (adCard2) {
-      adCard2.addEventListener('click', () => {
+    if (dashChip2) {
+      dashChip2.addEventListener('click', () => {
         switchAdvert(2, true);
       });
     }
 
     // Fullscreen support
-    if (adFullscreenBtn && adScreenStage) {
-      adFullscreenBtn.addEventListener('click', () => {
+    if (dashFullscreenBtn && dashScreenStage) {
+      dashFullscreenBtn.addEventListener('click', () => {
         if (!document.fullscreenElement) {
-          if (adScreenStage.requestFullscreen) {
-            adScreenStage.requestFullscreen();
-          } else if (adScreenStage.webkitRequestFullscreen) {
-            adScreenStage.webkitRequestFullscreen();
+          if (dashScreenStage.requestFullscreen) {
+            dashScreenStage.requestFullscreen();
+          } else if (dashScreenStage.webkitRequestFullscreen) {
+            dashScreenStage.webkitRequestFullscreen();
           }
         } else {
           if (document.exitFullscreen) {
@@ -887,48 +905,46 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Timeupdate & progress scrubbing
     function handleTimeUpdate(vid) {
-      if (vid !== getActiveVideo()) return;
+      if (vid !== getActiveDashVideo()) return;
       if (!vid.duration) return;
 
       const pct = (vid.currentTime / vid.duration) * 100;
-      if (adProgressBar) adProgressBar.style.width = `${pct}%`;
-      if (adTimecode) {
-        adTimecode.textContent = `${formatTime(vid.currentTime)} / ${formatTime(vid.duration)}`;
+      if (dashProgressBar) dashProgressBar.style.width = `${pct}%`;
+      if (dashTimecode) {
+        dashTimecode.textContent = `${formatTime(vid.currentTime)} / ${formatTime(vid.duration)}`;
       }
     }
 
-    adVideo1.addEventListener('timeupdate', () => handleTimeUpdate(adVideo1));
-    adVideo2.addEventListener('timeupdate', () => handleTimeUpdate(adVideo2));
+    dashVideo1.addEventListener('timeupdate', () => handleTimeUpdate(dashVideo1));
+    dashVideo2.addEventListener('timeupdate', () => handleTimeUpdate(dashVideo2));
 
-    adVideo1.addEventListener('play', updatePlayPauseIcons);
-    adVideo1.addEventListener('pause', updatePlayPauseIcons);
-    adVideo2.addEventListener('play', updatePlayPauseIcons);
-    adVideo2.addEventListener('pause', updatePlayPauseIcons);
+    dashVideo1.addEventListener('play', updatePlayPauseIcons);
+    dashVideo1.addEventListener('pause', updatePlayPauseIcons);
+    dashVideo2.addEventListener('play', updatePlayPauseIcons);
+    dashVideo2.addEventListener('pause', updatePlayPauseIcons);
 
     // Progress bar seeking
-    if (adProgressTrack) {
-      adProgressTrack.addEventListener('click', (e) => {
-        const vid = getActiveVideo();
+    if (dashProgressTrack) {
+      dashProgressTrack.addEventListener('click', (e) => {
+        const vid = getActiveDashVideo();
         if (!vid.duration) return;
-        const rect = adProgressTrack.getBoundingClientRect();
+        const rect = dashProgressTrack.getBoundingClientRect();
         const clickPos = (e.clientX - rect.left) / rect.width;
         vid.currentTime = clickPos * vid.duration;
       });
     }
 
-    // AUTOMATIC PLAYBACK TRIGGER:
-    // Starts playing automatically when viewer gets to the page
+    // Autoplay trigger: plays muted automatically on load
     function attemptAutoplay() {
-      adVideo1.muted = true; // Muted autoplay is guaranteed by browser security policy
+      dashVideo1.muted = true;
       isUserMuted = true;
-      const playPromise = adVideo1.play();
+      const playPromise = dashVideo1.play();
       if (playPromise !== undefined) {
         playPromise.then(() => {
           updatePlayPauseIcons();
         }).catch(() => {
-          // If browser policy deferred, activate on first scroll or touch
           const onFirstInteraction = () => {
-            adVideo1.play();
+            dashVideo1.play();
             updatePlayPauseIcons();
             window.removeEventListener('scroll', onFirstInteraction);
             window.removeEventListener('click', onFirstInteraction);
@@ -941,29 +957,10 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    // Trigger autoplay immediately on load
     if (document.readyState === 'complete' || document.readyState === 'interactive') {
       attemptAutoplay();
     } else {
       window.addEventListener('DOMContentLoaded', attemptAutoplay);
-    }
-
-    // Also trigger via IntersectionObserver so if user scrolls past, it stays playing
-    if ('IntersectionObserver' in window) {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const vid = getActiveVideo();
-            if (vid.paused) {
-              vid.play().catch(() => {});
-            }
-          }
-        });
-      }, { threshold: 0.25 });
-
-      if (adScreenStage) {
-        observer.observe(adScreenStage);
-      }
     }
   }
 

@@ -18,8 +18,8 @@
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   
-  <!-- Main Stylesheet (v2.3 Complete Mobile Centering) -->
-  <link rel="stylesheet" href="styles.css?v=2.3">
+  <!-- Main Stylesheet (v2.4 Menu Tab Reorganization & Dashboard Commercial Adverts) -->
+  <link rel="stylesheet" href="styles.css?v=2.4">
 
   <!-- Force page to stay at top on initial load & prevent running down to bottom -->
   <script>
@@ -125,7 +125,7 @@
             <i class="fa-solid fa-calculator"></i>
             <span>Get a Project Quote</span>
           </a>
-          <a href="#front-adverts" class="btn btn-outline btn-lg" id="hero-watch-btn">
+          <a href="#gallery" class="btn btn-outline btn-lg" id="hero-watch-btn">
             <i class="fa-solid fa-circle-play text-accent"></i>
             <span>Watch Advert Videos</span>
           </a>
@@ -177,7 +177,8 @@
 
           <!-- Dashboard Navigation Sub-Ribbon -->
           <div class="dash-tabs-ribbon" role="tablist">
-            <button class="dash-tab-btn active" data-dash="analytics"><i class="fa-solid fa-chart-line"></i> Analytics Hub</button>
+            <button class="dash-tab-btn active" data-dash="adverts"><i class="fa-solid fa-circle-play text-accent"></i> Commercial Adverts</button>
+            <button class="dash-tab-btn" data-dash="analytics"><i class="fa-solid fa-chart-line"></i> Analytics Hub</button>
             <button class="dash-tab-btn" data-dash="portal"><i class="fa-solid fa-school"></i> Result Portal</button>
             <button class="dash-tab-btn" data-dash="ai"><i class="fa-solid fa-brain"></i> AI &amp; Robotics</button>
             <button class="dash-tab-btn" data-dash="cohorts"><i class="fa-solid fa-users"></i> Cohorts</button>
@@ -228,7 +229,89 @@
             </div>
 
             <!-- Dynamic Panels Inside Dashboard -->
-            <div class="dash-panel active" id="dash-panel-analytics">
+            <!-- Commercial Adverts Panel (Featured on Frontend of Dashboard) -->
+            <div class="dash-panel active" id="dash-panel-adverts">
+              <div class="panel-header">
+                <div>
+                  <h4>DABELTECH Official Commercial Broadcast</h4>
+                  <small>Advert 01 &bull; Advert 02 &bull; Auto-Sequenced HD Video Broadcast</small>
+                </div>
+                <span class="panel-tag text-accent"><span class="pulse-dot-red"></span> LIVE BROADCAST</span>
+              </div>
+
+              <!-- Quick Advert Switch Chips -->
+              <div class="dash-advert-chips">
+                <button type="button" class="dash-ad-chip active" id="dash-chip-1" data-video="1">
+                  <i class="fa-solid fa-circle-play text-accent"></i> Advert 01: Flagship Commercial
+                </button>
+                <button type="button" class="dash-ad-chip" id="dash-chip-2" data-video="2">
+                  <i class="fa-solid fa-film text-cyan"></i> Advert 02: Solutions &amp; Training
+                </button>
+              </div>
+
+              <!-- Dashboard Cinema Video Screen Stage -->
+              <div class="dash-video-stage" id="dash-video-stage">
+                <!-- Dual Videos for Seamless Auto-Sequenced Playback -->
+                <video id="dash-video-1" class="dash-screen-video active" src="assets/advert-video-1.mp4" playsinline muted preload="auto" poster="assets/brand-true-mastery.jpeg"></video>
+                <video id="dash-video-2" class="dash-screen-video" src="assets/advert-video-2.mp4" playsinline muted preload="auto" poster="assets/brand-future-name.jpeg"></video>
+
+                <div class="dash-ambient-glow" id="dash-ambient-glow"></div>
+
+                <!-- Floating Sound Toggle Badge -->
+                <button type="button" class="dash-floating-sound-btn" id="dash-sound-toggle-btn" aria-label="Toggle Audio Sound">
+                  <i class="fa-solid fa-volume-xmark" id="dash-sound-icon"></i>
+                  <span id="dash-sound-text">Click for Sound</span>
+                </button>
+
+                <!-- Center Big Play/Pause Trigger -->
+                <div class="dash-play-center-btn" id="dash-center-play-trigger" aria-label="Play or Pause Video">
+                  <i class="fa-solid fa-play" id="dash-center-icon"></i>
+                </div>
+
+                <!-- Custom Player Controls Bar -->
+                <div class="dash-custom-controls">
+                  <div class="dash-progress-track" id="dash-progress-track">
+                    <div class="dash-progress-fill" id="dash-progress-fill"></div>
+                  </div>
+                  <div class="dash-controls-row">
+                    <div class="dash-left-controls">
+                      <button type="button" class="dash-ctrl-btn" id="dash-play-btn" title="Play / Pause" aria-label="Play / Pause">
+                        <i class="fa-solid fa-play" id="dash-play-icon"></i>
+                      </button>
+                      <button type="button" class="dash-ctrl-btn" id="dash-prev-track-btn" title="Previous Advert" aria-label="Previous Advert">
+                        <i class="fa-solid fa-backward-step"></i>
+                      </button>
+                      <button type="button" class="dash-ctrl-btn" id="dash-next-track-btn" title="Next Advert" aria-label="Next Advert">
+                        <i class="fa-solid fa-forward-step"></i>
+                      </button>
+                      <button type="button" class="dash-ctrl-btn" id="dash-audio-btn" title="Toggle Sound" aria-label="Toggle Sound">
+                        <i class="fa-solid fa-volume-xmark" id="dash-vol-icon"></i>
+                      </button>
+                      <span class="dash-timecode" id="dash-timecode">0:00 / 0:00</span>
+                    </div>
+                    <div class="dash-right-controls">
+                      <span class="dash-current-indicator" id="dash-current-indicator">ADVERT 1 OF 2</span>
+                      <button type="button" class="dash-ctrl-btn" id="dash-fullscreen-btn" title="Fullscreen" aria-label="Fullscreen">
+                        <i class="fa-solid fa-expand"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Advert Footer Metadata -->
+              <div class="dash-advert-meta-bar">
+                <div class="dash-advert-desc" id="dash-advert-desc">
+                  <i class="fa-solid fa-circle-info text-accent"></i>
+                  <span id="dash-ad-desc-text">Advert 01: Discover our flagship tech institute, multi-currency African cohorts, smart school result portals, and data analytics systems.</span>
+                </div>
+                <a href="#gallery" class="dash-view-gallery-link">
+                  <span>View in Full Gallery</span> <i class="fa-solid fa-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+
+            <div class="dash-panel" id="dash-panel-analytics">
               <div class="panel-header">
                 <div>
                   <h4>Procurement &amp; Sales Data Engine</h4>
@@ -405,133 +488,377 @@
     </div>
   </div>
 
-  <!-- ==================== FRONT PAGE OFFICIAL ADVERT VIDEOS SHOWCASE ==================== -->
-  <section class="section front-adverts-section" id="front-adverts">
+  <!-- ==================== PROGRAMS SECTION ==================== -->
+  <section class="section programs-section" id="programs">
     <div class="container">
       <div class="section-header text-center">
-        <span class="section-tag"><i class="fa-solid fa-clapperboard text-accent"></i> OFFICIAL BROADCAST &amp; VIDEO ADVERTS</span>
-        <h2 class="section-title">Watch DABELTECH in Action</h2>
+        <span class="section-tag"><i class="fa-solid fa-graduation-cap text-accent"></i> CERTIFIED CAREER CURRICULUM</span>
+        <h2 class="section-title">Academic &amp; Professional Programs</h2>
         <p class="section-subtitle">
-          Official advert broadcasts showcasing our cutting-edge tech institute, smart software solutions, and world-class training programs. Videos play automatically as you arrive on the page and sequence seamlessly.
+          Everything pertaining to DABELTECH programs, courses, intensive bootcamps, and syllabus flyers. Engineered for real industry competence with hands-on capstone projects, LMS access, and verified certification.
         </p>
+
+        <!-- Feature Pills Ribbon -->
+        <div class="features-ribbon">
+          <div class="f-pill"><i class="fa-solid fa-user-check text-accent"></i> Beginner Friendly</div>
+          <div class="f-pill"><i class="fa-solid fa-video text-cyan"></i> Live Classes &amp; Mentorship</div>
+          <div class="f-pill"><i class="fa-solid fa-certificate text-green"></i> Certificate on Completion</div>
+          <div class="f-pill"><i class="fa-solid fa-cloud text-purple"></i> LMS Portal Access</div>
+          <div class="f-pill"><i class="fa-solid fa-briefcase text-orange"></i> Portfolio &amp; Job Support</div>
+          <div class="f-pill"><i class="fa-solid fa-credit-card text-blue"></i> Installment Payments Allowed</div>
+        </div>
+
+        <!-- Programs Sub-Navigation Quick Jump Bar -->
+        <div class="programs-subnav-ribbon">
+          <a href="#programs-tracks" class="prog-subnav-pill active"><i class="fa-solid fa-laptop-code"></i> Career Tracks (7)</a>
+          <a href="#bootcamp" class="prog-subnav-pill"><i class="fa-solid fa-fire text-accent"></i> Intensive Bootcamps (3)</a>
+          <a href="#programs-motion-showcase" class="prog-subnav-pill"><i class="fa-solid fa-wand-magic-sparkles text-cyan"></i> Course Flyers Showcase (19)</a>
+          <a href="#programs-pricing" class="prog-subnav-pill"><i class="fa-solid fa-coins text-green"></i> Tuition &amp; Multi-Currency</a>
+        </div>
       </div>
 
-      <div class="advert-cinema-container" id="advert-cinema-container">
+      <!-- ==================== PART 1: 7 CAREER TRACKS & COURSES ==================== -->
+      <div class="programs-sub-header" id="programs-tracks">
+        <div class="sub-header-badge">
+          <span class="sub-badge"><i class="fa-solid fa-book-open text-accent"></i> CAREER TRACKS &amp; PROFESSIONAL COURSES</span>
+        </div>
+        <h3 class="sub-header-title">Certified Industry Career Tracks</h3>
+        <p class="sub-header-desc">Comprehensive 4 to 12-week professional specializations designed for practical career mastery.</p>
+      </div>
+
+      <div class="courses-grid">
+
+        <!-- Program 1: Data Analysis -->
+        <div class="course-card">
+          <div class="course-badge">High Demand</div>
+          <div class="course-header">
+            <span class="course-icon"><i class="fa-solid fa-chart-line"></i></span>
+            <div>
+              <h3 class="course-title">Data Analysis &amp; Visualization</h3>
+              <span class="course-track">Track 01 &bull; 8 to 12 Weeks</span>
+            </div>
+          </div>
+          <p class="course-summary">
+            Master the complete data lifecycle: clean raw transactional datasets, model star schemas, write advanced DAX &amp; SQL queries, and build boardroom-ready dashboards.
+          </p>
+          <div class="course-curriculum">
+            <h4>Curriculum Highlights:</h4>
+            <ul>
+              <li><i class="fa-solid fa-circle-check"></i> Python for Data Analysis (Pandas, NumPy, Matplotlib)</li>
+              <li><i class="fa-solid fa-circle-check"></i> SQL &amp; Database Management (PostgreSQL, T-SQL)</li>
+              <li><i class="fa-solid fa-circle-check"></i> Power BI &amp; Excel Power Pivot (DAX, Star Schema)</li>
+              <li><i class="fa-solid fa-circle-check"></i> Tableau Data Storytelling &amp; Statistical Modeling</li>
+              <li><i class="fa-solid fa-circle-check"></i> Real-world Capstones based on Retail &amp; Healthcare data</li>
+            </ul>
+          </div>
+          <div class="course-pricing">
+            <div class="price-box">
+              <span class="price-label">Tuition Fee</span>
+              <div class="price-value" data-ngn="₦45,000" data-usd="$50" data-ghc="200 GHC" data-ksh="2,500 KSH" data-cfa="8,000 CFA">₦45,000</div>
+            </div>
+            <a href="https://wa.me/2348062168465?text=Hello%20DABELTECH%2C%20I%20want%20to%20enroll%20in%20the%20Data%20Analysis%20Program" target="_blank" rel="noopener" class="btn btn-primary btn-sm">
+              Enroll Track 1 <i class="fa-solid fa-paper-plane"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Program 2: AI & Automation -->
+        <div class="course-card featured-course">
+          <div class="course-badge popular-badge"><i class="fa-solid fa-bolt"></i> Future Tech</div>
+          <div class="course-header">
+            <span class="course-icon"><i class="fa-solid fa-brain"></i></span>
+            <div>
+              <h3 class="course-title">Artificial Intelligence &amp; Automation</h3>
+              <span class="course-track">Track 02 &bull; 8 to 12 Weeks</span>
+            </div>
+          </div>
+          <p class="course-summary">
+            Harness modern AI agents, predictive machine learning, deep learning fundamentals, and generative tools (ChatGPT, Claude, Gemini) to automate workflows and build intelligent systems.
+          </p>
+          <div class="course-curriculum">
+            <h4>Curriculum Highlights:</h4>
+            <ul>
+              <li><i class="fa-solid fa-circle-check"></i> Machine Learning &amp; Predictive Modeling Foundations</li>
+              <li><i class="fa-solid fa-circle-check"></i> Generative AI, Advanced Prompting &amp; Agent Workflows</li>
+              <li><i class="fa-solid fa-circle-check"></i> NLP, Sentiment Analysis &amp; Computer Vision</li>
+              <li><i class="fa-solid fa-circle-check"></i> Automated Chatbots &amp; Multi-Platform Integration</li>
+              <li><i class="fa-solid fa-circle-check"></i> Hands-on Robotics &amp; No-Code AI Rapid Prototyping</li>
+            </ul>
+          </div>
+          <div class="course-pricing">
+            <div class="price-box">
+              <span class="price-label">Tuition Fee</span>
+              <div class="price-value" data-ngn="₦65,000" data-usd="$75" data-ghc="250 GHC" data-ksh="2,500 KSH" data-cfa="13,000 CFA">₦65,000</div>
+            </div>
+            <a href="https://wa.me/2348062168465?text=Hello%20DABELTECH%2C%20I%20want%20to%20enroll%20in%20the%20AI%20and%20Automation%20Program" target="_blank" rel="noopener" class="btn btn-primary btn-sm">
+              Enroll Track 2 <i class="fa-solid fa-paper-plane"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Program 3: Full-Stack Web Development -->
+        <div class="course-card">
+          <div class="course-badge">Comprehensive</div>
+          <div class="course-header">
+            <span class="course-icon"><i class="fa-solid fa-laptop-code"></i></span>
+            <div>
+              <h3 class="course-title">Full-Stack Web Development</h3>
+              <span class="course-track">Track 03 &bull; 12 Weeks</span>
+            </div>
+          </div>
+          <p class="course-summary">
+            Become an independent full-stack engineer. Build and deploy production-ready web portals, dynamic web apps, database architectures, RESTful APIs, and secure authentication.
+          </p>
+          <div class="course-curriculum">
+            <h4>Curriculum Highlights:</h4>
+            <ul>
+              <li><i class="fa-solid fa-circle-check"></i> HTML5, Modern CSS, Responsive Design &amp; JavaScript ES6+</li>
+              <li><i class="fa-solid fa-circle-check"></i> Backend with Node.js, Express &amp; Python Flask</li>
+              <li><i class="fa-solid fa-circle-check"></i> Database Design with PostgreSQL &amp; SQL Server</li>
+              <li><i class="fa-solid fa-circle-check"></i> Authentication, PIN Systems, REST APIs &amp; Cloud Deploy</li>
+              <li><i class="fa-solid fa-circle-check"></i> Git &amp; GitHub Version Control &amp; Portfolio Production</li>
+            </ul>
+          </div>
+          <div class="course-pricing">
+            <div class="price-box">
+              <span class="price-label">Tuition Fee</span>
+              <div class="price-value" data-ngn="₦80,000" data-usd="$90" data-ghc="300 GHC" data-ksh="3,500 KSH" data-cfa="15,000 CFA">₦80,000</div>
+            </div>
+            <a href="https://wa.me/2348062168465?text=Hello%20DABELTECH%2C%20I%20want%20to%20enroll%20in%20Full-Stack%20Web%20Development" target="_blank" rel="noopener" class="btn btn-primary btn-sm">
+              Enroll Track 3 <i class="fa-solid fa-paper-plane"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Program 4: Vibe Coding & No-Code AI -->
+        <div class="course-card">
+          <div class="course-badge">Trending</div>
+          <div class="course-header">
+            <span class="course-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
+            <div>
+              <h3 class="course-title">Vibe Coding &amp; No-Code AI</h3>
+              <span class="course-track">Track 04 &bull; 4 to 6 Weeks</span>
+            </div>
+          </div>
+          <p class="course-summary">
+            Learn AI-assisted coding to build software 10x faster. Perfect for non-programmers, entrepreneurs, and professionals who want to build functional tools, web apps, and games using natural language.
+          </p>
+          <div class="course-curriculum">
+            <h4>Curriculum Highlights:</h4>
+            <ul>
+              <li><i class="fa-solid fa-circle-check"></i> Natural Language Prompting for Software Engineering</li>
+              <li><i class="fa-solid fa-circle-check"></i> Rapid Prototyping: Web Apps, Tools &amp; Browser Games</li>
+              <li><i class="fa-solid fa-circle-check"></i> Deploying live products with zero complex server setup</li>
+              <li><i class="fa-solid fa-circle-check"></i> Automating business workflows with custom AI scripts</li>
+            </ul>
+          </div>
+          <div class="course-pricing">
+            <div class="price-box">
+              <span class="price-label">Tuition Fee</span>
+              <div class="price-value" data-ngn="₦40,000" data-usd="$45" data-ghc="180 GHC" data-ksh="2,000 KSH" data-cfa="7,500 CFA">₦40,000</div>
+            </div>
+            <a href="https://wa.me/2348062168465?text=Hello%20DABELTECH%2C%20I%20want%20to%20learn%20Vibe%20Coding%20and%20AI%20Prototyping" target="_blank" rel="noopener" class="btn btn-primary btn-sm">
+              Enroll Track 4 <i class="fa-solid fa-paper-plane"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Program 5: Cybersecurity & Ethical Hacking -->
+        <div class="course-card">
+          <div class="course-badge">Security</div>
+          <div class="course-header">
+            <span class="course-icon"><i class="fa-solid fa-shield-virus"></i></span>
+            <div>
+              <h3 class="course-title">Cybersecurity &amp; Ethical Hacking</h3>
+              <span class="course-track">Track 05 &bull; 8 Weeks</span>
+            </div>
+          </div>
+          <p class="course-summary">
+            Build hands-on penetration testing skills. Set up virtual hacking labs, identify system vulnerabilities, understand social engineering vectors, and protect enterprise network architectures.
+          </p>
+          <div class="course-curriculum">
+            <h4>Curriculum Highlights:</h4>
+            <ul>
+              <li><i class="fa-solid fa-circle-check"></i> Virtual Hacking Lab Setup &amp; Linux Administration</li>
+              <li><i class="fa-solid fa-circle-check"></i> Network &amp; Web Application Security Testing</li>
+              <li><i class="fa-solid fa-circle-check"></i> Social Engineering Defense &amp; Threat Intelligence</li>
+              <li><i class="fa-solid fa-circle-check"></i> Security Architecture, Hardening &amp; Compliance</li>
+            </ul>
+          </div>
+          <div class="course-pricing">
+            <div class="price-box">
+              <span class="price-label">Tuition Fee</span>
+              <div class="price-value" data-ngn="₦55,000" data-usd="$60" data-ghc="240 GHC" data-ksh="2,800 KSH" data-cfa="11,000 CFA">₦55,000</div>
+            </div>
+            <a href="https://wa.me/2348062168465?text=Hello%20DABELTECH%2C%20I%20want%20to%20enroll%20in%20Cybersecurity" target="_blank" rel="noopener" class="btn btn-primary btn-sm">
+              Enroll Track 5 <i class="fa-solid fa-paper-plane"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Program 6: Certified Digital Marketer -->
+        <div class="course-card">
+          <div class="course-badge">Career Track</div>
+          <div class="course-header">
+            <span class="course-icon"><i class="fa-solid fa-chart-pie"></i></span>
+            <div>
+              <h3 class="course-title">Certified Digital Marketer</h3>
+              <span class="course-track">Track 06 &bull; 12 Weeks</span>
+            </div>
+          </div>
+          <p class="course-summary">
+            Learn to attract, engage, and retain paying customers. Covers paid ad management, content funnels, SEO, email automation, digital product creation, and monetization with ChatGPT &amp; AI tools.
+          </p>
+          <div class="course-curriculum">
+            <h4>Curriculum Highlights:</h4>
+            <ul>
+              <li><i class="fa-solid fa-circle-check"></i> Meta &amp; Google Ads Campaign Architectures</li>
+              <li><i class="fa-solid fa-circle-check"></i> High-converting Sales Funnels &amp; Copywriting</li>
+              <li><i class="fa-solid fa-circle-check"></i> Faceless Video Creation &amp; Social Monetization</li>
+              <li><i class="fa-solid fa-circle-check"></i> Internship &amp; Freelance Client Acquisition Support</li>
+            </ul>
+          </div>
+          <div class="course-pricing">
+            <div class="price-box">
+              <span class="price-label">Tuition Fee</span>
+              <div class="price-value" data-ngn="₦40,000" data-usd="$45" data-ghc="180 GHC" data-ksh="2,000 KSH" data-cfa="7,500 CFA">₦40,000</div>
+            </div>
+            <a href="https://wa.me/2348062168465?text=Hello%20DABELTECH%2C%20I%20want%20to%20enroll%20in%20Digital%20Marketing" target="_blank" rel="noopener" class="btn btn-primary btn-sm">
+              Enroll Track 6 <i class="fa-solid fa-paper-plane"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Program 7: YouTube Mastery & Faceless Channels -->
+        <div class="course-card">
+          <div class="course-badge" style="background: linear-gradient(135deg, #ff0000, #cc0000); color: #fff;">Hot &bull; Monetization</div>
+          <div class="course-header">
+            <span class="course-icon" style="color: #ff3344;"><i class="fa-brands fa-youtube"></i></span>
+            <div>
+              <h3 class="course-title">YouTube Mastery &amp; Faceless Channels</h3>
+              <span class="course-track">Special Track 07 &bull; 4 Weeks</span>
+            </div>
+          </div>
+          <p class="course-summary">
+            Launch and scale high-earning YouTube channels with or without showing your face. Learn complete 30-day channel monetization secrets, AI scriptwriting, viral niches, audio synthesis, and automated video editing.
+          </p>
+          <div class="course-curriculum">
+            <h4>Curriculum Highlights:</h4>
+            <ul>
+              <li><i class="fa-solid fa-circle-check"></i> Channel Setup, Brand Kit &amp; Optimized Video Uploads</li>
+              <li><i class="fa-solid fa-circle-check"></i> 30-Day Monetization Blueprint &amp; 1,000+ Fast Subscribers</li>
+              <li><i class="fa-solid fa-circle-check"></i> Profitable Niches: AI Animations, Movie Summaries, Shorts &amp; Gaming</li>
+              <li><i class="fa-solid fa-circle-check"></i> Screen Recording, Video Editing, Auto-Captions &amp; YouTube SEO</li>
+            </ul>
+          </div>
+          <div class="course-pricing">
+            <div class="price-box">
+              <span class="price-label">Tuition Fee</span>
+              <div class="price-value" data-ngn="₦35,000" data-usd="$40" data-ghc="160 GHC" data-ksh="1,800 KSH" data-cfa="6,500 CFA">₦35,000</div>
+            </div>
+            <a href="https://wa.me/2348062168465?text=Hello%20DABELTECH%2C%20I%20want%20to%20enroll%20in%20YouTube%20Mastery%20Course" target="_blank" rel="noopener" class="btn btn-primary btn-sm">
+              Enroll Track 7 <i class="fa-solid fa-paper-plane"></i>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ==================== PART 2: INTENSIVE BOOTCAMPS (id="bootcamp") ==================== -->
+      <div class="programs-bootcamp-wrapper" id="bootcamp">
+        <div class="programs-sub-header">
+          <div class="sub-header-badge">
+            <span class="sub-badge"><i class="fa-solid fa-fire text-accent"></i> INTENSIVE COHORTS &amp; SUMMER BOOTCAMPS</span>
+          </div>
+          <h3 class="sub-header-title">DABELTECH Intensive BootCamp</h3>
+          <p class="sub-header-desc">Accelerate your trajectory. Fast-paced, high-rigor cohorts designed to build job-ready portfolios, deploy live tools, and secure internships or freelance contracts.</p>
+        </div>
+
+        <div class="bootcamp-showcase-grid">
         
-        <!-- Broadcast Live Status Header -->
-        <div class="advert-broadcast-bar">
-          <div class="broadcast-live-badge">
-            <span class="live-beacon"></span>
-            <span id="advert-broadcast-status">NOW PLAYING: ADVERT 01 &bull; OFFICIAL COMMERCIAL</span>
+        <!-- Cohort Card 1: September to December Cohort -->
+        <div class="bootcamp-card">
+          <div class="bootcamp-card-image">
+            <img src="assets/banner-cohort.png" alt="September to December Cohort">
+            <span class="cohort-tag">LIMITED SLOTS &bull; NOW OPEN</span>
           </div>
-          <div class="broadcast-queue-pill">
-            <span id="advert-queue-label"><i class="fa-solid fa-forward-step text-accent"></i> Up Next: Advert 02 (Auto-Sequenced)</span>
+          <div class="bootcamp-card-content">
+            <h3>September to December Cohort Intensive</h3>
+            <p class="bootcamp-desc">
+              Comprehensive 3-month flagship cohort. Includes live mentorship, weekly code reviews, cloud LMS access, and a guaranteed portfolio capstone project.
+            </p>
+            <div class="bootcamp-features-list">
+              <div><i class="fa-solid fa-check text-green"></i> <strong>Tracks:</strong> Data Analysis, AI &amp; Automation, Full-Stack Web Dev</div>
+              <div><i class="fa-solid fa-check text-green"></i> <strong>Pricing:</strong> From 200 GHC | 2,500 KSH | 8,000 CFA | ₦45,000 NGN</div>
+              <div><i class="fa-solid fa-check text-green"></i> <strong>Study Modes:</strong> Online from anywhere or physical in Lagos</div>
+              <div><i class="fa-solid fa-check text-green"></i> <strong>Bonuses:</strong> CV review, GitHub portfolio setup &amp; freelancing guide</div>
+            </div>
+            <a href="https://wa.me/2348062168465?text=Hello%20DABELTECH%2C%20I%20want%20to%20register%20for%20the%20September-December%20Cohort" target="_blank" rel="noopener" class="btn btn-primary btn-block">
+              <i class="fa-brands fa-whatsapp"></i> Enroll in September–December Cohort
+            </a>
           </div>
         </div>
 
-        <!-- Cinema Video Stage -->
-        <div class="advert-screen-stage" id="advert-screen-stage">
-          <!-- Dual Video Elements for seamless zero-gap playback transition -->
-          <video id="advert-video-1" class="advert-screen-video active" src="assets/advert-video-1.mp4" playsinline muted preload="auto" poster="assets/brand-true-mastery.jpeg"></video>
-          <video id="advert-video-2" class="advert-screen-video" src="assets/advert-video-2.mp4" playsinline muted preload="auto" poster="assets/brand-future-name.jpeg"></video>
-
-          <!-- Floating Ambient Glow Backdrop -->
-          <div class="advert-ambient-glow" id="advert-ambient-glow"></div>
-
-          <!-- Floating Sound Toggle Badge -->
-          <button class="advert-floating-sound-btn" id="advert-sound-toggle-btn" aria-label="Toggle Audio Sound">
-            <i class="fa-solid fa-volume-xmark" id="advert-sound-icon"></i>
-            <span id="advert-sound-text">Click for Sound</span>
-          </button>
-
-          <!-- Play/Pause Big Center Overlay -->
-          <div class="advert-play-center-btn" id="advert-center-play-trigger" aria-label="Play or Pause Video">
-            <i class="fa-solid fa-play" id="advert-center-icon"></i>
+        <!-- Cohort Card 2: Summer Bootcamp for Children & Adults -->
+        <div class="bootcamp-card">
+          <div class="bootcamp-card-image">
+            <img src="assets/banner-summer.jpeg" alt="Summer Bootcamp for Children and Adults">
+            <span class="cohort-tag highlight">ALL AGES &bull; 8+ TO ADULTS</span>
           </div>
-
-          <!-- Cinema Player Custom Controls Bar -->
-          <div class="advert-custom-controls">
-            <div class="advert-progress-track" id="advert-progress-track">
-              <div class="advert-progress-fill" id="advert-progress-fill"></div>
+          <div class="bootcamp-card-content">
+            <h3>Summer Bootcamp for Children &amp; Adults</h3>
+            <p class="bootcamp-desc">
+              Learn. Create. Innovate. Lead. Fun, interactive, and practical tech bootcamp for young learners, secondary students, and adult professionals.
+            </p>
+            <div class="bootcamp-features-list">
+              <div><i class="fa-solid fa-check text-green"></i> <strong>Tracks:</strong> Robotics, Vibe Coding, AI, Web Dev, UI/UX Canva Design</div>
+              <div><i class="fa-solid fa-check text-green"></i> <strong>Duration:</strong> 4 Weeks / 6 Weeks / 8 Weeks flexible batches</div>
+              <div><i class="fa-solid fa-check text-green"></i> <strong>Class Options:</strong> Weekdays &amp; Weekends sessions</div>
+              <div><i class="fa-solid fa-check text-green"></i> <strong>Awards:</strong> Certificate of Completion &amp; Project Exhibition</div>
             </div>
-            <div class="advert-controls-row">
-              <div class="advert-left-controls">
-                <button class="ad-btn" id="advert-play-btn" title="Play / Pause" aria-label="Play / Pause">
-                  <i class="fa-solid fa-play" id="ad-play-icon"></i>
-                </button>
-                <button class="ad-btn" id="advert-prev-track-btn" title="Previous Advert (Advert 1)" aria-label="Previous Advert">
-                  <i class="fa-solid fa-backward-step"></i>
-                </button>
-                <button class="ad-btn" id="advert-next-track-btn" title="Next Advert (Advert 2)" aria-label="Next Advert">
-                  <i class="fa-solid fa-forward-step"></i>
-                </button>
-                <button class="ad-btn" id="advert-audio-btn" title="Toggle Sound" aria-label="Toggle Sound">
-                  <i class="fa-solid fa-volume-xmark" id="ad-vol-icon"></i>
-                </button>
-                <span class="ad-timecode" id="advert-timecode">0:00 / 0:00</span>
-              </div>
-              <div class="advert-right-controls">
-                <span class="advert-current-indicator" id="advert-current-indicator">ADVERT 1 OF 2</span>
-                <button class="ad-btn" id="advert-fullscreen-btn" title="Fullscreen" aria-label="Fullscreen">
-                  <i class="fa-solid fa-expand"></i>
-                </button>
-              </div>
-            </div>
+            <a href="https://wa.me/2348062168465?text=Hello%20DABELTECH%2C%20I%20want%20to%20enroll%20for%20the%20Summer%20Bootcamp" target="_blank" rel="noopener" class="btn btn-primary btn-block">
+              <i class="fa-brands fa-whatsapp"></i> Enroll in Summer Bootcamp
+            </a>
           </div>
         </div>
 
-        <!-- Interactive Dual Advert Queue Cards -->
-        <div class="advert-playlist-grid">
-          <!-- Card 1 -->
-          <div class="advert-card active" id="advert-card-1" data-video="1">
-            <div class="ad-card-badge">
-              <span class="ad-badge-text">ADVERT 01</span>
-              <span class="ad-status-pill playing" id="ad-status-1"><i class="fa-solid fa-circle-play"></i> Now Playing</span>
-            </div>
-            <h4 class="ad-card-title">DABELTECH Official Broadcast Commercial (Advert 1)</h4>
-            <p class="ad-card-desc">
-              Discover our flagship tech institute, multi-currency African cohorts, smart school result portals, and data analytics systems.
-            </p>
-            <div class="ad-card-footer">
-              <span><i class="fa-solid fa-video text-accent"></i> 1080p HD Official Video</span>
-              <span class="ad-click-cue">Click to Play Advert 1</span>
-            </div>
+        <!-- Cohort Card 3: FREE AI Bootcamp for Kids (Ages 7-15) -->
+        <div class="bootcamp-card">
+          <div class="bootcamp-card-image">
+            <img src="assets/banner-kids-ai-bootcamp.jpeg" alt="FREE AI Bootcamp for Kids Ages 7-15">
+            <span class="cohort-tag free"><i class="fa-solid fa-gift"></i> 100% FREE &bull; AGES 7–15</span>
           </div>
-
-          <!-- Card 2 -->
-          <div class="advert-card" id="advert-card-2" data-video="2">
-            <div class="ad-card-badge">
-              <span class="ad-badge-text">ADVERT 02</span>
-              <span class="ad-status-pill upnext" id="ad-status-2"><i class="fa-solid fa-forward-step"></i> Up Next (Auto-Plays)</span>
-            </div>
-            <h4 class="ad-card-title">DABELTECH Smart Solutions &amp; Training Showcase (Advert 2)</h4>
-            <p class="ad-card-desc">
-              An in-depth look inside our practical computer training classrooms, AI &amp; Robotics labs, and corporate digital services.
+          <div class="bootcamp-card-content">
+            <h3>FREE AI Bootcamp for Kids (Ages 7–15)</h3>
+            <p class="bootcamp-desc">
+              Unleash your child's creativity with Artificial Intelligence! Fun, interactive, and beginner-friendly sessions inspiring young learners to build storytelling bots, digital animation, and creative prompt art.
             </p>
-            <div class="ad-card-footer">
-              <span><i class="fa-solid fa-bolt text-cyan"></i> Auto-Starts When Advert 1 Ends</span>
-              <span class="ad-click-cue">Click to Jump Here</span>
+            <div class="bootcamp-features-list">
+              <div><i class="fa-solid fa-check text-green"></i> <strong>Tracks:</strong> AI Storytelling, Animation, Prompt Art &amp; Creative Bots</div>
+              <div><i class="fa-solid fa-check text-green"></i> <strong>Tuition:</strong> 100% Free Community Sponsorship &bull; Zero Fees</div>
+              <div><i class="fa-solid fa-check text-green"></i> <strong>Requirements:</strong> Any smartphone, tablet, or laptop &bull; No coding needed</div>
+              <div><i class="fa-solid fa-check text-green"></i> <strong>Outcomes:</strong> Certificate of Participation &amp; Child Project Showcase</div>
             </div>
+            <a href="https://wa.me/2348062168465?text=Hello%20DABELTECH%2C%20I%20want%20to%20register%20my%20child%20for%20the%20FREE%20AI%20Bootcamp%20for%20Kids%20(Ages%207-15)!" target="_blank" rel="noopener" class="btn btn-primary btn-block">
+              <i class="fa-brands fa-whatsapp"></i> Register Child For Free
+            </a>
           </div>
         </div>
 
       </div>
-    </div>
-  </section>
-
-  <!-- ==================== MOTION SLIDE: ADVERTISEMENT BANNERS & FLYERS ==================== -->
-  <section class="section motion-banners-section" id="motion-banners">
-    <div class="container">
-      <div class="section-header text-center">
-        <span class="section-tag"><i class="fa-solid fa-wand-magic-sparkles"></i> ADVERTISEMENT &amp; FLYER MOTION SHOWCASE</span>
-        <h2 class="section-title">Official Advertisement Banners &amp; Admissions Showcase</h2>
-        <p class="section-subtitle">
-          Interactive motion slide across all DABELTECH professional tracks, certified cohorts, smart software services, and bootcamp admissions. Zoomed out for complete uncropped coverage of every face, schedule, curriculum, and contact hub.
-        </p>
       </div>
 
-      <!-- Main Motion Slider Container -->
-      <div class="motion-slider-container" id="motion-slider-container">
+      <!-- ==================== PART 3: 19 MOTION BANNER COURSE SHOWCASE ==================== -->
+      <div class="programs-motion-wrapper" id="programs-motion-showcase">
+        <div class="programs-sub-header text-center">
+          <div class="sub-header-badge">
+            <span class="sub-badge"><i class="fa-solid fa-wand-magic-sparkles text-cyan"></i> ADVERTISEMENT &amp; FLYER MOTION SHOWCASE</span>
+          </div>
+          <h3 class="sub-header-title">Official Course Curricula &amp; Admissions Flyer Showcase</h3>
+          <p class="sub-header-desc">Interactive motion slide across all 19 DABELTECH professional tracks, certified cohorts, smart software services, and bootcamp admissions. Zoomed out for complete uncropped coverage of every face, schedule, curriculum, and contact hub.</p>
+        </div>
+
+        <div class="motion-slider-container" id="motion-slider-container">
         
         <!-- Motion Slides Viewport -->
         <div class="motion-slides-viewport" id="motion-slides-viewport">
@@ -1394,272 +1721,38 @@
         </div>
 
       </div>
-    </div>
-  </section>
+      </div>
 
-  <!-- ==================== PROGRAMS SECTION ==================== -->
-  <section class="section programs-section" id="programs">
-    <div class="container">
-      <div class="section-header text-center">
-        <span class="section-tag"><i class="fa-solid fa-book-open"></i> CERTIFIED CAREER CURRICULUM</span>
-        <h2 class="section-title">Academic &amp; Professional Programs</h2>
-        <p class="section-subtitle">
-          Engineered for real industry competence. Every program features structured live lectures, capstone projects, LMS portal access, and verified certification upon completion.
-        </p>
-
-        <!-- Feature Pills Ribbon -->
-        <div class="features-ribbon">
-          <div class="f-pill"><i class="fa-solid fa-user-check text-accent"></i> Beginner Friendly</div>
-          <div class="f-pill"><i class="fa-solid fa-video text-cyan"></i> Live Classes &amp; Mentorship</div>
-          <div class="f-pill"><i class="fa-solid fa-certificate text-green"></i> Certificate on Completion</div>
-          <div class="f-pill"><i class="fa-solid fa-cloud text-purple"></i> LMS Portal Access</div>
-          <div class="f-pill"><i class="fa-solid fa-briefcase text-orange"></i> Portfolio &amp; Job Support</div>
-          <div class="f-pill"><i class="fa-solid fa-credit-card text-blue"></i> Installment Payments Allowed</div>
+      <!-- ==================== PART 4: MULTI-CURRENCY TUITION & ADMISSIONS BOX ==================== -->
+      <div class="programs-pricing-wrapper" id="programs-pricing">
+        <div class="tuition-cta-box">
+          <div class="tuition-cta-content">
+            <span class="tuition-pill"><i class="fa-solid fa-coins text-accent"></i> MULTI-CURRENCY AFRICAN ADMISSIONS</span>
+            <h3 class="tuition-title">Ready to Enroll in a Program or Bootcamp?</h3>
+            <p class="tuition-desc">We support payments and local study hubs in Nigeria (NGN), Ghana (GHC), Kenya (KSH), Cameroon (CFA), and worldwide (USD). Flexible installment payment structures available for all cohorts.</p>
+            <div class="tuition-quick-rates">
+              <span class="t-rate"><strong class="text-accent">â‚¦45,000 NGN</strong> (Nigeria)</span>
+              <span class="t-rate"><strong class="text-green">200 GHC</strong> (Ghana)</span>
+              <span class="t-rate"><strong class="text-cyan">2,500 KSH</strong> (Kenya)</span>
+              <span class="t-rate"><strong class="text-orange">8,000 CFA</strong> (Cameroon)</span>
+              <span class="t-rate"><strong class="text-purple"> USD</strong> (Global)</span>
+            </div>
+            <div class="tuition-cta-actions">
+              <a href="#enroll" class="btn btn-primary btn-lg">
+                <i class="fa-solid fa-paper-plane"></i> <span>Enroll in Next Cohort</span>
+              </a>
+              <a href="https://wa.me/2348062168465?text=Hello%20DABELTECH%2C%20I%20want%20to%20inquire%20about%20course%20admissions%20and%20payment%20options" target="_blank" rel="noopener" class="btn btn-glass btn-lg">
+                <i class="fa-brands fa-whatsapp"></i> <span>Chat with Admissions Advisor</span>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Programs Grid -->
-      <div class="courses-grid">
-
-        <!-- Program 1: Data Analysis -->
-        <div class="course-card">
-          <div class="course-badge">High Demand</div>
-          <div class="course-header">
-            <span class="course-icon"><i class="fa-solid fa-chart-line"></i></span>
-            <div>
-              <h3 class="course-title">Data Analysis &amp; Visualization</h3>
-              <span class="course-track">Track 01 &bull; 8 to 12 Weeks</span>
-            </div>
-          </div>
-          <p class="course-summary">
-            Master the complete data lifecycle: clean raw transactional datasets, model star schemas, write advanced DAX &amp; SQL queries, and build boardroom-ready dashboards.
-          </p>
-          <div class="course-curriculum">
-            <h4>Curriculum Highlights:</h4>
-            <ul>
-              <li><i class="fa-solid fa-circle-check"></i> Python for Data Analysis (Pandas, NumPy, Matplotlib)</li>
-              <li><i class="fa-solid fa-circle-check"></i> SQL &amp; Database Management (PostgreSQL, T-SQL)</li>
-              <li><i class="fa-solid fa-circle-check"></i> Power BI &amp; Excel Power Pivot (DAX, Star Schema)</li>
-              <li><i class="fa-solid fa-circle-check"></i> Tableau Data Storytelling &amp; Statistical Modeling</li>
-              <li><i class="fa-solid fa-circle-check"></i> Real-world Capstones based on Retail &amp; Healthcare data</li>
-            </ul>
-          </div>
-          <div class="course-pricing">
-            <div class="price-box">
-              <span class="price-label">Tuition Fee</span>
-              <div class="price-value" data-ngn="₦45,000" data-usd="$50" data-ghc="200 GHC" data-ksh="2,500 KSH" data-cfa="8,000 CFA">₦45,000</div>
-            </div>
-            <a href="https://wa.me/2348062168465?text=Hello%20DABELTECH%2C%20I%20want%20to%20enroll%20in%20the%20Data%20Analysis%20Program" target="_blank" rel="noopener" class="btn btn-primary btn-sm">
-              Enroll Track 1 <i class="fa-solid fa-paper-plane"></i>
-            </a>
-          </div>
-        </div>
-
-        <!-- Program 2: AI & Automation -->
-        <div class="course-card featured-course">
-          <div class="course-badge popular-badge"><i class="fa-solid fa-bolt"></i> Future Tech</div>
-          <div class="course-header">
-            <span class="course-icon"><i class="fa-solid fa-brain"></i></span>
-            <div>
-              <h3 class="course-title">Artificial Intelligence &amp; Automation</h3>
-              <span class="course-track">Track 02 &bull; 8 to 12 Weeks</span>
-            </div>
-          </div>
-          <p class="course-summary">
-            Harness modern AI agents, predictive machine learning, deep learning fundamentals, and generative tools (ChatGPT, Claude, Gemini) to automate workflows and build intelligent systems.
-          </p>
-          <div class="course-curriculum">
-            <h4>Curriculum Highlights:</h4>
-            <ul>
-              <li><i class="fa-solid fa-circle-check"></i> Machine Learning &amp; Predictive Modeling Foundations</li>
-              <li><i class="fa-solid fa-circle-check"></i> Generative AI, Advanced Prompting &amp; Agent Workflows</li>
-              <li><i class="fa-solid fa-circle-check"></i> NLP, Sentiment Analysis &amp; Computer Vision</li>
-              <li><i class="fa-solid fa-circle-check"></i> Automated Chatbots &amp; Multi-Platform Integration</li>
-              <li><i class="fa-solid fa-circle-check"></i> Hands-on Robotics &amp; No-Code AI Rapid Prototyping</li>
-            </ul>
-          </div>
-          <div class="course-pricing">
-            <div class="price-box">
-              <span class="price-label">Tuition Fee</span>
-              <div class="price-value" data-ngn="₦65,000" data-usd="$75" data-ghc="250 GHC" data-ksh="2,500 KSH" data-cfa="13,000 CFA">₦65,000</div>
-            </div>
-            <a href="https://wa.me/2348062168465?text=Hello%20DABELTECH%2C%20I%20want%20to%20enroll%20in%20the%20AI%20and%20Automation%20Program" target="_blank" rel="noopener" class="btn btn-primary btn-sm">
-              Enroll Track 2 <i class="fa-solid fa-paper-plane"></i>
-            </a>
-          </div>
-        </div>
-
-        <!-- Program 3: Full-Stack Web Development -->
-        <div class="course-card">
-          <div class="course-badge">Comprehensive</div>
-          <div class="course-header">
-            <span class="course-icon"><i class="fa-solid fa-laptop-code"></i></span>
-            <div>
-              <h3 class="course-title">Full-Stack Web Development</h3>
-              <span class="course-track">Track 03 &bull; 12 Weeks</span>
-            </div>
-          </div>
-          <p class="course-summary">
-            Become an independent full-stack engineer. Build and deploy production-ready web portals, dynamic web apps, database architectures, RESTful APIs, and secure authentication.
-          </p>
-          <div class="course-curriculum">
-            <h4>Curriculum Highlights:</h4>
-            <ul>
-              <li><i class="fa-solid fa-circle-check"></i> HTML5, Modern CSS, Responsive Design &amp; JavaScript ES6+</li>
-              <li><i class="fa-solid fa-circle-check"></i> Backend with Node.js, Express &amp; Python Flask</li>
-              <li><i class="fa-solid fa-circle-check"></i> Database Design with PostgreSQL &amp; SQL Server</li>
-              <li><i class="fa-solid fa-circle-check"></i> Authentication, PIN Systems, REST APIs &amp; Cloud Deploy</li>
-              <li><i class="fa-solid fa-circle-check"></i> Git &amp; GitHub Version Control &amp; Portfolio Production</li>
-            </ul>
-          </div>
-          <div class="course-pricing">
-            <div class="price-box">
-              <span class="price-label">Tuition Fee</span>
-              <div class="price-value" data-ngn="₦80,000" data-usd="$90" data-ghc="300 GHC" data-ksh="3,500 KSH" data-cfa="15,000 CFA">₦80,000</div>
-            </div>
-            <a href="https://wa.me/2348062168465?text=Hello%20DABELTECH%2C%20I%20want%20to%20enroll%20in%20Full-Stack%20Web%20Development" target="_blank" rel="noopener" class="btn btn-primary btn-sm">
-              Enroll Track 3 <i class="fa-solid fa-paper-plane"></i>
-            </a>
-          </div>
-        </div>
-
-        <!-- Program 4: Vibe Coding & No-Code AI -->
-        <div class="course-card">
-          <div class="course-badge">Trending</div>
-          <div class="course-header">
-            <span class="course-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
-            <div>
-              <h3 class="course-title">Vibe Coding &amp; No-Code AI</h3>
-              <span class="course-track">Track 04 &bull; 4 to 6 Weeks</span>
-            </div>
-          </div>
-          <p class="course-summary">
-            Learn AI-assisted coding to build software 10x faster. Perfect for non-programmers, entrepreneurs, and professionals who want to build functional tools, web apps, and games using natural language.
-          </p>
-          <div class="course-curriculum">
-            <h4>Curriculum Highlights:</h4>
-            <ul>
-              <li><i class="fa-solid fa-circle-check"></i> Natural Language Prompting for Software Engineering</li>
-              <li><i class="fa-solid fa-circle-check"></i> Rapid Prototyping: Web Apps, Tools &amp; Browser Games</li>
-              <li><i class="fa-solid fa-circle-check"></i> Deploying live products with zero complex server setup</li>
-              <li><i class="fa-solid fa-circle-check"></i> Automating business workflows with custom AI scripts</li>
-            </ul>
-          </div>
-          <div class="course-pricing">
-            <div class="price-box">
-              <span class="price-label">Tuition Fee</span>
-              <div class="price-value" data-ngn="₦40,000" data-usd="$45" data-ghc="180 GHC" data-ksh="2,000 KSH" data-cfa="7,500 CFA">₦40,000</div>
-            </div>
-            <a href="https://wa.me/2348062168465?text=Hello%20DABELTECH%2C%20I%20want%20to%20learn%20Vibe%20Coding%20and%20AI%20Prototyping" target="_blank" rel="noopener" class="btn btn-primary btn-sm">
-              Enroll Track 4 <i class="fa-solid fa-paper-plane"></i>
-            </a>
-          </div>
-        </div>
-
-        <!-- Program 5: Cybersecurity & Ethical Hacking -->
-        <div class="course-card">
-          <div class="course-badge">Security</div>
-          <div class="course-header">
-            <span class="course-icon"><i class="fa-solid fa-shield-virus"></i></span>
-            <div>
-              <h3 class="course-title">Cybersecurity &amp; Ethical Hacking</h3>
-              <span class="course-track">Track 05 &bull; 8 Weeks</span>
-            </div>
-          </div>
-          <p class="course-summary">
-            Build hands-on penetration testing skills. Set up virtual hacking labs, identify system vulnerabilities, understand social engineering vectors, and protect enterprise network architectures.
-          </p>
-          <div class="course-curriculum">
-            <h4>Curriculum Highlights:</h4>
-            <ul>
-              <li><i class="fa-solid fa-circle-check"></i> Virtual Hacking Lab Setup &amp; Linux Administration</li>
-              <li><i class="fa-solid fa-circle-check"></i> Network &amp; Web Application Security Testing</li>
-              <li><i class="fa-solid fa-circle-check"></i> Social Engineering Defense &amp; Threat Intelligence</li>
-              <li><i class="fa-solid fa-circle-check"></i> Security Architecture, Hardening &amp; Compliance</li>
-            </ul>
-          </div>
-          <div class="course-pricing">
-            <div class="price-box">
-              <span class="price-label">Tuition Fee</span>
-              <div class="price-value" data-ngn="₦55,000" data-usd="$60" data-ghc="240 GHC" data-ksh="2,800 KSH" data-cfa="11,000 CFA">₦55,000</div>
-            </div>
-            <a href="https://wa.me/2348062168465?text=Hello%20DABELTECH%2C%20I%20want%20to%20enroll%20in%20Cybersecurity" target="_blank" rel="noopener" class="btn btn-primary btn-sm">
-              Enroll Track 5 <i class="fa-solid fa-paper-plane"></i>
-            </a>
-          </div>
-        </div>
-
-        <!-- Program 6: Certified Digital Marketer -->
-        <div class="course-card">
-          <div class="course-badge">Career Track</div>
-          <div class="course-header">
-            <span class="course-icon"><i class="fa-solid fa-chart-pie"></i></span>
-            <div>
-              <h3 class="course-title">Certified Digital Marketer</h3>
-              <span class="course-track">Track 06 &bull; 12 Weeks</span>
-            </div>
-          </div>
-          <p class="course-summary">
-            Learn to attract, engage, and retain paying customers. Covers paid ad management, content funnels, SEO, email automation, digital product creation, and monetization with ChatGPT &amp; AI tools.
-          </p>
-          <div class="course-curriculum">
-            <h4>Curriculum Highlights:</h4>
-            <ul>
-              <li><i class="fa-solid fa-circle-check"></i> Meta &amp; Google Ads Campaign Architectures</li>
-              <li><i class="fa-solid fa-circle-check"></i> High-converting Sales Funnels &amp; Copywriting</li>
-              <li><i class="fa-solid fa-circle-check"></i> Faceless Video Creation &amp; Social Monetization</li>
-              <li><i class="fa-solid fa-circle-check"></i> Internship &amp; Freelance Client Acquisition Support</li>
-            </ul>
-          </div>
-          <div class="course-pricing">
-            <div class="price-box">
-              <span class="price-label">Tuition Fee</span>
-              <div class="price-value" data-ngn="₦40,000" data-usd="$45" data-ghc="180 GHC" data-ksh="2,000 KSH" data-cfa="7,500 CFA">₦40,000</div>
-            </div>
-            <a href="https://wa.me/2348062168465?text=Hello%20DABELTECH%2C%20I%20want%20to%20enroll%20in%20Digital%20Marketing" target="_blank" rel="noopener" class="btn btn-primary btn-sm">
-              Enroll Track 6 <i class="fa-solid fa-paper-plane"></i>
-            </a>
-          </div>
-        </div>
-
-        <!-- Program 7: YouTube Mastery & Faceless Channels -->
-        <div class="course-card">
-          <div class="course-badge" style="background: linear-gradient(135deg, #ff0000, #cc0000); color: #fff;">Hot &bull; Monetization</div>
-          <div class="course-header">
-            <span class="course-icon" style="color: #ff3344;"><i class="fa-brands fa-youtube"></i></span>
-            <div>
-              <h3 class="course-title">YouTube Mastery &amp; Faceless Channels</h3>
-              <span class="course-track">Special Track 07 &bull; 4 Weeks</span>
-            </div>
-          </div>
-          <p class="course-summary">
-            Launch and scale high-earning YouTube channels with or without showing your face. Learn complete 30-day channel monetization secrets, AI scriptwriting, viral niches, audio synthesis, and automated video editing.
-          </p>
-          <div class="course-curriculum">
-            <h4>Curriculum Highlights:</h4>
-            <ul>
-              <li><i class="fa-solid fa-circle-check"></i> Channel Setup, Brand Kit &amp; Optimized Video Uploads</li>
-              <li><i class="fa-solid fa-circle-check"></i> 30-Day Monetization Blueprint &amp; 1,000+ Fast Subscribers</li>
-              <li><i class="fa-solid fa-circle-check"></i> Profitable Niches: AI Animations, Movie Summaries, Shorts &amp; Gaming</li>
-              <li><i class="fa-solid fa-circle-check"></i> Screen Recording, Video Editing, Auto-Captions &amp; YouTube SEO</li>
-            </ul>
-          </div>
-          <div class="course-pricing">
-            <div class="price-box">
-              <span class="price-label">Tuition Fee</span>
-              <div class="price-value" data-ngn="₦35,000" data-usd="$40" data-ghc="160 GHC" data-ksh="1,800 KSH" data-cfa="6,500 CFA">₦35,000</div>
-            </div>
-            <a href="https://wa.me/2348062168465?text=Hello%20DABELTECH%2C%20I%20want%20to%20enroll%20in%20YouTube%20Mastery%20Course" target="_blank" rel="noopener" class="btn btn-primary btn-sm">
-              Enroll Track 7 <i class="fa-solid fa-paper-plane"></i>
-            </a>
-          </div>
-        </div>
-
-      </div>
     </div>
   </section>
 
-  <!-- ==================== SERVICES SECTION ==================== -->
+<!-- ==================== SERVICES SECTION ==================== -->
   <section class="section services-section" id="services">
     <div class="container">
       <div class="section-header text-center">
@@ -1906,7 +1999,7 @@
     </div>
   </section>
 
-  <!-- ==================== PROJECT SECTION ==================== -->
+<!-- ==================== PROJECT SECTION ==================== -->
   <section class="section projects-section" id="projects">
     <div class="container">
       <div class="section-header text-center">
@@ -2143,25 +2236,116 @@
   <section class="section gallery-section" id="gallery">
     <div class="container">
       <div class="section-header text-center">
-        <span class="section-tag"><i class="fa-solid fa-camera"></i> PHOTOGRAPHIC RECORD</span>
-        <h2 class="section-title">Moments &amp; Milestones Gallery</h2>
+        <span class="section-tag"><i class="fa-solid fa-photo-film text-accent"></i> OFFICIAL MULTIMEDIA GALLERY</span>
+        <h2 class="section-title">Videos, Moments &amp; Flyers Gallery</h2>
         <p class="section-subtitle">
-          From graduation podiums and convocation awards to national AI hackathons and smart computer labs. Click any photo for high-resolution view.
+          Watch our official broadcast commercials, interactive training walkthroughs, and explore our verified graduation milestones, smart computer labs, and certified course flyers.
         </p>
+
+        <!-- Gallery Filter Tabs Ribbon -->
+        <div class="gallery-filter-ribbon" role="tablist">
+          <button type="button" class="gallery-filter-btn active" data-filter="all"><i class="fa-solid fa-border-all"></i> All Media (29)</button>
+          <button type="button" class="gallery-filter-btn" data-filter="videos"><i class="fa-solid fa-circle-play text-accent"></i> Official Videos &amp; Adverts (4)</button>
+          <button type="button" class="gallery-filter-btn" data-filter="photos"><i class="fa-solid fa-camera text-cyan"></i> Photographic Record (6)</button>
+          <button type="button" class="gallery-filter-btn" data-filter="banners"><i class="fa-solid fa-file-image text-green"></i> Banners &amp; Flyers (19)</button>
+        </div>
       </div>
 
-      <!-- Gallery Grid with Lightbox Trigger -->
-      <div class="gallery-grid">
+      <!-- Unified Multimedia Gallery Grid -->
+      <div class="gallery-unified-grid" id="gallery-unified-grid">
         
-        <div class="gallery-item" data-src="assets/founder.jpeg" data-caption="Opeyemi Obisesan: Founder, Lead Software Architect &amp; Head Instructor at DABELTECH. Driving Africa's digital revolution through practical tech education and enterprise software systems.">
+        <!-- ==================== 1. OFFICIAL VIDEOS (4) ==================== -->
+        
+        <!-- Video 1: Official Commercial Advert 01 -->
+        <div class="gallery-card gallery-video-card" data-category="videos">
+          <div class="g-video-stage">
+            <video controls playsinline preload="metadata" poster="assets/brand-true-mastery.jpeg" class="g-video-element">
+              <source src="assets/advert-video-1.mp4" type="video/mp4">
+              Your browser does not support HTML5 video.
+            </video>
+          </div>
+          <div class="g-card-body">
+            <div class="g-card-top">
+              <span class="g-badge badge-advert"><i class="fa-solid fa-clapperboard"></i> OFFICIAL ADVERT 01</span>
+              <span class="g-format"><i class="fa-solid fa-video text-accent"></i> 1080p HD</span>
+            </div>
+            <h3 class="g-card-title">DABELTECH Official Broadcast Commercial (Advert 1)</h3>
+            <p class="g-card-desc">
+              Our flagship commercial showcasing software engineering solutions, school result management portals, and career cohort programs across Africa.
+            </p>
+          </div>
+        </div>
+
+        <!-- Video 2: Official Commercial Advert 02 -->
+        <div class="gallery-card gallery-video-card" data-category="videos">
+          <div class="g-video-stage">
+            <video controls playsinline preload="metadata" poster="assets/brand-future-name.jpeg" class="g-video-element">
+              <source src="assets/advert-video-2.mp4" type="video/mp4">
+              Your browser does not support HTML5 video.
+            </video>
+          </div>
+          <div class="g-card-body">
+            <div class="g-card-top">
+              <span class="g-badge badge-advert"><i class="fa-solid fa-bolt"></i> OFFICIAL ADVERT 02</span>
+              <span class="g-format"><i class="fa-solid fa-video text-cyan"></i> 1080p HD</span>
+            </div>
+            <h3 class="g-card-title">DABELTECH Smart Solutions &amp; Training Showcase (Advert 2)</h3>
+            <p class="g-card-desc">
+              Full overview of our practical computer lab sessions, student coding projects, AI bootcamps, and institutional tech services.
+            </p>
+          </div>
+        </div>
+
+        <!-- Video 3: Interactive Tech Training Live Demo -->
+        <div class="gallery-card gallery-video-card" data-category="videos">
+          <div class="g-video-stage">
+            <video controls playsinline preload="metadata" poster="assets/photo-smart-lab.jpeg" class="g-video-element">
+              <source src="assets/video-session-2.mp4" type="video/mp4">
+              Your browser does not support HTML5 video.
+            </video>
+          </div>
+          <div class="g-card-body">
+            <div class="g-card-top">
+              <span class="g-badge badge-demo"><i class="fa-solid fa-play"></i> LIVE DEMO</span>
+              <span class="g-format"><i class="fa-solid fa-desktop text-green"></i> Smart Lab</span>
+            </div>
+            <h3 class="g-card-title">Dabeltech Interactive Tech Training &amp; Coding Walkthrough</h3>
+            <p class="g-card-desc">
+              Watch our live hands-on teaching methodology in action, demonstrating real code execution, data dashboards, and interactive learning.
+            </p>
+          </div>
+        </div>
+
+        <!-- Video 4: Classroom Practical Lab & Student Mentorship Session -->
+        <div class="gallery-card gallery-video-card" data-category="videos">
+          <div class="g-video-stage">
+            <video controls playsinline preload="metadata" poster="assets/photo-class-session.jpeg" class="g-video-element">
+              <source src="assets/video-session-1.mp4" type="video/mp4">
+              Your browser does not support HTML5 video.
+            </video>
+          </div>
+          <div class="g-card-body">
+            <div class="g-card-top">
+              <span class="g-badge badge-workshop"><i class="fa-solid fa-circle-nodes"></i> WORKSHOP HIGHLIGHT</span>
+              <span class="g-format"><i class="fa-solid fa-chalkboard-user text-purple"></i> Classroom</span>
+            </div>
+            <h3 class="g-card-title">Classroom Practical Lab &amp; Student Mentorship Session</h3>
+            <p class="g-card-desc">
+              Highlights from our physical cohort lab: step-by-step guidance, real-time student debugging, and smart classroom digital whiteboard setup.
+            </p>
+          </div>
+        </div>
+
+        <!-- ==================== 2. PHOTOGRAPHIC RECORD (6) & 3. BANNERS (19) ==================== -->
+        <div class="gallery-item gallery-photo-item" data-category="photos" data-src="assets/founder.jpeg" data-caption="Opeyemi Obisesan: Founder, Lead Software Architect &amp; Head Instructor at DABELTECH. Driving Africa's digital revolution through practical tech education and enterprise software systems.">
           <img src="assets/founder.jpeg" alt="Opeyemi Obisesan - Founder of DABELTECH" loading="lazy">
           <div class="gallery-overlay">
             <i class="fa-solid fa-magnifying-glass-plus"></i>
             <span>Founder Opeyemi Obisesan</span>
           </div>
         </div>
-        
-        <div class="gallery-item" data-src="assets/photo-smart-lab.jpeg" data-caption="Founder Opeyemi Obisesan delivering a live Data Analytics session in our modern smart training lab with smart interactive touchscreen.">
+
+        <div class="gallery-item gallery-photo-item" data-category="photos" data-src="assets/photo-smart-lab.jpeg" data-caption="Founder Opeyemi Obisesan delivering a live Data Analytics session in our modern smart training lab with smart interactive touchscreen.">
           <img src="assets/photo-smart-lab.jpeg" alt="Smart Training Lab" loading="lazy">
           <div class="gallery-overlay">
             <i class="fa-solid fa-magnifying-glass-plus"></i>
@@ -2169,7 +2353,7 @@
           </div>
         </div>
 
-        <div class="gallery-item" data-src="assets/photo-convocation-award.jpeg" data-caption="Academic & Leadership Excellence: Opeyemi Obisesan receiving the Best Student Award trophy at university convocation.">
+        <div class="gallery-item gallery-photo-item" data-category="photos" data-src="assets/photo-convocation-award.jpeg" data-caption="Academic & Leadership Excellence: Opeyemi Obisesan receiving the Best Student Award trophy at university convocation.">
           <img src="assets/photo-convocation-award.jpeg" alt="Best Student Award Convocation" loading="lazy">
           <div class="gallery-overlay">
             <i class="fa-solid fa-magnifying-glass-plus"></i>
@@ -2177,7 +2361,7 @@
           </div>
         </div>
 
-        <div class="gallery-item" data-src="assets/photo-conference-hall.jpeg" data-caption="Data Science Nigeria (DSN) AI & Data Science Bootcamp: Hundreds of delegates in the national auditorium.">
+        <div class="gallery-item gallery-photo-item" data-category="photos" data-src="assets/photo-conference-hall.jpeg" data-caption="Data Science Nigeria (DSN) AI & Data Science Bootcamp: Hundreds of delegates in the national auditorium.">
           <img src="assets/photo-conference-hall.jpeg" alt="National AI Conference" loading="lazy">
           <div class="gallery-overlay">
             <i class="fa-solid fa-magnifying-glass-plus"></i>
@@ -2185,7 +2369,7 @@
           </div>
         </div>
 
-        <div class="gallery-item" data-src="assets/photo-class-session.jpeg" data-caption="Interactive classroom training session: Lead instructor guiding students through practical computer programming.">
+        <div class="gallery-item gallery-photo-item" data-category="photos" data-src="assets/photo-class-session.jpeg" data-caption="Interactive classroom training session: Lead instructor guiding students through practical computer programming.">
           <img src="assets/photo-class-session.jpeg" alt="Classroom Training Session" loading="lazy">
           <div class="gallery-overlay">
             <i class="fa-solid fa-magnifying-glass-plus"></i>
@@ -2193,7 +2377,7 @@
           </div>
         </div>
 
-        <div class="gallery-item" data-src="assets/photo-conference-delegates.jpeg" data-caption="Data Science Nigeria AI Bootcamp delegates collaborating with laptops in intensive hackathon sessions.">
+        <div class="gallery-item gallery-photo-item" data-category="photos" data-src="assets/photo-conference-delegates.jpeg" data-caption="Data Science Nigeria AI Bootcamp delegates collaborating with laptops in intensive hackathon sessions.">
           <img src="assets/photo-conference-delegates.jpeg" alt="Conference Delegates" loading="lazy">
           <div class="gallery-overlay">
             <i class="fa-solid fa-magnifying-glass-plus"></i>
@@ -2201,7 +2385,7 @@
           </div>
         </div>
 
-        <div class="gallery-item" data-src="assets/banner-cohort.png" data-caption="Official Dabeltech Cohort Registration Flyer with multi-currency African pricing.">
+        <div class="gallery-item gallery-banner-item" data-category="banners" data-src="assets/banner-cohort.png" data-caption="Official Dabeltech Cohort Registration Flyer with multi-currency African pricing.">
           <img src="assets/banner-cohort.png" alt="Cohort Flyer" loading="lazy">
           <div class="gallery-overlay">
             <i class="fa-solid fa-magnifying-glass-plus"></i>
@@ -2209,7 +2393,7 @@
           </div>
         </div>
 
-        <div class="gallery-item" data-src="assets/banner-summer.jpeg" data-caption="DABELTECH Summer Bootcamp for Children & Adults: Robotics, AI, Vibe Coding, Web Dev, UI/UX Design.">
+        <div class="gallery-item gallery-banner-item" data-category="banners" data-src="assets/banner-summer.jpeg" data-caption="DABELTECH Summer Bootcamp for Children & Adults: Robotics, AI, Vibe Coding, Web Dev, UI/UX Design.">
           <img src="assets/banner-summer.jpeg" alt="Summer Bootcamp Banner" loading="lazy">
           <div class="gallery-overlay">
             <i class="fa-solid fa-magnifying-glass-plus"></i>
@@ -2217,7 +2401,7 @@
           </div>
         </div>
 
-        <div class="gallery-item" data-src="assets/banner-kids-ai-bootcamp.jpeg" data-caption="FREE AI Bootcamp for Kids (Ages 7-15): Unleash Your Child's Creativity with Artificial Intelligence.">
+        <div class="gallery-item gallery-banner-item" data-category="banners" data-src="assets/banner-kids-ai-bootcamp.jpeg" data-caption="FREE AI Bootcamp for Kids (Ages 7-15): Unleash Your Child's Creativity with Artificial Intelligence.">
           <img src="assets/banner-kids-ai-bootcamp.jpeg" alt="FREE AI Bootcamp for Kids Banner" loading="lazy">
           <div class="gallery-overlay">
             <i class="fa-solid fa-magnifying-glass-plus"></i>
@@ -2225,7 +2409,7 @@
           </div>
         </div>
 
-        <div class="gallery-item" data-src="assets/banner-chatgpt-training.jpeg" data-caption="Free Training: Earn Over $300 Monthly Using ChatGPT on Phone or Laptop - Mon 9:00PM Google Meet.">
+        <div class="gallery-item gallery-banner-item" data-category="banners" data-src="assets/banner-chatgpt-training.jpeg" data-caption="Free Training: Earn Over $300 Monthly Using ChatGPT on Phone or Laptop - Mon 9:00PM Google Meet.">
           <img src="assets/banner-chatgpt-training.jpeg" alt="Earn Over $300 Monthly Using ChatGPT Banner" loading="lazy">
           <div class="gallery-overlay">
             <i class="fa-solid fa-magnifying-glass-plus"></i>
@@ -2233,7 +2417,7 @@
           </div>
         </div>
 
-        <div class="gallery-item" data-src="assets/banner-data-analytics-course.jpeg" data-caption="Data Analytics Professional Course: MS SQL, MS Excel Power Pivot, Power BI, Tableau, Python, Visual Studio.">
+        <div class="gallery-item gallery-banner-item" data-category="banners" data-src="assets/banner-data-analytics-course.jpeg" data-caption="Data Analytics Professional Course: MS SQL, MS Excel Power Pivot, Power BI, Tableau, Python, Visual Studio.">
           <img src="assets/banner-data-analytics-course.jpeg" alt="Data Analytics Course Banner" loading="lazy">
           <div class="gallery-overlay">
             <i class="fa-solid fa-magnifying-glass-plus"></i>
@@ -2241,7 +2425,7 @@
           </div>
         </div>
 
-        <div class="gallery-item" data-src="assets/banner-services.png" data-caption="Official Dabeltech Institute Smart Solutions for a Digital Future service banner.">
+        <div class="gallery-item gallery-banner-item" data-category="banners" data-src="assets/banner-services.png" data-caption="Official Dabeltech Institute Smart Solutions for a Digital Future service banner.">
           <img src="assets/banner-services.png" alt="Smart Solutions Banner" loading="lazy">
           <div class="gallery-overlay">
             <i class="fa-solid fa-magnifying-glass-plus"></i>
@@ -2249,7 +2433,7 @@
           </div>
         </div>
 
-        <div class="gallery-item" data-src="assets/banner-ai-automation.jpeg" data-caption="Artificial Intelligence Automation: Online & Offline Classes by DABELTECH.">
+        <div class="gallery-item gallery-banner-item" data-category="banners" data-src="assets/banner-ai-automation.jpeg" data-caption="Artificial Intelligence Automation: Online & Offline Classes by DABELTECH.">
           <img src="assets/banner-ai-automation.jpeg" alt="AI Automation Banner" loading="lazy">
           <div class="gallery-overlay">
             <i class="fa-solid fa-magnifying-glass-plus"></i>
@@ -2257,7 +2441,7 @@
           </div>
         </div>
 
-        <div class="gallery-item" data-src="assets/banner-digital-marketer.jpeg" data-caption="Become a Certified Digital Marketer: 12 Weeks Professional Program with Internship &amp; Job Placement.">
+        <div class="gallery-item gallery-banner-item" data-category="banners" data-src="assets/banner-digital-marketer.jpeg" data-caption="Become a Certified Digital Marketer: 12 Weeks Professional Program with Internship &amp; Job Placement.">
           <img src="assets/banner-digital-marketer.jpeg" alt="Certified Digital Marketer Banner" loading="lazy">
           <div class="gallery-overlay">
             <i class="fa-solid fa-magnifying-glass-plus"></i>
@@ -2265,7 +2449,7 @@
           </div>
         </div>
 
-        <div class="gallery-item" data-src="assets/banner-vibe-coding.jpeg" data-caption="Dabeltech Institute of Data &amp; AI Excellence: Learn Data Analysis with AI &amp; Vibe Coding.">
+        <div class="gallery-item gallery-banner-item" data-category="banners" data-src="assets/banner-vibe-coding.jpeg" data-caption="Dabeltech Institute of Data &amp; AI Excellence: Learn Data Analysis with AI &amp; Vibe Coding.">
           <img src="assets/banner-vibe-coding.jpeg" alt="Data Analysis with AI &amp; Vibe Coding Banner" loading="lazy">
           <div class="gallery-overlay">
             <i class="fa-solid fa-magnifying-glass-plus"></i>
@@ -2273,7 +2457,7 @@
           </div>
         </div>
 
-        <div class="gallery-item" data-src="assets/banner-data-ai.jpeg" data-caption="Online &amp; Offline Tutorial: Artificial Intelligence &amp; Machine Learning with Founder Opeyemi Obisesan.">
+        <div class="gallery-item gallery-banner-item" data-category="banners" data-src="assets/banner-data-ai.jpeg" data-caption="Online &amp; Offline Tutorial: Artificial Intelligence &amp; Machine Learning with Founder Opeyemi Obisesan.">
           <img src="assets/banner-data-ai.jpeg" alt="AI &amp; Machine Learning Tutorial Banner" loading="lazy">
           <div class="gallery-overlay">
             <i class="fa-solid fa-magnifying-glass-plus"></i>
@@ -2281,7 +2465,7 @@
           </div>
         </div>
 
-        <div class="gallery-item" data-src="assets/banner-web-dev.jpeg" data-caption="We Build Powerful Websites For Every Need: School Portals, CBT Systems &amp; Corporate Platforms.">
+        <div class="gallery-item gallery-banner-item" data-category="banners" data-src="assets/banner-web-dev.jpeg" data-caption="We Build Powerful Websites For Every Need: School Portals, CBT Systems &amp; Corporate Platforms.">
           <img src="assets/banner-web-dev.jpeg" alt="Web Development Banner" loading="lazy">
           <div class="gallery-overlay">
             <i class="fa-solid fa-magnifying-glass-plus"></i>
@@ -2289,7 +2473,7 @@
           </div>
         </div>
 
-        <div class="gallery-item" data-src="assets/banner-computer-repair.jpeg" data-caption="Professional Computer Repair &amp; Maintenance: Hardware &amp; Software Solutions.">
+        <div class="gallery-item gallery-banner-item" data-category="banners" data-src="assets/banner-computer-repair.jpeg" data-caption="Professional Computer Repair &amp; Maintenance: Hardware &amp; Software Solutions.">
           <img src="assets/banner-computer-repair.jpeg" alt="Computer Repair Banner" loading="lazy">
           <div class="gallery-overlay">
             <i class="fa-solid fa-magnifying-glass-plus"></i>
@@ -2297,7 +2481,7 @@
           </div>
         </div>
 
-        <div class="gallery-item" data-src="assets/banner-cybersecurity.jpeg" data-caption="Master Cybersecurity &amp; Ethical Hacking: Network Defense &amp; Vulnerability Testing.">
+        <div class="gallery-item gallery-banner-item" data-category="banners" data-src="assets/banner-cybersecurity.jpeg" data-caption="Master Cybersecurity &amp; Ethical Hacking: Network Defense &amp; Vulnerability Testing.">
           <img src="assets/banner-cybersecurity.jpeg" alt="Cybersecurity Banner" loading="lazy">
           <div class="gallery-overlay">
             <i class="fa-solid fa-magnifying-glass-plus"></i>
@@ -2305,7 +2489,7 @@
           </div>
         </div>
 
-        <div class="gallery-item" data-src="assets/banner-no-coding-ai.jpeg" data-caption="Artificial Intelligence: Zero Code Required. Non-technical Generative AI Workflows.">
+        <div class="gallery-item gallery-banner-item" data-category="banners" data-src="assets/banner-no-coding-ai.jpeg" data-caption="Artificial Intelligence: Zero Code Required. Non-technical Generative AI Workflows.">
           <img src="assets/banner-no-coding-ai.jpeg" alt="No Code AI Banner" loading="lazy">
           <div class="gallery-overlay">
             <i class="fa-solid fa-magnifying-glass-plus"></i>
@@ -2313,7 +2497,7 @@
           </div>
         </div>
 
-        <div class="gallery-item" data-src="assets/banner-video-editing.jpeg" data-caption="Mobile Video Editing &amp; Social Media Content Manipulation: CapCut &amp; Reel Monetization.">
+        <div class="gallery-item gallery-banner-item" data-category="banners" data-src="assets/banner-video-editing.jpeg" data-caption="Mobile Video Editing &amp; Social Media Content Manipulation: CapCut &amp; Reel Monetization.">
           <img src="assets/banner-video-editing.jpeg" alt="Mobile Video Editing Banner" loading="lazy">
           <div class="gallery-overlay">
             <i class="fa-solid fa-magnifying-glass-plus"></i>
@@ -2321,7 +2505,7 @@
           </div>
         </div>
 
-        <div class="gallery-item" data-src="assets/banner-ai-analytics.jpeg" data-caption="Artificial Intelligence for Data Analytics: Power BI, SQL Warehouses &amp; Predictive Intelligence.">
+        <div class="gallery-item gallery-banner-item" data-category="banners" data-src="assets/banner-ai-analytics.jpeg" data-caption="Artificial Intelligence for Data Analytics: Power BI, SQL Warehouses &amp; Predictive Intelligence.">
           <img src="assets/banner-ai-analytics.jpeg" alt="AI Data Analytics Banner" loading="lazy">
           <div class="gallery-overlay">
             <i class="fa-solid fa-magnifying-glass-plus"></i>
@@ -2329,7 +2513,7 @@
           </div>
         </div>
 
-        <div class="gallery-item" data-src="assets/brand-true-mastery.jpeg" data-caption="DABELTECH: The Best Place To Acquire True Mastery In Information Technology. Smart lab training &amp; digital skills development.">
+        <div class="gallery-item gallery-banner-item" data-category="banners" data-src="assets/brand-true-mastery.jpeg" data-caption="DABELTECH: The Best Place To Acquire True Mastery In Information Technology. Smart lab training &amp; digital skills development.">
           <img src="assets/brand-true-mastery.jpeg" alt="True Mastery in IT" loading="lazy">
           <div class="gallery-overlay">
             <i class="fa-solid fa-magnifying-glass-plus"></i>
@@ -2337,7 +2521,7 @@
           </div>
         </div>
 
-        <div class="gallery-item" data-src="assets/brand-future-name.jpeg" data-caption="DABELTECH: And The Future Has A Name. Inspiring youth and adult learners in modern Artificial Intelligence and smart computing.">
+        <div class="gallery-item gallery-banner-item" data-category="banners" data-src="assets/brand-future-name.jpeg" data-caption="DABELTECH: And The Future Has A Name. Inspiring youth and adult learners in modern Artificial Intelligence and smart computing.">
           <img src="assets/brand-future-name.jpeg" alt="And The Future Has A Name" loading="lazy">
           <div class="gallery-overlay">
             <i class="fa-solid fa-magnifying-glass-plus"></i>
@@ -2345,7 +2529,7 @@
           </div>
         </div>
 
-        <div class="gallery-item" data-src="assets/banner-youtube-mastery.jpeg" data-caption="YouTube Mastery Course: YouTube Monetization + Faceless YouTube. Learn channel creation, 1,000+ subscriber acquisition, video editing, and AI faceless channel monetization.">
+        <div class="gallery-item gallery-banner-item" data-category="banners" data-src="assets/banner-youtube-mastery.jpeg" data-caption="YouTube Mastery Course: YouTube Monetization + Faceless YouTube. Learn channel creation, 1,000+ subscriber acquisition, video editing, and AI faceless channel monetization.">
           <img src="assets/banner-youtube-mastery.jpeg" alt="YouTube Mastery Course Flyer" loading="lazy">
           <div class="gallery-overlay">
             <i class="fa-solid fa-magnifying-glass-plus"></i>
@@ -2354,192 +2538,12 @@
         </div>
 
       </div>
-    </div>
-  </section>
 
-  <!-- ==================== BOOTCAMP SECTION ==================== -->
-  <section class="section bootcamp-section" id="bootcamp">
-    <div class="container">
-      <div class="section-header text-center">
-        <span class="section-tag"><i class="fa-solid fa-fire text-accent"></i> INTENSIVE COHORTS &amp; SUMMER BOOTCAMPS</span>
-        <h2 class="section-title">DABELTECH Intensive BootCamp</h2>
-        <p class="section-subtitle">
-          Accelerate your trajectory. Fast-paced, high-rigor cohorts designed to build job-ready portfolios, deploy live tools, and secure internships or freelance contracts.
-        </p>
-      </div>
-
-      <div class="bootcamp-showcase-grid">
-        
-        <!-- Cohort Card 1: September to December Cohort -->
-        <div class="bootcamp-card">
-          <div class="bootcamp-card-image">
-            <img src="assets/banner-cohort.png" alt="September to December Cohort">
-            <span class="cohort-tag">LIMITED SLOTS &bull; NOW OPEN</span>
-          </div>
-          <div class="bootcamp-card-content">
-            <h3>September to December Cohort Intensive</h3>
-            <p class="bootcamp-desc">
-              Comprehensive 3-month flagship cohort. Includes live mentorship, weekly code reviews, cloud LMS access, and a guaranteed portfolio capstone project.
-            </p>
-            <div class="bootcamp-features-list">
-              <div><i class="fa-solid fa-check text-green"></i> <strong>Tracks:</strong> Data Analysis, AI &amp; Automation, Full-Stack Web Dev</div>
-              <div><i class="fa-solid fa-check text-green"></i> <strong>Pricing:</strong> From 200 GHC | 2,500 KSH | 8,000 CFA | ₦45,000 NGN</div>
-              <div><i class="fa-solid fa-check text-green"></i> <strong>Study Modes:</strong> Online from anywhere or physical in Lagos</div>
-              <div><i class="fa-solid fa-check text-green"></i> <strong>Bonuses:</strong> CV review, GitHub portfolio setup &amp; freelancing guide</div>
-            </div>
-            <a href="https://wa.me/2348062168465?text=Hello%20DABELTECH%2C%20I%20want%20to%20register%20for%20the%20September-December%20Cohort" target="_blank" rel="noopener" class="btn btn-primary btn-block">
-              <i class="fa-brands fa-whatsapp"></i> Enroll in September–December Cohort
-            </a>
-          </div>
-        </div>
-
-        <!-- Cohort Card 2: Summer Bootcamp for Children & Adults -->
-        <div class="bootcamp-card">
-          <div class="bootcamp-card-image">
-            <img src="assets/banner-summer.jpeg" alt="Summer Bootcamp for Children and Adults">
-            <span class="cohort-tag highlight">ALL AGES &bull; 8+ TO ADULTS</span>
-          </div>
-          <div class="bootcamp-card-content">
-            <h3>Summer Bootcamp for Children &amp; Adults</h3>
-            <p class="bootcamp-desc">
-              Learn. Create. Innovate. Lead. Fun, interactive, and practical tech bootcamp for young learners, secondary students, and adult professionals.
-            </p>
-            <div class="bootcamp-features-list">
-              <div><i class="fa-solid fa-check text-green"></i> <strong>Tracks:</strong> Robotics, Vibe Coding, AI, Web Dev, UI/UX Canva Design</div>
-              <div><i class="fa-solid fa-check text-green"></i> <strong>Duration:</strong> 4 Weeks / 6 Weeks / 8 Weeks flexible batches</div>
-              <div><i class="fa-solid fa-check text-green"></i> <strong>Class Options:</strong> Weekdays &amp; Weekends sessions</div>
-              <div><i class="fa-solid fa-check text-green"></i> <strong>Awards:</strong> Certificate of Completion &amp; Project Exhibition</div>
-            </div>
-            <a href="https://wa.me/2348062168465?text=Hello%20DABELTECH%2C%20I%20want%20to%20enroll%20for%20the%20Summer%20Bootcamp" target="_blank" rel="noopener" class="btn btn-primary btn-block">
-              <i class="fa-brands fa-whatsapp"></i> Enroll in Summer Bootcamp
-            </a>
-          </div>
-        </div>
-
-        <!-- Cohort Card 3: FREE AI Bootcamp for Kids (Ages 7-15) -->
-        <div class="bootcamp-card">
-          <div class="bootcamp-card-image">
-            <img src="assets/banner-kids-ai-bootcamp.jpeg" alt="FREE AI Bootcamp for Kids Ages 7-15">
-            <span class="cohort-tag free"><i class="fa-solid fa-gift"></i> 100% FREE &bull; AGES 7–15</span>
-          </div>
-          <div class="bootcamp-card-content">
-            <h3>FREE AI Bootcamp for Kids (Ages 7–15)</h3>
-            <p class="bootcamp-desc">
-              Unleash your child's creativity with Artificial Intelligence! Fun, interactive, and beginner-friendly sessions inspiring young learners to build storytelling bots, digital animation, and creative prompt art.
-            </p>
-            <div class="bootcamp-features-list">
-              <div><i class="fa-solid fa-check text-green"></i> <strong>Tracks:</strong> AI Storytelling, Animation, Prompt Art &amp; Creative Bots</div>
-              <div><i class="fa-solid fa-check text-green"></i> <strong>Tuition:</strong> 100% Free Community Sponsorship &bull; Zero Fees</div>
-              <div><i class="fa-solid fa-check text-green"></i> <strong>Requirements:</strong> Any smartphone, tablet, or laptop &bull; No coding needed</div>
-              <div><i class="fa-solid fa-check text-green"></i> <strong>Outcomes:</strong> Certificate of Participation &amp; Child Project Showcase</div>
-            </div>
-            <a href="https://wa.me/2348062168465?text=Hello%20DABELTECH%2C%20I%20want%20to%20register%20my%20child%20for%20the%20FREE%20AI%20Bootcamp%20for%20Kids%20(Ages%207-15)!" target="_blank" rel="noopener" class="btn btn-primary btn-block">
-              <i class="fa-brands fa-whatsapp"></i> Register Child For Free
-            </a>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ==================== MEDIA & VIDEOS HUB ==================== -->
-  <section class="section media-section" id="media-hub">
-    <div class="container">
-      <div class="section-header text-center">
-        <span class="section-tag"><i class="fa-solid fa-film"></i> MEDIA &amp; DEMONSTRATIONS</span>
-        <h2 class="section-title">See DABELTECH in Action</h2>
-        <p class="section-subtitle">
-          Watch inside our training sessions, live software showcases, and student project demonstrations.
-        </p>
-      </div>
-
-      <div class="video-grid">
-        <!-- Advert Video 1 -->
-        <div class="video-card advert-highlight">
-          <div class="video-wrapper">
-            <video controls preload="metadata" poster="assets/brand-true-mastery.jpeg">
-              <source src="assets/advert-video-1.mp4" type="video/mp4">
-              Your browser does not support HTML5 video playback.
-            </video>
-          </div>
-          <div class="video-info">
-            <span class="video-tag"><i class="fa-solid fa-clapperboard"></i> OFFICIAL ADVERT 01</span>
-            <h3 class="video-title">DABELTECH Official TV &amp; Digital Broadcast Commercial</h3>
-            <p class="video-caption">
-              Our flagship commercial showcasing software engineering solutions, school result management portals, and career cohort programs.
-            </p>
-          </div>
-        </div>
-
-        <!-- Advert Video 2 -->
-        <div class="video-card advert-highlight">
-          <div class="video-wrapper">
-            <video controls preload="metadata" poster="assets/brand-future-name.jpeg">
-              <source src="assets/advert-video-2.mp4" type="video/mp4">
-              Your browser does not support HTML5 video playback.
-            </video>
-          </div>
-          <div class="video-info">
-            <span class="video-tag"><i class="fa-solid fa-bolt"></i> OFFICIAL ADVERT 02</span>
-            <h3 class="video-title">DABELTECH Smart Solutions &amp; Training Institute Showcase</h3>
-            <p class="video-caption">
-              Full overview of our practical computer lab sessions, student coding projects, AI bootcamps, and institutional tech services.
-            </p>
-          </div>
-        </div>
-
-        <!-- Video 3: Practical Demo (Zoomed Out for Full Coverage) -->
-        <div class="video-card demo-video-card">
-          <div class="video-wrapper demo-video-wrapper">
-            <div class="demo-ambient-bg" style="background-image: url('assets/photo-smart-lab.jpeg');"></div>
-            <video controls preload="metadata" poster="assets/photo-smart-lab.jpeg" class="demo-video-player">
-              <source src="assets/video-session-2.mp4" type="video/mp4">
-              Your browser does not support HTML5 video playback.
-            </video>
-            <div class="demo-fullscreen-overlay">
-              <button type="button" class="demo-fs-btn" onclick="const v = this.closest('.demo-video-wrapper').querySelector('video'); if(v.requestFullscreen) v.requestFullscreen(); else if(v.webkitRequestFullscreen) v.webkitRequestFullscreen();" title="Full Screen View">
-                <i class="fa-solid fa-expand"></i> Full Screen
-              </button>
-            </div>
-          </div>
-          <div class="video-info">
-            <span class="video-tag"><i class="fa-solid fa-play"></i> LIVE DEMO</span>
-            <h3 class="video-title">Dabeltech Interactive Tech Training &amp; Coding Walkthrough</h3>
-            <p class="video-caption">
-              Watch our live hands-on teaching methodology in action, demonstrating real code execution, data dashboards, and interactive learning. Zoomed out for full screen coverage display.
-            </p>
-          </div>
-        </div>
-
-        <!-- Video 4: Workshop Highlight (Zoomed Out for Full Coverage) -->
-        <div class="video-card demo-video-card">
-          <div class="video-wrapper demo-video-wrapper">
-            <div class="demo-ambient-bg" style="background-image: url('assets/photo-class-session.jpeg');"></div>
-            <video controls preload="metadata" poster="assets/photo-class-session.jpeg" class="demo-video-player">
-              <source src="assets/video-session-1.mp4" type="video/mp4">
-              Your browser does not support HTML5 video playback.
-            </video>
-            <div class="demo-fullscreen-overlay">
-              <button type="button" class="demo-fs-btn" onclick="const v = this.closest('.demo-video-wrapper').querySelector('video'); if(v.requestFullscreen) v.requestFullscreen(); else if(v.webkitRequestFullscreen) v.webkitRequestFullscreen();" title="Full Screen View">
-                <i class="fa-solid fa-expand"></i> Full Screen
-              </button>
-            </div>
-          </div>
-          <div class="video-info">
-            <span class="video-tag"><i class="fa-solid fa-circle-nodes"></i> WORKSHOP HIGHLIGHT</span>
-            <h3 class="video-title">Classroom Practical Lab &amp; Student Mentorship Session</h3>
-            <p class="video-caption">
-              Highlights from our physical cohort lab: step-by-step guidance, real-time student debugging, and smart classroom digital whiteboard setup. Zoomed out for full screen coverage display.
-            </p>
-          </div>
-        </div>
       </div>
     </div>
   </section>
 
-  <!-- ==================== ABOUT & FOUNDER SECTION ==================== -->
+<!-- ==================== ABOUT & FOUNDER SECTION ==================== -->
   <section class="section about-section" id="about">
     <div class="container">
       <div class="about-grid">
@@ -3076,6 +3080,6 @@
   </div>
 
   <!-- Main JavaScript File -->
-  <script src="script.js?v=2.3"></script>
+  <script src="script.js?v=2.4"></script>
 </body>
 </html>
