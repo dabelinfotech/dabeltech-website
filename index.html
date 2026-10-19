@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -19,12 +19,15 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   
   <!-- Main Stylesheet (v2.4 Menu Tab Reorganization & Dashboard Commercial Adverts) -->
-  <link rel="stylesheet" href="styles.css?v=2.7">
+  <link rel="stylesheet" href="styles.css?v=2.8">
 
   <!-- Force page to stay at top on initial load & prevent running down to bottom -->
   <script>
     if ('scrollRestoration' in history) {
       history.scrollRestoration = 'manual';
+    }
+    if (window.location.hash === '#projects') {
+      window.location.replace('projects.html');
     }
     if (window.location.hash && window.location.hash !== '#hero') {
       history.replaceState(null, document.title, window.location.pathname + window.location.search);
@@ -74,7 +77,7 @@
         <li><a href="#hero" class="nav-tab active"><i class="fa-solid fa-house"></i> Home</a></li>
         <li><a href="#programs" class="nav-tab"><i class="fa-solid fa-book-open"></i> Programs</a></li>
         <li><a href="#services" class="nav-tab"><i class="fa-solid fa-layer-group"></i> Services</a></li>
-        <li><a href="#projects" class="nav-tab" id="nav-tab-projects"><i class="fa-solid fa-code"></i> Project</a></li>
+        <li><a href="projects.html" class="nav-tab" id="nav-tab-projects"><i class="fa-solid fa-code"></i> Project</a></li>
         <li><a href="#gallery" class="nav-tab"><i class="fa-solid fa-images"></i> Gallery</a></li>
         <li><a href="#bootcamp" class="nav-tab"><i class="fa-solid fa-graduation-cap"></i> BootCamp</a></li>
         <!-- Mobile Drawer Extras -->
@@ -1931,402 +1934,6 @@
     </div>
   </section>
 
-<!-- ==================== PROJECT SECTION ==================== -->
-  <section class="section projects-section" id="projects">
-    <div class="container">
-      <div class="section-header text-center">
-        <span class="section-tag"><i class="fa-brands fa-github"></i> PROVEN ENGINEERING TRACK RECORD</span>
-        <h2 class="section-title">Project Showcase</h2>
-        <p class="section-subtitle">
-          We don't just teach code — we ship real production systems. Explore live portals, analytical dashboards, audio DSP engines, and games built by DABELTECH &amp; Founder Opeyemi Obisesan.
-        </p>
-
-        <!-- Project Filter Buttons -->
-        <div class="project-tabs" role="tablist">
-          <button type="button" class="project-tab-btn active" data-filter="all"><i class="fa-solid fa-list-check"></i> All 15 Repositories (15)</button>
-          <button type="button" class="project-tab-btn" data-filter="web-portals"><i class="fa-solid fa-window-maximize"></i> Web &amp; School Portals (4)</button>
-          <button type="button" class="project-tab-btn" data-filter="data-bi"><i class="fa-solid fa-chart-simple"></i> Data &amp; BI Dashboards (7)</button>
-          <button type="button" class="project-tab-btn" data-filter="dsp-games"><i class="fa-solid fa-gamepad"></i> Audio DSP &amp; Games (4)</button>
-        </div>
-      </div>
-
-      <!-- Projects Grid (All 15 Shipped Repositories) -->
-      <div class="projects-grid" id="projects-container">
-
-        <!-- Project 1: House of Angels Schools Portal -->
-        <div class="project-card" data-category="web-portals">
-          <div class="project-card-header">
-            <span class="project-id">WD &bull; 02</span>
-            <div class="project-tech-tags">
-              <span>Node.js</span>
-              <span>Express</span>
-              <span>SQL</span>
-              <span>Scratch PIN</span>
-            </div>
-          </div>
-          <h3 class="project-title">House of Angels Schools &mdash; Result Portal</h3>
-          <p class="project-description">
-            A full-stack, production school result-management system featuring PIN-protected student access, secure admin scoring management, bulk marks upload via spreadsheet, and PDF report cards.
-          </p>
-          <div class="project-links">
-            <a href="https://house-of-angels-schools-portal.vercel.app" target="_blank" rel="noopener" class="btn btn-outline btn-xs">
-              <i class="fa-solid fa-arrow-up-right-from-square"></i> Live Site
-            </a>
-            <a href="https://github.com/dabelinfotech/House-of-Angels-Schools-Portal" target="_blank" rel="noopener" class="btn btn-dark btn-xs">
-              <i class="fa-brands fa-github"></i> Repository
-            </a>
-          </div>
-        </div>
-
-        <!-- Project 2: Nursery & Primary Result School Portal -->
-        <div class="project-card" data-category="web-portals">
-          <div class="project-card-header">
-            <span class="project-id">WD &bull; 03</span>
-            <div class="project-tech-tags">
-              <span>Node.js</span>
-              <span>Express</span>
-              <span>RBAC</span>
-              <span>Bulk Upload</span>
-            </div>
-          </div>
-          <h3 class="project-title">Nursery &amp; Primary School &mdash; Result Portal</h3>
-          <p class="project-description">
-            Dedicated academic portal architecture for early childhood and primary institutions. Features custom grading scales, behavioral remark builders, PIN authentication, and batch PDF transcript generator.
-          </p>
-          <div class="project-links">
-            <a href="https://github.com/dabelinfotech/Nursery-Primary-Result-School-Portal" target="_blank" rel="noopener" class="btn btn-dark btn-xs">
-              <i class="fa-brands fa-github"></i> Repository
-            </a>
-            <a href="https://house-of-angels-schools-portal.vercel.app" target="_blank" rel="noopener" class="btn btn-outline btn-xs">
-              <i class="fa-solid fa-arrow-up-right-from-square"></i> Live Architecture
-            </a>
-          </div>
-        </div>
-
-        <!-- Project 3: Secondary School Comprehensive Result Portal -->
-        <div class="project-card" data-category="web-portals">
-          <div class="project-card-header">
-            <span class="project-id">WD &bull; 04</span>
-            <div class="project-tech-tags">
-              <span>Node.js</span>
-              <span>Express</span>
-              <span>PostgreSQL</span>
-              <span>PDF Engine</span>
-            </div>
-          </div>
-          <h3 class="project-title">Secondary School Comprehensive Result Portal</h3>
-          <p class="project-description">
-            High-throughput secondary school terminal examination portal supporting WAEC/NECO multi-subject grading algorithms, subject-teacher portals, administrative audit trails, and automated student broadsheets.
-          </p>
-          <div class="project-links">
-            <a href="https://github.com/dabelinfotech/Secondary-School-Result-Portal" target="_blank" rel="noopener" class="btn btn-dark btn-xs">
-              <i class="fa-brands fa-github"></i> Repository
-            </a>
-            <a href="https://house-of-angels-schools-portal.vercel.app" target="_blank" rel="noopener" class="btn btn-outline btn-xs">
-              <i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo
-            </a>
-          </div>
-        </div>
-
-        <!-- Project 4: NaijaMirage Content Platform -->
-        <div class="project-card" data-category="web-portals">
-          <div class="project-card-header">
-            <span class="project-id">WD &bull; 05</span>
-            <div class="project-tech-tags">
-              <span>Python</span>
-              <span>Flask</span>
-              <span>Cloud Storage</span>
-              <span>CMS</span>
-            </div>
-          </div>
-          <h3 class="project-title">NaijaMirage &mdash; News, Media &amp; Audio Portal</h3>
-          <p class="project-description">
-            High-traffic digital media and entertainment hub for Nigerian news, music, and audio broadcasts. Engineered with custom Flask CMS, automated RSS syndicate feeds, and cloud bucket media distribution.
-          </p>
-          <div class="project-links">
-            <a href="https://naijamirage.vercel.app" target="_blank" rel="noopener" class="btn btn-outline btn-xs">
-              <i class="fa-solid fa-arrow-up-right-from-square"></i> Live Portal
-            </a>
-            <a href="https://github.com/dabelinfotech/naijamirage" target="_blank" rel="noopener" class="btn btn-dark btn-xs">
-              <i class="fa-brands fa-github"></i> Repository
-            </a>
-          </div>
-        </div>
-
-        <!-- Project 5: City of Mainland Procurement Analytics -->
-        <div class="project-card" data-category="data-bi">
-          <div class="project-card-header">
-            <span class="project-id">DA &bull; 01</span>
-            <div class="project-tech-tags">
-              <span>Power BI</span>
-              <span>SQL</span>
-              <span>DAX</span>
-              <span>Star Schema</span>
-            </div>
-          </div>
-          <h3 class="project-title">City of Mainland &mdash; Procurement Spend Analytics</h3>
-          <p class="project-description">
-            26,357 procurement transactions across 6 countries, 104 products, and 17 suppliers (CAD 66.5M net spend). Modeled into an analytical star schema with automated Low/Medium/High KPI risk flagging.
-          </p>
-          <div class="project-links">
-            <a href="https://github.com/dabelinfotech/city-of-mainland-procurement" target="_blank" rel="noopener" class="btn btn-dark btn-xs">
-              <i class="fa-brands fa-github"></i> Repository &amp; Dashboard
-            </a>
-          </div>
-        </div>
-
-        <!-- Project 6: Sales Performance Analytics Multi-Tool -->
-        <div class="project-card" data-category="data-bi">
-          <div class="project-card-header">
-            <span class="project-id">DA &bull; 02</span>
-            <div class="project-tech-tags">
-              <span>Python</span>
-              <span>T-SQL</span>
-              <span>R</span>
-              <span>Excel</span>
-            </div>
-          </div>
-          <h3 class="project-title">Sales Performance Analytics &mdash; Multi-Tool Suite</h3>
-          <p class="project-description">
-            A 20,000-row FY2023 beverage-retail transaction set modeled across Excel, Python, T-SQL, and R to benchmark execution performance, resolving into 3 interactive executive dashboards.
-          </p>
-          <div class="project-links">
-            <a href="https://github.com/dabelinfotech/Sales-Performance-Analytics" target="_blank" rel="noopener" class="btn btn-dark btn-xs">
-              <i class="fa-brands fa-github"></i> View Benchmarks
-            </a>
-          </div>
-        </div>
-
-        <!-- Project 7: Pizza Sales Analysis Power BI Dashboard -->
-        <div class="project-card" data-category="data-bi">
-          <div class="project-card-header">
-            <span class="project-id">DA &bull; 03</span>
-            <div class="project-tech-tags">
-              <span>SQL</span>
-              <span>Power BI</span>
-              <span>Data Modeling</span>
-            </div>
-          </div>
-          <h3 class="project-title">Pizza Chain Sales Analysis &amp; Growth Forecasts</h3>
-          <p class="project-description">
-            Full-year restaurant chain transaction data explored in SQL, modeled in Power BI, surfacing 5 executive KPIs, day/time peak traffic heatmaps, best/worst seller product mixes, and category breakdowns.
-          </p>
-          <div class="project-links">
-            <a href="https://github.com/dabelinfotech/pizza-sales-analysis" target="_blank" rel="noopener" class="btn btn-dark btn-xs">
-              <i class="fa-brands fa-github"></i> Repository
-            </a>
-          </div>
-        </div>
-
-        <!-- Project 8: COVID-19 Mortality Analysis Dashboard -->
-        <div class="project-card" data-category="data-bi">
-          <div class="project-card-header">
-            <span class="project-id">DA &bull; 04</span>
-            <div class="project-tech-tags">
-              <span>JavaScript</span>
-              <span>Canvas</span>
-              <span>Epidemiology</span>
-              <span>Excel</span>
-            </div>
-          </div>
-          <h3 class="project-title">COVID-19 Global Mortality Analysis Dashboard</h3>
-          <p class="project-description">
-            Interactive mortality-analysis dashboard tracking global case-fatality rates across seven custom canvas-rendered charts, accompanied by a downloadable Excel analytical workbook of underlying clinical figures.
-          </p>
-          <div class="project-links">
-            <a href="https://github.com/dabelinfotech/Covid19-dashboard" target="_blank" rel="noopener" class="btn btn-dark btn-xs">
-              <i class="fa-brands fa-github"></i> COVID Dashboard
-            </a>
-          </div>
-        </div>
-
-        <!-- Project 9: Ebola Outbreak Epidemiological Analysis -->
-        <div class="project-card" data-category="data-bi">
-          <div class="project-card-header">
-            <span class="project-id">DA &bull; 05</span>
-            <div class="project-tech-tags">
-              <span>Excel</span>
-              <span>Epidemiology</span>
-              <span>Statistical Models</span>
-            </div>
-          </div>
-          <h3 class="project-title">Ebola Outbreak Analysis &mdash; Sierra Leone 2014</h3>
-          <p class="project-description">
-            Raw epidemiological line-list outbreak records cleansed and modeled into live formula-driven metrics, district transmission heatmaps, and dynamic disease-curve progression visualizations.
-          </p>
-          <div class="project-links">
-            <a href="https://github.com/dabelinfotech/ebola-sierra-leone" target="_blank" rel="noopener" class="btn btn-dark btn-xs">
-              <i class="fa-brands fa-github"></i> Ebola Dashboard
-            </a>
-          </div>
-        </div>
-
-        <!-- Project 10: Toronto Weather Station Environmental Analytics -->
-        <div class="project-card" data-category="data-bi">
-          <div class="project-card-header">
-            <span class="project-id">DA &bull; 06</span>
-            <div class="project-tech-tags">
-              <span>HTML</span>
-              <span>JavaScript</span>
-              <span>Climate Data</span>
-              <span>Time-Series</span>
-            </div>
-          </div>
-          <h3 class="project-title">Toronto Weather Station Environmental Analytics</h3>
-          <p class="project-description">
-            A full year of hourly Toronto climate-station readings cleansed and modeled into interactive KPIs, presenting temperature extremes, humidity trends, barometric patterns, and wind gust distributions.
-          </p>
-          <div class="project-links">
-            <a href="https://github.com/dabelinfotech/toronto-weather-dashboard" target="_blank" rel="noopener" class="btn btn-dark btn-xs">
-              <i class="fa-brands fa-github"></i> Weather Dashboard
-            </a>
-          </div>
-        </div>
-
-        <!-- Project 11: Falanza Agro-Analysis & Data Pipeline -->
-        <div class="project-card" data-category="data-bi">
-          <div class="project-card-header">
-            <span class="project-id">DA &bull; 07</span>
-            <div class="project-tech-tags">
-              <span>Python</span>
-              <span>Pandas</span>
-              <span>Matplotlib</span>
-              <span>Agri-Tech</span>
-            </div>
-          </div>
-          <h3 class="project-title">Falanza Agro-Analysis &amp; Agricultural Data Pipeline</h3>
-          <p class="project-description">
-            End-to-end agricultural data engineering pipeline built in Python: automated multi-farm data ingestion, yield KPI computations, weather-harvest correlation models, and visual performance charts.
-          </p>
-          <div class="project-links">
-            <a href="https://github.com/dabelinfotech/falanza-agro-analysis" target="_blank" rel="noopener" class="btn btn-dark btn-xs">
-              <i class="fa-brands fa-github"></i> Agro Repository
-            </a>
-          </div>
-        </div>
-
-        <!-- Project 12: Zinox Vocals (DSP Plugin) -->
-        <div class="project-card" data-category="dsp-games">
-          <div class="project-card-header">
-            <span class="project-id">WD &bull; 01</span>
-            <div class="project-tech-tags">
-              <span>C++</span>
-              <span>JUCE 8</span>
-              <span>DSP Audio</span>
-              <span>VST3 / AU</span>
-            </div>
-          </div>
-          <h3 class="project-title">Zinox Vocals &mdash; Channel-Strip Audio Plugin</h3>
-          <p class="project-description">
-            A vocal channel-strip audio plugin (VST3 / AU / Standalone) engineered with JUCE 8. Features real-time denoise, multiband surgical EQ, dynamic compression, harmonic saturation, and peak metering.
-          </p>
-          <div class="project-links">
-            <a href="https://zinox-vocals.vercel.app" target="_blank" rel="noopener" class="btn btn-outline btn-xs">
-              <i class="fa-solid fa-arrow-up-right-from-square"></i> Live Site
-            </a>
-            <a href="https://github.com/dabelinfotech/zinox-vocals" target="_blank" rel="noopener" class="btn btn-dark btn-xs">
-              <i class="fa-brands fa-github"></i> Repository
-            </a>
-          </div>
-        </div>
-
-        <!-- Project 13: Classic Draughts (Checkers) Board Game -->
-        <div class="project-card" data-category="dsp-games">
-          <div class="project-card-header">
-            <span class="project-id">WD &bull; 06</span>
-            <div class="project-tech-tags">
-              <span>HTML5 Canvas</span>
-              <span>Game Logic</span>
-              <span>JavaScript</span>
-            </div>
-          </div>
-          <h3 class="project-title">Classic Draughts (Checkers) &mdash; Browser Game</h3>
-          <p class="project-description">
-            Zero-dependency browser implementation of international draughts (checkers). Includes interactive board rendering on HTML5 canvas, multi-hop capture mechanics, piece crowning, and move validation.
-          </p>
-          <div class="project-links">
-            <a href="https://drought-game.vercel.app" target="_blank" rel="noopener" class="btn btn-outline btn-xs">
-              <i class="fa-solid fa-gamepad"></i> Play Draughts Live
-            </a>
-            <a href="https://github.com/dabelinfotech/Whot-Game" target="_blank" rel="noopener" class="btn btn-dark btn-xs">
-              <i class="fa-brands fa-github"></i> Repository
-            </a>
-          </div>
-        </div>
-
-        <!-- Project 14: S-Whot Nigerian Card Game -->
-        <div class="project-card" data-category="dsp-games">
-          <div class="project-card-header">
-            <span class="project-id">WD &bull; 07</span>
-            <div class="project-tech-tags">
-              <span>HTML5 Canvas</span>
-              <span>Game Engine</span>
-              <span>JavaScript</span>
-            </div>
-          </div>
-          <h3 class="project-title">S-Whot &mdash; Nigerian Card Game (Browser Edition)</h3>
-          <p class="project-description">
-            A digital edition of Whot, Nigeria's beloved family card game. Built with an HTML5 canvas rendering pipeline, custom state machine, special action cards (Hold On, Pick 2, General Market), and responsive touch controls.
-          </p>
-          <div class="project-links">
-            <a href="https://s-whot-game.vercel.app" target="_blank" rel="noopener" class="btn btn-outline btn-xs">
-              <i class="fa-solid fa-gamepad"></i> Play S-Whot Live
-            </a>
-            <a href="https://github.com/dabelinfotech/SWhot-Game" target="_blank" rel="noopener" class="btn btn-dark btn-xs">
-              <i class="fa-brands fa-github"></i> Repository
-            </a>
-          </div>
-        </div>
-
-        <!-- Project 15: Classic Whot Card Game Alpha -->
-        <div class="project-card" data-category="dsp-games">
-          <div class="project-card-header">
-            <span class="project-id">WD &bull; 08</span>
-            <div class="project-tech-tags">
-              <span>JavaScript</span>
-              <span>Game Loop</span>
-              <span>HTML5 Canvas</span>
-            </div>
-          </div>
-          <h3 class="project-title">Whot Game Alpha &mdash; Traditional Naija Card Game</h3>
-          <p class="project-description">
-            Full browser implementation of traditional Whot card gameplay. Features deck shuffling algorithms, AI bot turn simulations, audio sound effects, and full support for traditional card callouts.
-          </p>
-          <div class="project-links">
-            <a href="https://whot-game-alpha.vercel.app" target="_blank" rel="noopener" class="btn btn-outline btn-xs">
-              <i class="fa-solid fa-gamepad"></i> Play Whot Alpha Live
-            </a>
-            <a href="https://github.com/dabelinfotech/Whot-Game" target="_blank" rel="noopener" class="btn btn-dark btn-xs">
-              <i class="fa-brands fa-github"></i> Repository
-            </a>
-          </div>
-        </div>
-
-      </div>
-
-
-      <!-- Banner linking to Full Portfolio & GitHub -->
-      <div class="portfolio-callout-card">
-        <div class="callout-left">
-          <img src="assets/logo.jpeg" alt="Logo" class="callout-logo">
-          <div>
-            <h3>Want to inspect all 15 repositories and live apps?</h3>
-            <p>Explore Opeyemi Obisesan's live developer portfolio and direct GitHub repositories.</p>
-          </div>
-        </div>
-        <div class="callout-actions">
-          <a href="https://dabelinfotech-github-io.vercel.app/" target="_blank" rel="noopener" class="btn btn-primary">
-            <i class="fa-solid fa-user"></i> View Live Portfolio
-          </a>
-          <a href="https://github.com/dabelinfotech" target="_blank" rel="noopener" class="btn btn-dark">
-            <i class="fa-brands fa-github"></i> Visit GitHub Profile
-          </a>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
   <!-- ==================== GALLERY SECTION ==================== -->
   <section class="section gallery-section" id="gallery">
     <div class="container">
@@ -2970,7 +2577,7 @@
           <li><a href="#hero">Home</a></li>
           <li><a href="#programs">Programs</a></li>
           <li><a href="#services">Services</a></li>
-          <li><a href="#projects">Project</a></li>
+          <li><a href="projects.html">Project</a></li>
           <li><a href="#gallery">Gallery</a></li>
           <li><a href="#bootcamp">BootCamp</a></li>
           <li><a href="#quote">Get a Quote</a></li>
@@ -3175,6 +2782,6 @@
   </div>
 
   <!-- Main JavaScript File -->
-  <script src="script.js?v=2.7"></script>
+  <script src="script.js?v=2.8"></script>
 </body>
 </html>
