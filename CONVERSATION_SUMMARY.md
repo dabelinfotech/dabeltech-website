@@ -1,9 +1,12 @@
 # DABELTECH Web Platform — Complete Conversation & Development Archive
 
 **Conversation ID:** `127b67ab-e585-49df-ad62-587cd759647b`  
-**Date:** October 15–16, 2026  
+**Date:** October 15–19, 2026  
 **Project:** DABELTECH & DABELTECH INSTITUTE Official Web Platform  
-**Live Development URL:** [http://localhost:8080/](http://localhost:8080/)  
+**Live Production URL:** [https://dabeltech-website.vercel.app](https://dabeltech-website.vercel.app)  
+**Dedicated Programs Tab:** [https://dabeltech-website.vercel.app/programs.html](https://dabeltech-website.vercel.app/programs.html)  
+**Dedicated Projects Tab:** [https://dabeltech-website.vercel.app/projects.html](https://dabeltech-website.vercel.app/projects.html)  
+**Dedicated Gallery Tab:** [https://dabeltech-website.vercel.app/gallery.html](https://dabeltech-website.vercel.app/gallery.html)  
 **GitHub Repository:** [https://github.com/dabelinfotech/dabeltech-website](https://github.com/dabelinfotech/dabeltech-website)  
 **Desktop Directory:** `C:\Users\DABELTECH\Desktop\DABELTECH WEBSITE\`  
 **Workspace Directory:** `C:\Users\DABELTECH\.gemini\antigravity-ide\scratch\dabeltech-website\`  
@@ -19,120 +22,71 @@ This archive records all technical requirements, visual updates, architectural c
 ## 2. Chronological Record of User Requests & Implementations
 
 ### Request 1: Navbar Tabs & Branding Restriction
-- **Requirement:**
-  - Restrict navigation tabs strictly to: `Home`, `Programs`, `Services`, `Project`, `Gallery`, `BootCamp`, `Get a Quote`, and `Enroll Now`.
-  - Remove subtitle *"LEADING THE DIGITAL REVOLUTION"* from under the top-left logo.
-  - Make the DABEL TECH logo more prominent and standard.
-- **Implementation:**
-  - Standardized navbar links to the 8 required items.
-  - Updated `#nav-brand` to display a larger logo image (`assets/logo.jpeg`) with clean modern styling and without sub-tagline crowding.
-
----
+- Restrict navigation tabs strictly to: `Home`, `Programs`, `Services`, `Project`, `Gallery`, `BootCamp`, `Get a Quote`, and `Enroll Now`.
+- Standardized navbar links to the 8 required items.
 
 ### Request 2: Motion Banner Slider & Quick Select Carousel
-- **Requirement:**
-  - Build a motion slider for all advertisement banners and flyers.
-  - Ensure zero image cropping ("zoom out banners for complete coverage of banner faces and text").
-  - Add "Next" and "Prev" directional motion controls to the *"Quick Select Any Banner (Zoomed-Out Previews)"* thumbnail carousel.
-- **Implementation:**
-  - Created `.motion-banners-section` with 19 interactive motion slides.
-  - Styled with `.motion-banner-stage` utilizing `object-fit: contain` and ambient blurred backdrops so every banner is fully visible without edge clipping.
-  - Built an interactive thumbnail preview carousel with horizontal touch-drag, flanking arrow buttons (`#thumb-stage-prev`, `#thumb-stage-next`), and active slide indicator dots.
-
----
+- Built `.motion-banners-section` with 19 interactive motion slides.
+- Zoomed out previews with `object-fit: contain` and ambient backdrops.
+- Built thumbnail carousel with next/prev controls.
 
 ### Request 3: Front Page Advert Videos Showcase
-- **Requirement:**
-  - Add official advert videos (`advert-video-1.mp4` and `advert-video-2.mp4`) to the front page.
-  - Videos must start playing automatically when viewers arrive on the page.
-  - When Advert Video 1 ends, Advert Video 2 must start immediately and seamlessly.
-  - Do not alter Advert Videos 1 and 2 during subsequent changes.
+- Added official advert videos (`advert-video-1.mp4` and `advert-video-2.mp4`) with chaining and sound controls.
+
+### Request 4: Reorganize Content by Menu Tab
+- "put all the content/post under there respective menu tab, put the official commercial advert 01 and 02 display on the frontend of the dashboard and also under gallery and put other videos and images under gallery. let the everything partaining to programs and courses display under program tab"
+
+### Request 5: Project Showcase Dedicated Under Project Tab
+- "put the project showcase under project menu tab"
+- "remove the project content from thr dashboard frontend and restrict it to be under the project menu tab only"
+- "remove from the default web front page"
+- Completely removed `<section class="section projects-section" id="projects">` from `index.html`.
+- Created dedicated `projects.html` page housing all 15 repositories with interactive filters.
+
+### Request 6: Removal of Academic Programs & Advert 1 and 2 from Front Page (v2.9)
+- **User Request:** "remove the academic professional programs and official advert 1 and 2 from the default web front page"
 - **Implementation:**
-  - Created `#front-adverts` with custom HTML5 video player, floating sound toggle button, and dual-video chaining engine.
-  - Configured muted autoplay on page arrival with an `ended` event listener on Video 1 that immediately switches and plays Video 2 without a gap.
+  1. **Clean Default Web Front Page (`index.html`):**
+     - Completely removed `<section class="section programs-section" id="programs">` (1,260 lines).
+     - Removed `#dash-panel-adverts` and the `Commercial Adverts` tab from the hero executive dashboard.
+     - Set `AI & Robotics Intelligence Engine` as the primary active tab on the dashboard frontend.
+     - Removed Video 1 (Advert 01) and Video 2 (Advert 02) from `#gallery` on `index.html`.
+     - In `#gallery` on `index.html`, retained training lab demos (Videos 3 & 4), 6 photo records, and added a sleek notice banner directing visitors to `gallery.html` for the official broadcast commercials.
+     - Top navbar and footer menu tabs link to `programs.html`, `projects.html`, and `gallery.html`.
+     - Added instant `<head>` redirects for `#programs`, `#bootcamp`, and `#projects`.
+  2. **Dedicated Programs Page (`programs.html`):**
+     - Houses all Academic & Professional Programs under the `Programs` menu tab:
+       - 7 Certified Career Tracks (Data Analysis, AI & Automation, Full-Stack Web Development, Cybersecurity, Vibe Coding, Digital Marketing, YouTube Mastery).
+       - 3 Intensive Bootcamps (`#bootcamp`).
+       - 19 Motion Banner Course Curricula & Admissions Showcase with thumbnail preview carousel.
+       - Multi-currency Tuition Fee Breakdown (NGN, USD, GHC, KSH, CFA).
+  3. **Dedicated Multimedia Gallery Page (`gallery.html`):**
+     - Houses the complete multimedia archive under the `Gallery` menu tab:
+       - Official Commercial Advert 01 & 02 (1080p HD).
+       - Interactive Tech Training Live Demos (Videos 3 & 4).
+       - Photographic records (6 campus & founder photos).
+       - 19 Banners & Flyers with full-resolution lightbox viewer.
+  4. **Multi-Remote Deployment:**
+     - Synced to Desktop (`C:\Users\DABELTECH\Desktop\DABELTECH WEBSITE`).
+     - Committed and pushed to `dabelinfotech/main` (Vercel production).
+     - Committed and pushed to `origin/main` (`dabeltech`).
+     - Verified live HTTP 200 and complete section cleanliness.
 
 ---
 
-### Request 4: Demo Videos Aspect Ratio
-- **Requirement:**
-  - Zoom out videos under the demo section for full-screen coverage display without touching Advert Videos 1 and 2.
-- **Implementation:**
-  - Enhanced Demo Videos 3 & 4 in `#media-hub` with responsive `object-fit: contain` framing and 480px responsive height.
-
----
-
-### Request 5: YouTube Mastery Course Flyer Integration
-- **Requirement:**
-  - Add newly uploaded promotional flyer for **"YouTube Mastery Course: YouTube Monetization + Faceless YouTube"**.
-- **Implementation:**
-  - Saved asset as `assets/banner-youtube-mastery.jpeg`.
-  - Expanded slider to 19 slides (`SLIDE 19 / 19`) displaying all curriculum points (Channel setup, 30-day monetization, 1000+ subscribers, hot niches, screen recording, video editing, SEO).
-  - Added Thumbnail 19 to the Quick Select preview strip.
-  - Added Special Track 07 to `#programs` (Academic & Career Programs).
-  - Added to `#gallery` with full-resolution lightbox viewer.
-  - Added to quote estimator and contact form dropdown menus.
-
----
-
-### Request 6: Founder Portrait & Front Page Dashboard Integration
-- **Requirement:**
-  - Use the newly uploaded photo of the founder as the official founder picture.
-  - Display the founder picture on the front page of the dashboard.
-- **Implementation:**
-  - Saved official portrait to `assets/founder.jpeg` with `object-position: top center`.
-  - **Executive Founder Spotlight Bar:** Added a dedicated profile card inside the hero executive dashboard window featuring the founder's photo with a gold border, online green beacon, verified leadership tag, and role headline.
-  - **Founder's Desk Tab:** Added a new tab (`data-dash="founder"`) and dynamic panel inside the executive dashboard containing Opeyemi Obisesan's vision statement, academic milestones (Best Student Awardee), and direct WhatsApp contact link.
-  - Updated `#about` (About & Founder section) founder card to `assets/founder.jpeg`.
-  - Added premier founder portrait to `#gallery`.
-
----
-
-### Request 7: Mobile Responsiveness & GitHub Push
-- **Requirement:**
-  - Ensure the website is fully mobile-responsive across all screen sizes.
-  - Push the complete codebase and assets to GitHub.
-- **Implementation:**
-  - Mobile drawer navigation updated with scroll support (`max-height: calc(100dvh - 74px); overflow-y: auto`).
-  - Executive dashboard optimized for small screens (≤580px, ≤380px) with single-column metric stacks, compact address bar, and touch-scroll tabs ribbon.
-  - Responsive stages for banners (320px/260px) and advert videos (230px/195px).
-  - Initialized git, created `.gitignore`, authored executive `README.md`.
-  - Created and pushed to GitHub repository: **`dabelinfotech/dabeltech-website`** (`main` branch).
-
----
-
-### Request 8: Live Panel Upward Alignment & Page Run-Down Fix
-- **Requirement:**
-  - "bring the 'live' panel upward to match"
-  - "fix why the page run to the bottom each time i open the website"
-- **Implementation:**
-  - **Upward Alignment:** Changed `.hero-container` from `align-items: center` to `align-items: flex-start`, and `.hero-visual` to `align-self: flex-start; margin-top: 0;`. This eliminated the ~90px downward sag, bringing the "Live" dashboard window flush with the top of the hero content and eyebrow badge.
-  - **Run-Down Fix:**
-    1. Disabled browser scroll restoration: `history.scrollRestoration = 'manual'`.
-    2. Disabled scroll-anchoring: `html, body { overflow-anchor: none; }`.
-    3. Conditioned `scroll-behavior: smooth` to `html.smooth-scroll`, enabled only after page load settles at `(0, 0)`.
-    4. Added pre-paint script in `<head>` to strip stale anchor hashes (`#enroll`) on load/refresh.
-    5. Upgraded anchor link handling with `history.replaceState` so clicking nav tabs smoothly scrolls without leaving sticky hashes that trigger run-downs upon future visits.
-    6. Synchronized to Desktop and pushed commit `fac82c5` to GitHub.
-
----
-
-## 3. Key Files & Structure
+## 3. Architecture & File Matrix
 
 ```
 dabeltech-website/
-├── assets/
-│   ├── banner-youtube-mastery.jpeg
-│   ├── founder.jpeg
-│   ├── advert-video-1.mp4
-│   ├── advert-video-2.mp4
-│   ├── logo.jpeg
-│   └── [55 additional assets]
-├── index.html               # Semantic HTML5 platform
-├── styles.css               # Design system & responsive styles
-├── script.js                # Core interactive controllers
-├── server.js                # HTTP streaming development server
-├── README.md                # Repository documentation
-└── .gitignore               # Clean repository ignores
+├── index.html               # Default Web Front Page (Clean Executive Platform)
+├── programs.html            # Dedicated Academic & Professional Programs Page
+├── projects.html            # Dedicated 15-Repository Project Showcase Page
+├── gallery.html             # Dedicated Multimedia Gallery (Adverts 01 & 02 + Demos + Photos)
+├── styles.css               # Core Styles & Responsive Design Tokens (v2.9)
+├── script.js                # Interactive Sliders, Lightboxes, Modals (v2.9)
+├── assets/                  # 60+ images, logos, banners, and 4 video files
+├── README.md                # Platform Documentation
+└── .gitignore               # Clean Repository Ignores
 ```
 
 ---
@@ -142,35 +96,5 @@ dabeltech-website/
 - **Remote dabeltech:** `https://github.com/dabeltech/dabeltech-website.git`
 - **Remote dabelinfotech:** `https://github.com/dabelinfotech/dabeltech-website.git`
 - **Default Branch:** `main`
-- **Latest Commit:** `5e7cda2` (*refactor: remove project content from dashboard frontend and restrict to project menu tab only*)
-- **Status:** Clean working tree, fully synced and live on Vercel (`styles.css?v=2.6`).
-
----
-
-## 5. Local Server & Desktop Directories
-
-- **Live Production URL:** [https://dabeltech-website.vercel.app](https://dabeltech-website.vercel.app)
-- **Local Scratch Directory:** `C:\Users\DABELTECH\.gemini\antigravity-ide\scratch\dabeltech-website\`
-- **User Desktop Directory:** `C:\Users\DABELTECH\Desktop\DABELTECH WEBSITE\`
-- **Sync Script:** `C:\Users\DABELTECH\.gemini\antigravity-ide\scratch\sync_desktop.ps1`
-
----
-
-## 6. Project Showcase & Dashboard Refactor (v2.6)
-
-1. **Dashboard Frontend Cleansed of Project Content:**
-   - Removed project cards and sublinks (`Analytics Hub` / City of Mainland Procurement and `Result Portal` / House of Angels) from the executive dashboard tabs and panels.
-   - Replaced repository metric cards in the dashboard with operational indicators (`Global Presence: 4 Nations`, `Active Systems: 99.98% Uptime`, `Trained Builders: 1,280+ Across Africa`).
-   - Replaced hero action button with `Explore All Programs` (`#programs`).
-   - Executive dashboard strictly focuses on `Commercial Adverts (01 & 02)`, `AI & Robotics Intelligence`, `Admissions & Cohorts`, and `Founder Desk`.
-
-2. **Project Showcase Restricted to Project Menu Tab:**
-   - Dedicated navigation tab in header: `Project Showcase` (`#nav-tab-projects` -> `#projects`).
-   - Complete grid housing all 15 shipped repositories across 3 categories:
-     - *Web & School Portals (4)*
-     - *Data & BI Dashboards (7)*
-     - *Audio DSP & Games (4)*
-   - Interactive category filter tabs with dynamic count badges.
-   - Smooth scroll offset (`scroll-margin-top: 105px`) preventing sticky navbar clipping.
-   - Active scrollspy dynamically tracking active tab states as users scroll.
-
+- **Latest Commit:** `2709ba8`
+- **Status:** Clean working tree, fully synced and live on Vercel (`styles.css?v=2.9`).
