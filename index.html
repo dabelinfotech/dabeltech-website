@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   
   <!-- Main Stylesheet (v2.4 Menu Tab Reorganization & Dashboard Commercial Adverts) -->
-  <link rel="stylesheet" href="styles.css?v=2.5">
+  <link rel="stylesheet" href="styles.css?v=2.6">
 
   <!-- Force page to stay at top on initial load & prevent running down to bottom -->
   <script>
@@ -129,17 +129,17 @@
             <i class="fa-solid fa-circle-play text-accent"></i>
             <span>Watch Advert Videos</span>
           </a>
-          <a href="#projects" class="btn btn-dark btn-lg" id="hero-github-btn">
-            <i class="fa-solid fa-code text-accent"></i>
-            <span>Explore Project Showcase</span>
+          <a href="#programs" class="btn btn-dark btn-lg" id="hero-programs-btn">
+            <i class="fa-solid fa-book-open text-accent"></i>
+            <span>Explore All Programs</span>
           </a>
         </div>
 
         <!-- Key Trust Badges Grid -->
         <div class="hero-stats">
           <div class="stat-card">
-            <div class="stat-num">15+</div>
-            <div class="stat-label">Shipped Repositories</div>
+            <div class="stat-num">1,500+</div>
+            <div class="stat-label">Trained Alumni</div>
           </div>
           <div class="stat-card">
             <div class="stat-num">10+</div>
@@ -178,8 +178,6 @@
           <!-- Dashboard Navigation Sub-Ribbon -->
           <div class="dash-tabs-ribbon" role="tablist">
             <button class="dash-tab-btn active" data-dash="adverts"><i class="fa-solid fa-circle-play text-accent"></i> Commercial Adverts</button>
-            <button class="dash-tab-btn" data-dash="analytics"><i class="fa-solid fa-chart-line"></i> Analytics Hub</button>
-            <button class="dash-tab-btn" data-dash="portal"><i class="fa-solid fa-school"></i> Result Portal</button>
             <button class="dash-tab-btn" data-dash="ai"><i class="fa-solid fa-brain"></i> AI &amp; Robotics</button>
             <button class="dash-tab-btn" data-dash="cohorts"><i class="fa-solid fa-users"></i> Cohorts</button>
             <button class="dash-tab-btn" data-dash="founder"><i class="fa-solid fa-crown text-accent"></i> Founder Desk</button>
@@ -211,11 +209,11 @@
 
             <!-- Quick Metric Widgets Row -->
             <div class="dash-metrics-row">
-              <a href="#projects" class="dash-metric-card dash-metric-link" title="Explore all 15 repositories in Project Showcase">
-                <span class="m-title">Total Repositories</span>
-                <span class="m-val text-accent">15 Shipped</span>
-                <span class="m-sub"><i class="fa-solid fa-code text-accent"></i> View in Showcase &rarr;</span>
-              </a>
+              <div class="dash-metric-card">
+                <span class="m-title">Global Presence</span>
+                <span class="m-val text-accent">4 Nations</span>
+                <span class="m-sub"><i class="fa-solid fa-earth-africa text-accent"></i> West &amp; East Africa</span>
+              </div>
               <div class="dash-metric-card">
                 <span class="m-title">Active Systems</span>
                 <span class="m-val text-cyan">99.98% Uptime</span>
@@ -311,76 +309,6 @@
               </div>
             </div>
 
-            <div class="dash-panel" id="dash-panel-analytics">
-              <div class="panel-header">
-                <div>
-                  <h4>Procurement &amp; Sales Data Engine</h4>
-                  <small>Star-Schema Modeling &bull; SQL &bull; Power BI &bull; DAX</small>
-                </div>
-                <span class="panel-tag">DA &bull; Star Schema</span>
-              </div>
-              <div class="analytics-preview">
-                <div class="chart-mockup">
-                  <div class="bar-col"><div class="bar" style="height: 60%;"></div><span>Q1</span></div>
-                  <div class="bar-col"><div class="bar" style="height: 85%;"></div><span>Q2</span></div>
-                  <div class="bar-col"><div class="bar highlight" style="height: 98%;"></div><span>Q3</span></div>
-                  <div class="bar-col"><div class="bar" style="height: 75%;"></div><span>Q4</span></div>
-                </div>
-                <div class="analytics-stats">
-                  <div class="a-stat">
-                    <span>Net Modeled Spend</span>
-                    <strong>CAD $66.5M</strong>
-                  </div>
-                  <div class="a-stat">
-                    <span>Transactions Cleansed</span>
-                    <strong>26,357 Records</strong>
-                  </div>
-                  <div class="a-stat">
-                    <span>KPI Risk Flagging</span>
-                    <strong class="text-green">Automated DAX</strong>
-                  </div>
-                </div>
-                <a href="#projects" class="dash-action-sublink"><i class="fa-solid fa-code"></i> View Procurement Project in Showcase &rarr;</a>
-              </div>
-            </div>
-
-            <div class="dash-panel" id="dash-panel-portal">
-              <div class="panel-header">
-                <div>
-                  <h4>School Result Management Portal</h4>
-                  <small>PIN Authentication &bull; PDF Report Card Generator</small>
-                </div>
-                <span class="panel-tag text-cyan">WD &bull; Production</span>
-              </div>
-              <div class="portal-mockup">
-                <div class="student-card-preview">
-                  <div class="student-info">
-                    <img src="assets/logo.jpeg" alt="School Badge" class="school-mini-logo">
-                    <div>
-                      <strong>House of Angels Schools / Dabeltech Network</strong>
-                      <span>Student: Adaeze Okafor &bull; Class: SS3 Alpha</span>
-                    </div>
-                  </div>
-                  <div class="result-status-row">
-                    <div class="pin-box">
-                      <small>Scratch-Card PIN:</small>
-                      <code>DBL-88291-PASS</code>
-                    </div>
-                    <span class="verified-badge"><i class="fa-solid fa-circle-check"></i> RESULT VERIFIED</span>
-                  </div>
-                  <div class="grades-preview">
-                    <span>Maths: <strong>94% (A1)</strong></span>
-                    <span>English: <strong>88% (A1)</strong></span>
-                    <span>Physics: <strong>91% (A1)</strong></span>
-                    <span>Data Processing: <strong>96% (A1)</strong></span>
-                  </div>
-                  <a href="#projects" class="dash-action-sublink"><i class="fa-solid fa-code"></i> View School Portals in Project Showcase &rarr;</a>
-
-                  </div>
-                </div>
-              </div>
-            </div>
-
             <div class="dash-panel" id="dash-panel-ai">
               <div class="panel-header">
                 <div>
@@ -435,7 +363,7 @@
                     "At DABELTECH, we bridge the gap between classroom theory and industry-grade technology. Every student builds real-world production projects."
                   </p>
                   <div class="founder-credentials-pills">
-                    <span class="cred-pill"><i class="fa-solid fa-code text-cyan"></i> 15+ Shipped Repositories</span>
+                    <span class="cred-pill"><i class="fa-solid fa-layer-group text-cyan"></i> Full-Stack &amp; AI Architect</span>
                     <span class="cred-pill"><i class="fa-solid fa-user-graduate text-green"></i> 1,500+ Students Mentored</span>
                     <span class="cred-pill"><i class="fa-solid fa-award text-accent"></i> Best Student Award Valedictorian</span>
                     <span class="cred-pill"><i class="fa-solid fa-globe text-purple"></i> Nigeria &bull; Ghana &bull; Kenya &bull; Cameroon</span>
@@ -3247,6 +3175,6 @@
   </div>
 
   <!-- Main JavaScript File -->
-  <script src="script.js?v=2.5"></script>
+  <script src="script.js?v=2.6"></script>
 </body>
 </html>
