@@ -139,16 +139,38 @@ dabeltech-website/
 
 ## 4. GitHub Remote Details
 
-- **Remote Origin:** `https://github.com/dabelinfotech/dabeltech-website.git`
+- **Remote dabeltech:** `https://github.com/dabeltech/dabeltech-website.git`
+- **Remote dabelinfotech:** `https://github.com/dabelinfotech/dabeltech-website.git`
 - **Default Branch:** `main`
-- **Latest Commit:** `fac82c5` (*fix: align live dashboard panel upward with hero content and lock page scroll to top on load*)
-- **Status:** Clean working tree, fully synced.
+- **Latest Commit:** `5e7cda2` (*refactor: remove project content from dashboard frontend and restrict to project menu tab only*)
+- **Status:** Clean working tree, fully synced and live on Vercel (`styles.css?v=2.6`).
 
 ---
 
 ## 5. Local Server & Desktop Directories
 
-- **Dev Server:** Port `8080` (HTTP Status: 200 OK)
+- **Live Production URL:** [https://dabeltech-website.vercel.app](https://dabeltech-website.vercel.app)
 - **Local Scratch Directory:** `C:\Users\DABELTECH\.gemini\antigravity-ide\scratch\dabeltech-website\`
 - **User Desktop Directory:** `C:\Users\DABELTECH\Desktop\DABELTECH WEBSITE\`
 - **Sync Script:** `C:\Users\DABELTECH\.gemini\antigravity-ide\scratch\sync_desktop.ps1`
+
+---
+
+## 6. Project Showcase & Dashboard Refactor (v2.6)
+
+1. **Dashboard Frontend Cleansed of Project Content:**
+   - Removed project cards and sublinks (`Analytics Hub` / City of Mainland Procurement and `Result Portal` / House of Angels) from the executive dashboard tabs and panels.
+   - Replaced repository metric cards in the dashboard with operational indicators (`Global Presence: 4 Nations`, `Active Systems: 99.98% Uptime`, `Trained Builders: 1,280+ Across Africa`).
+   - Replaced hero action button with `Explore All Programs` (`#programs`).
+   - Executive dashboard strictly focuses on `Commercial Adverts (01 & 02)`, `AI & Robotics Intelligence`, `Admissions & Cohorts`, and `Founder Desk`.
+
+2. **Project Showcase Restricted to Project Menu Tab:**
+   - Dedicated navigation tab in header: `Project Showcase` (`#nav-tab-projects` -> `#projects`).
+   - Complete grid housing all 15 shipped repositories across 3 categories:
+     - *Web & School Portals (4)*
+     - *Data & BI Dashboards (7)*
+     - *Audio DSP & Games (4)*
+   - Interactive category filter tabs with dynamic count badges.
+   - Smooth scroll offset (`scroll-margin-top: 105px`) preventing sticky navbar clipping.
+   - Active scrollspy dynamically tracking active tab states as users scroll.
+
