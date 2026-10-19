@@ -20,6 +20,27 @@ document.addEventListener('DOMContentLoaded', () => {
   // Ensure page remains at top on DOMContentLoaded
   window.scrollTo(0, 0);
 
+  // Primary Navigation Sections for Active Tab Tracking & ScrollSpy
+  const navSections = [
+    { id: 'hero', tab: document.querySelector('.nav-tab[href="#hero"]') },
+    { id: 'programs', tab: document.querySelector('.nav-tab[href="#programs"]') },
+    { id: 'services', tab: document.querySelector('.nav-tab[href="#services"]') },
+    { id: 'projects', tab: document.querySelector('.nav-tab[href="#projects"]') },
+    { id: 'gallery', tab: document.querySelector('.nav-tab[href="#gallery"]') },
+    { id: 'bootcamp', tab: document.querySelector('.nav-tab[href="#bootcamp"]') }
+  ].filter(item => item.tab && document.getElementById(item.id));
+
+  function updateActiveNavTab(activeHash) {
+    if (!activeHash) return;
+    document.querySelectorAll('.nav-tab').forEach(tab => {
+      if (tab.getAttribute('href') === activeHash) {
+        tab.classList.add('active');
+      } else {
+        tab.classList.remove('active');
+      }
+    });
+  }
+
   // Smooth scroll for in-page anchors without sticky URL hashes
   document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener('click', function(e) {
@@ -28,12 +49,41 @@ document.addEventListener('DOMContentLoaded', () => {
         const targetEl = document.querySelector(targetHash);
         if (targetEl) {
           e.preventDefault();
+          updateActiveNavTab(targetHash);
           targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
           history.replaceState(null, document.title, window.location.pathname + window.location.search);
         }
       }
     });
   });
+
+  // Passive ScrollSpy with requestAnimationFrame
+  let scrollSpyTicking = false;
+  window.addEventListener('scroll', () => {
+    if (!scrollSpyTicking) {
+      window.requestAnimationFrame(() => {
+        const scrollPosition = window.scrollY + 140; // offset for sticky navbar + ribbon
+        let currentSectionId = '';
+
+        for (let i = navSections.length - 1; i >= 0; i--) {
+          const sectionEl = document.getElementById(navSections[i].id);
+          if (sectionEl) {
+            const sectionTop = sectionEl.offsetTop;
+            if (scrollPosition >= sectionTop) {
+              currentSectionId = navSections[i].id;
+              break;
+            }
+          }
+        }
+
+        if (currentSectionId) {
+          updateActiveNavTab('#' + currentSectionId);
+        }
+        scrollSpyTicking = false;
+      });
+      scrollSpyTicking = true;
+    }
+  }, { passive: true });
 
   // ==========================================
   // 1. MOBILE NAVIGATION DRAWER

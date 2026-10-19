@@ -157,6 +157,20 @@ ul {
 .section {
   padding: 96px 0;
   position: relative;
+  scroll-margin-top: 105px;
+}
+
+section[id],
+#hero,
+#programs,
+#services,
+#projects,
+#gallery,
+#bootcamp,
+#about,
+#quote,
+#enroll {
+  scroll-margin-top: 105px;
 }
 
 .text-center {
@@ -488,7 +502,49 @@ ul {
 }
 
 .nav-tab:hover,
+.nav-tab:hover {
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.08);
+}
+
 .nav-tab.active {
+  color: #fff;
+  background: rgba(245, 158, 11, 0.16);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  box-shadow: 0 0 14px rgba(245, 158, 11, 0.22);
+}
+
+a.dash-metric-link {
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform var(--trans-fast), border-color var(--trans-fast), box-shadow var(--trans-fast);
+}
+
+a.dash-metric-link:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-gold);
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.25);
+}
+
+.dash-action-sublink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--accent-gold);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+  margin-top: 10px;
+  transition: color var(--trans-fast), transform var(--trans-fast);
+}
+
+.dash-action-sublink:hover {
+  color: #fff;
+  transform: translateX(4px);
+}
+
+.nav-tab-placeholder {
   color: var(--text-main);
   background: rgba(255, 255, 255, 0.06);
 }
