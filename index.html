@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   
   <!-- Main Stylesheet (v2.4 Menu Tab Reorganization & Dashboard Commercial Adverts) -->
-  <link rel="stylesheet" href="styles.css?v=3.0">
+  <link rel="stylesheet" href="styles.css?v=3.1">
 
   <!-- Force page to stay at top on initial load & prevent running down to bottom -->
   <script>
@@ -132,9 +132,9 @@
             <i class="fa-solid fa-calculator"></i>
             <span>Get an Instant Quote</span>
           </a>
-          <a href="projects.html" class="btn btn-outline btn-lg" id="hero-projects-btn">
-            <i class="fa-solid fa-code text-accent"></i>
-            <span>View Project Showcase</span>
+          <a href="#dash-video-stage" class="btn btn-outline btn-lg" id="hero-watch-btn">
+            <i class="fa-solid fa-circle-play text-accent"></i>
+            <span>Watch Advert Videos</span>
           </a>
           <a href="programs.html" class="btn btn-dark btn-lg" id="hero-programs-btn">
             <i class="fa-solid fa-book-open text-accent"></i>
@@ -184,7 +184,8 @@
 
           <!-- Dashboard Navigation Sub-Ribbon -->
           <div class="dash-tabs-ribbon" role="tablist">
-            <button class="dash-tab-btn active" data-dash="ai"><i class="fa-solid fa-brain text-accent"></i> AI &amp; Robotics</button>
+            <button class="dash-tab-btn active" data-dash="adverts"><i class="fa-solid fa-circle-play text-accent"></i> Commercial Adverts</button>
+            <button class="dash-tab-btn" data-dash="ai"><i class="fa-solid fa-brain"></i> AI &amp; Robotics</button>
             <button class="dash-tab-btn" data-dash="cohorts"><i class="fa-solid fa-users"></i> Cohorts</button>
             <button class="dash-tab-btn" data-dash="founder"><i class="fa-solid fa-crown text-accent"></i> Founder Desk</button>
           </div>
@@ -233,7 +234,89 @@
             </div>
 
             <!-- Dynamic Panels Inside Dashboard -->
-            <div class="dash-panel active" id="dash-panel-ai">
+            <!-- Commercial Adverts Panel (Featured on Frontend of Dashboard) -->
+            <div class="dash-panel active" id="dash-panel-adverts">
+              <div class="panel-header">
+                <div>
+                  <h4>DABELTECH Official Commercial Broadcast</h4>
+                  <small>Advert 01 &bull; Advert 02 &bull; Auto-Sequenced HD Video Broadcast</small>
+                </div>
+                <span class="panel-tag text-accent"><span class="pulse-dot-red"></span> LIVE BROADCAST</span>
+              </div>
+
+              <!-- Quick Advert Switch Chips -->
+              <div class="dash-advert-chips">
+                <button type="button" class="dash-ad-chip active" id="dash-chip-1" data-video="1">
+                  <i class="fa-solid fa-circle-play text-accent"></i> Advert 01: Flagship Commercial
+                </button>
+                <button type="button" class="dash-ad-chip" id="dash-chip-2" data-video="2">
+                  <i class="fa-solid fa-film text-cyan"></i> Advert 02: Solutions &amp; Training
+                </button>
+              </div>
+
+              <!-- Dashboard Cinema Video Screen Stage -->
+              <div class="dash-video-stage" id="dash-video-stage">
+                <!-- Dual Videos for Seamless Auto-Sequenced Playback -->
+                <video id="dash-video-1" class="dash-screen-video active" src="assets/advert-video-1.mp4" playsinline muted preload="auto" poster="assets/brand-true-mastery.jpeg"></video>
+                <video id="dash-video-2" class="dash-screen-video" src="assets/advert-video-2.mp4" playsinline muted preload="auto" poster="assets/brand-future-name.jpeg"></video>
+
+                <div class="dash-ambient-glow" id="dash-ambient-glow"></div>
+
+                <!-- Floating Sound Toggle Badge -->
+                <button type="button" class="dash-floating-sound-btn" id="dash-sound-toggle-btn" aria-label="Toggle Audio Sound">
+                  <i class="fa-solid fa-volume-xmark" id="dash-sound-icon"></i>
+                  <span id="dash-sound-text">Click for Sound</span>
+                </button>
+
+                <!-- Center Big Play/Pause Trigger -->
+                <div class="dash-play-center-btn" id="dash-center-play-trigger" aria-label="Play or Pause Video">
+                  <i class="fa-solid fa-play" id="dash-center-icon"></i>
+                </div>
+
+                <!-- Custom Player Controls Bar -->
+                <div class="dash-custom-controls">
+                  <div class="dash-progress-track" id="dash-progress-track">
+                    <div class="dash-progress-fill" id="dash-progress-fill"></div>
+                  </div>
+                  <div class="dash-controls-row">
+                    <div class="dash-left-controls">
+                      <button type="button" class="dash-ctrl-btn" id="dash-play-btn" title="Play / Pause" aria-label="Play / Pause">
+                        <i class="fa-solid fa-play" id="dash-play-icon"></i>
+                      </button>
+                      <button type="button" class="dash-ctrl-btn" id="dash-prev-track-btn" title="Previous Advert" aria-label="Previous Advert">
+                        <i class="fa-solid fa-backward-step"></i>
+                      </button>
+                      <button type="button" class="dash-ctrl-btn" id="dash-next-track-btn" title="Next Advert" aria-label="Next Advert">
+                        <i class="fa-solid fa-forward-step"></i>
+                      </button>
+                      <button type="button" class="dash-ctrl-btn" id="dash-audio-btn" title="Toggle Sound" aria-label="Toggle Sound">
+                        <i class="fa-solid fa-volume-xmark" id="dash-vol-icon"></i>
+                      </button>
+                      <span class="dash-timecode" id="dash-timecode">0:00 / 0:00</span>
+                    </div>
+                    <div class="dash-right-controls">
+                      <span class="dash-current-indicator" id="dash-current-indicator">ADVERT 1 OF 2</span>
+                      <button type="button" class="dash-ctrl-btn" id="dash-fullscreen-btn" title="Fullscreen" aria-label="Fullscreen">
+                        <i class="fa-solid fa-expand"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Advert Footer Metadata -->
+              <div class="dash-advert-meta-bar">
+                <div class="dash-advert-desc" id="dash-advert-desc">
+                  <i class="fa-solid fa-circle-info text-accent"></i>
+                  <span id="dash-ad-desc-text">Advert 01: Discover our flagship tech institute, multi-currency African cohorts, smart school result portals, and data analytics systems.</span>
+                </div>
+                <a href="gallery.html" class="dash-view-gallery-link">
+                  <span>View in Full Gallery</span> <i class="fa-solid fa-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+
+            <div class="dash-panel" id="dash-panel-ai">
               <div class="panel-header">
                 <div>
                   <h4>AI &amp; Robotics Intelligence Engine</h4>
@@ -615,6 +698,48 @@
       <!-- Unified Multimedia Gallery Grid -->
       <div class="gallery-unified-grid" id="gallery-unified-grid">
         
+        <!-- ==================== 1. OFFICIAL COMMERCIAL ADVERTS (2) ==================== -->
+        
+        <!-- Video 1: Official Commercial Advert 01 -->
+        <div class="gallery-card gallery-video-card" data-category="videos adverts">
+          <div class="g-video-stage">
+            <video controls playsinline preload="metadata" poster="assets/brand-true-mastery.jpeg" class="g-video-element">
+              <source src="assets/advert-video-1.mp4" type="video/mp4">
+              Your browser does not support HTML5 video.
+            </video>
+          </div>
+          <div class="g-card-body">
+            <div class="g-card-top">
+              <span class="g-badge badge-advert"><i class="fa-solid fa-clapperboard"></i> OFFICIAL ADVERT 01</span>
+              <span class="g-format"><i class="fa-solid fa-video text-accent"></i> 1080p HD</span>
+            </div>
+            <h3 class="g-card-title">DABELTECH Official Broadcast Commercial (Advert 1)</h3>
+            <p class="g-card-desc">
+              Our flagship commercial showcasing software engineering solutions, school result management portals, and career cohort programs across Africa.
+            </p>
+          </div>
+        </div>
+
+        <!-- Video 2: Official Commercial Advert 02 -->
+        <div class="gallery-card gallery-video-card" data-category="videos adverts">
+          <div class="g-video-stage">
+            <video controls playsinline preload="metadata" poster="assets/brand-future-name.jpeg" class="g-video-element">
+              <source src="assets/advert-video-2.mp4" type="video/mp4">
+              Your browser does not support HTML5 video.
+            </video>
+          </div>
+          <div class="g-card-body">
+            <div class="g-card-top">
+              <span class="g-badge badge-advert"><i class="fa-solid fa-bolt"></i> OFFICIAL ADVERT 02</span>
+              <span class="g-format"><i class="fa-solid fa-video text-cyan"></i> 1080p HD</span>
+            </div>
+            <h3 class="g-card-title">DABELTECH Smart Solutions &amp; Training Showcase (Advert 2)</h3>
+            <p class="g-card-desc">
+              Full overview of our practical computer lab sessions, student coding projects, AI bootcamps, and institutional tech services.
+            </p>
+          </div>
+        </div>
+
         <!-- ==================== 2. PHOTOGRAPHIC RECORD (6) & 3. BANNERS (19) ==================== -->
         <div class="gallery-item gallery-photo-item" data-category="photos" data-src="assets/founder.jpeg" data-caption="Opeyemi Obisesan: Founder, Lead Software Architect &amp; Head Instructor at DABELTECH. Driving Africa's digital revolution through practical tech education and enterprise software systems.">
           <img src="assets/founder.jpeg" alt="Opeyemi Obisesan - Founder of DABELTECH" loading="lazy">
@@ -1359,6 +1484,6 @@
   </div>
 
   <!-- Main JavaScript File -->
-  <script src="script.js?v=3.0"></script>
+  <script src="script.js?v=3.1"></script>
 </body>
 </html>
