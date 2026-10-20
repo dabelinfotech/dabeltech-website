@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="styles.css?v=2.9">
+  <link rel="stylesheet" href="styles.css?v=3.0">
 </head>
 <body class="theme-dark gallery-page">
 
@@ -98,7 +98,9 @@
         <!-- Gallery Filter Tabs Ribbon -->
         <div class="gallery-filter-ribbon" role="tablist">
           <button type="button" class="gallery-filter-btn active" data-filter="all"><i class="fa-solid fa-border-all"></i> All Media (29)</button>
-          <button type="button" class="gallery-filter-btn" data-filter="videos"><i class="fa-solid fa-circle-play text-accent"></i> Official Videos &amp; Adverts (4)</button>
+          <button type="button" class="gallery-filter-btn" data-filter="videos"><i class="fa-solid fa-circle-play text-accent"></i> All Videos (4)</button>
+          <button type="button" class="gallery-filter-btn" data-filter="adverts"><i class="fa-solid fa-clapperboard text-cyan"></i> Commercial Adverts (2)</button>
+          <button type="button" class="gallery-filter-btn" data-filter="demos"><i class="fa-solid fa-laptop-code text-green"></i> Live Demos (2)</button>
           <button type="button" class="gallery-filter-btn" data-filter="photos"><i class="fa-solid fa-camera text-cyan"></i> Photographic Record (6)</button>
           <button type="button" class="gallery-filter-btn" data-filter="banners"><i class="fa-solid fa-file-image text-green"></i> Banners &amp; Flyers (19)</button>
         </div>
@@ -110,7 +112,7 @@
         <!-- ==================== 1. OFFICIAL VIDEOS (4) ==================== -->
         
         <!-- Video 1: Official Commercial Advert 01 -->
-        <div class="gallery-card gallery-video-card" data-category="videos">
+        <div class="gallery-card gallery-video-card" data-category="videos adverts">
           <div class="g-video-stage">
             <video controls playsinline preload="metadata" poster="assets/brand-true-mastery.jpeg" class="g-video-element">
               <source src="assets/advert-video-1.mp4" type="video/mp4">
@@ -130,7 +132,7 @@
         </div>
 
         <!-- Video 2: Official Commercial Advert 02 -->
-        <div class="gallery-card gallery-video-card" data-category="videos">
+        <div class="gallery-card gallery-video-card" data-category="videos adverts">
           <div class="g-video-stage">
             <video controls playsinline preload="metadata" poster="assets/brand-future-name.jpeg" class="g-video-element">
               <source src="assets/advert-video-2.mp4" type="video/mp4">
@@ -150,7 +152,7 @@
         </div>
 
         <!-- Video 3: Interactive Tech Training Live Demo -->
-        <div class="gallery-card gallery-video-card" data-category="videos">
+        <div class="gallery-card gallery-video-card" data-category="videos demos">
           <div class="g-video-stage">
             <video controls playsinline preload="metadata" poster="assets/photo-smart-lab.jpeg" class="g-video-element">
               <source src="assets/video-session-2.mp4" type="video/mp4">
@@ -159,7 +161,7 @@
           </div>
           <div class="g-card-body">
             <div class="g-card-top">
-              <span class="g-badge badge-demo"><i class="fa-solid fa-play"></i> LIVE DEMO</span>
+              <span class="g-badge badge-demo"><i class="fa-solid fa-play"></i> LIVE DEMO 01</span>
               <span class="g-format"><i class="fa-solid fa-desktop text-green"></i> Smart Lab</span>
             </div>
             <h3 class="g-card-title">Dabeltech Interactive Tech Training &amp; Coding Walkthrough</h3>
@@ -170,7 +172,7 @@
         </div>
 
         <!-- Video 4: Classroom Practical Lab & Student Mentorship Session -->
-        <div class="gallery-card gallery-video-card" data-category="videos">
+        <div class="gallery-card gallery-video-card" data-category="videos demos">
           <div class="g-video-stage">
             <video controls playsinline preload="metadata" poster="assets/photo-class-session.jpeg" class="g-video-element">
               <source src="assets/video-session-1.mp4" type="video/mp4">
@@ -179,7 +181,7 @@
           </div>
           <div class="g-card-body">
             <div class="g-card-top">
-              <span class="g-badge badge-workshop"><i class="fa-solid fa-circle-nodes"></i> WORKSHOP HIGHLIGHT</span>
+              <span class="g-badge badge-demo"><i class="fa-solid fa-play"></i> LIVE DEMO 02</span>
               <span class="g-format"><i class="fa-solid fa-chalkboard-user text-purple"></i> Classroom</span>
             </div>
             <h3 class="g-card-title">Classroom Practical Lab &amp; Student Mentorship Session</h3>
@@ -466,6 +468,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=2.9"></script>
+  <script src="script.js?v=3.0"></script>
 </body>
 </html>

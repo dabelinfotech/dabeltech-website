@@ -1,4 +1,4 @@
-// 0. SCROLL STABILIZATION: Prevent page running down on open/refresh
+﻿// 0. SCROLL STABILIZATION: Prevent page running down on open/refresh
 if ('scrollRestoration' in history) {
   history.scrollRestoration = 'manual';
 }
@@ -292,8 +292,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const filterVal = btn.getAttribute('data-filter');
 
       galleryMediaCards.forEach(card => {
-        const category = card.getAttribute('data-category');
-        if (filterVal === 'all' || category === filterVal) {
+        const category = card.getAttribute('data-category') || '';
+        const catList = category.split(' ');
+        if (filterVal === 'all' || category === filterVal || catList.includes(filterVal)) {
           card.style.display = '';
           card.style.animation = 'fadeIn 0.3s ease forwards';
         } else {
