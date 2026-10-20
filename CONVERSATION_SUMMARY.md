@@ -1,7 +1,7 @@
 # DABELTECH Web Platform — Complete Conversation & Development Archive
 
 **Conversation ID:** `127b67ab-e585-49df-ad62-587cd759647b`  
-**Date:** October 15–19, 2026  
+**Date:** October 15–20, 2026  
 **Project:** DABELTECH & DABELTECH INSTITUTE Official Web Platform  
 **Live Production URL:** [https://dabeltech-website.vercel.app](https://dabeltech-website.vercel.app)  
 **Dedicated Programs Tab:** [https://dabeltech-website.vercel.app/programs.html](https://dabeltech-website.vercel.app/programs.html)  
@@ -44,33 +44,39 @@ This archive records all technical requirements, visual updates, architectural c
 - Created dedicated `projects.html` page housing all 15 repositories with interactive filters.
 
 ### Request 6: Removal of Academic Programs & Advert 1 and 2 from Front Page (v2.9)
-- **User Request:** "remove the academic professional programs and official advert 1 and 2 from the default web front page"
+- "remove the academic professional programs and official advert 1 and 2 from the default web front page"
+- Completely removed `<section class="section programs-section" id="programs">` from `index.html`.
+- Created dedicated `programs.html` page housing all 7 career tracks, 3 bootcamps, 19 course flyers, and tuition calculator.
+- Created dedicated `gallery.html` page housing Official Commercial Advert 01 & 02.
+
+### Request 7: Removal of Live Demo Videos from Front Page to Gallery (v3.0)
+- **User Request:** "remove the "Live Demo" videos from the default frontend page and put it under gallery""
 - **Implementation:**
   1. **Clean Default Web Front Page (`index.html`):**
-     - Completely removed `<section class="section programs-section" id="programs">` (1,260 lines).
-     - Removed `#dash-panel-adverts` and the `Commercial Adverts` tab from the hero executive dashboard.
-     - Set `AI & Robotics Intelligence Engine` as the primary active tab on the dashboard frontend.
-     - Removed Video 1 (Advert 01) and Video 2 (Advert 02) from `#gallery` on `index.html`.
-     - In `#gallery` on `index.html`, retained training lab demos (Videos 3 & 4), 6 photo records, and added a sleek notice banner directing visitors to `gallery.html` for the official broadcast commercials.
-     - Top navbar and footer menu tabs link to `programs.html`, `projects.html`, and `gallery.html`.
-     - Added instant `<head>` redirects for `#programs`, `#bootcamp`, and `#projects`.
-  2. **Dedicated Programs Page (`programs.html`):**
-     - Houses all Academic & Professional Programs under the `Programs` menu tab:
-       - 7 Certified Career Tracks (Data Analysis, AI & Automation, Full-Stack Web Development, Cybersecurity, Vibe Coding, Digital Marketing, YouTube Mastery).
-       - 3 Intensive Bootcamps (`#bootcamp`).
-       - 19 Motion Banner Course Curricula & Admissions Showcase with thumbnail preview carousel.
-       - Multi-currency Tuition Fee Breakdown (NGN, USD, GHC, KSH, CFA).
-  3. **Dedicated Multimedia Gallery Page (`gallery.html`):**
-     - Houses the complete multimedia archive under the `Gallery` menu tab:
-       - Official Commercial Advert 01 & 02 (1080p HD).
-       - Interactive Tech Training Live Demos (Videos 3 & 4).
-       - Photographic records (6 campus & founder photos).
-       - 19 Banners & Flyers with full-resolution lightbox viewer.
-  4. **Multi-Remote Deployment:**
-     - Synced to Desktop (`C:\Users\DABELTECH\Desktop\DABELTECH WEBSITE`).
-     - Committed and pushed to `dabelinfotech/main` (Vercel production).
-     - Committed and pushed to `origin/main` (`dabeltech`).
-     - Verified live HTTP 200 and complete section cleanliness.
+     - Completely removed both "Live Demo" video cards:
+       - Video 3: *Dabeltech Interactive Tech Training & Coding Walkthrough* (`video-session-2.mp4`).
+       - Video 4: *Classroom Practical Lab & Student Mentorship Session* (`video-session-1.mp4`).
+     - Removed the `<button data-filter="videos">` tab from `index.html` since the front page now contains zero video players.
+     - Updated count badge on the front page to `All Moments (25)` (6 photo records + 19 course flyers).
+     - Notice banner guides users to `gallery.html` to watch all video broadcasts and live training demos.
+     - Result: `index.html` is now 100% video-free, super lightweight, fast, and pristine on mobile.
+  2. **Dedicated Multimedia Gallery Page (`gallery.html`):**
+     - Houses all 4 videos prominently under the **Gallery** tab:
+       - Video 1: Official Broadcast Commercial Advert 01 (1080p HD).
+       - Video 2: Smart Solutions & Training Commercial Advert 02 (1080p HD).
+       - Video 3: Live Demo 01 — Interactive Tech Training & Coding Walkthrough.
+       - Video 4: Live Demo 02 — Classroom Practical Lab & Student Mentorship Session.
+     - Added dedicated category filter buttons:
+       - `All Videos (4)`
+       - `Commercial Adverts (2)`
+       - `Live Demos (2)`
+       - `Photographic Record (6)`
+       - `Banners & Flyers (19)`
+     - Updated `script.js` to support multi-category filtering (`videos adverts`, `videos demos`).
+  3. **Deployment & Verification:**
+     - Bumped cache-busting tokens to `v=3.0`.
+     - Committed and pushed to `dabelinfotech` (Vercel) and `origin` (`dabeltech`).
+     - Verified live HTTP 200 on Vercel: front page contains 0 `<video>` elements, and `gallery.html` contains all 4 videos with live demo filters.
 
 ---
 
@@ -78,12 +84,12 @@ This archive records all technical requirements, visual updates, architectural c
 
 ```
 dabeltech-website/
-├── index.html               # Default Web Front Page (Clean Executive Platform)
+├── index.html               # Default Web Front Page (Clean Executive Platform, 0 Videos)
 ├── programs.html            # Dedicated Academic & Professional Programs Page
 ├── projects.html            # Dedicated 15-Repository Project Showcase Page
-├── gallery.html             # Dedicated Multimedia Gallery (Adverts 01 & 02 + Demos + Photos)
-├── styles.css               # Core Styles & Responsive Design Tokens (v2.9)
-├── script.js                # Interactive Sliders, Lightboxes, Modals (v2.9)
+├── gallery.html             # Dedicated Multimedia Gallery (4 Videos: Adverts 1 & 2 + Live Demos 1 & 2)
+├── styles.css               # Core Styles & Responsive Design Tokens (v3.0)
+├── script.js                # Multi-category Video Filtering, Lightbox, Sliders (v3.0)
 ├── assets/                  # 60+ images, logos, banners, and 4 video files
 ├── README.md                # Platform Documentation
 └── .gitignore               # Clean Repository Ignores
@@ -96,5 +102,5 @@ dabeltech-website/
 - **Remote dabeltech:** `https://github.com/dabeltech/dabeltech-website.git`
 - **Remote dabelinfotech:** `https://github.com/dabelinfotech/dabeltech-website.git`
 - **Default Branch:** `main`
-- **Latest Commit:** `2709ba8`
-- **Status:** Clean working tree, fully synced and live on Vercel (`styles.css?v=2.9`).
+- **Latest Commit:** `05b1fca` (v3.0)
+- **Status:** Clean working tree, fully synced and live on Vercel (`styles.css?v=3.0`).
