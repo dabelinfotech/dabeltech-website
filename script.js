@@ -198,8 +198,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const filterValue = btn.getAttribute('data-filter');
 
       serviceCards.forEach(card => {
-        const category = card.getAttribute('data-category');
-        if (filterValue === 'all' || category === filterValue) {
+        const rawCategory = (card.getAttribute('data-category') || '').toLowerCase();
+        const categories = rawCategory.split(/\s+/);
+        if (filterValue === 'all' || categories.includes(filterValue.toLowerCase())) {
           card.style.display = 'flex';
           card.style.animation = 'fadeIn 0.3s ease forwards';
         } else {
@@ -319,6 +320,8 @@ document.addEventListener('DOMContentLoaded', () => {
     'school-website': { NGN: 120000, USD: 150, GHC: 1200, KSH: 15000, CFA: 75000, name: 'School / Business Website' },
     'result-portal': { NGN: 150000, USD: 180, GHC: 1500, KSH: 18000, CFA: 90000, name: 'Student Result Portal System' },
     'cbt-portal': { NGN: 140000, USD: 170, GHC: 1400, KSH: 17000, CFA: 85000, name: 'CBT Examination Platform' },
+    'school-management': { NGN: 220000, USD: 260, GHC: 2200, KSH: 28000, CFA: 135000, name: 'School Management System (SMS)' },
+    'waec-neco': { NGN: 85000, USD: 100, GHC: 850, KSH: 11000, CFA: 55000, name: 'WAEC & NECO Registration System' },
     'cctv-hardware': { NGN: 200000, USD: 250, GHC: 2000, KSH: 25000, CFA: 125000, name: 'Smart Board & CCTV Security Setup' }
   };
 
